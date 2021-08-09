@@ -19,13 +19,18 @@ public class Premio {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+   
     @NotEmpty
     private String nombre;
+    
     @Column(columnDefinition = "boolean default true")
-    private boolean alta;
+    private Boolean alta;
+   
     @NotNull
     private Double precio;
+   
     private Integer ranking;
+  
     @ManyToOne
     private Proveedores proveedor;
 

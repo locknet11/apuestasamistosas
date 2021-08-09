@@ -19,30 +19,42 @@ public class Usuario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    
     @Column(columnDefinition = "boolean default true")
-    private boolean alta;
+    private Boolean alta;
+    
     @NotEmpty
     private String nombre;
+   
     @NotEmpty
     private String apellido;
+   
     private String provincia;
+   
     private String localidad;
+   
     private String ciudad;
+    
     private String calle;
+   
     private String codigoPostal;
+   
     @NotNull
     private LocalDate fechaNacimiento;
+    
     @NotEmpty
     private String password;
-    
+
     @NotEmpty
     @Email
     private String email;
-    
+
     private String telefono;
-    
+
     private Integer ganados;
+    
     private Integer perdidos;
+    
     private Integer empatados;
 
     public String getId() {
@@ -77,8 +89,6 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-
-
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -110,7 +120,6 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
 
     public Integer getGanados() {
         return ganados;

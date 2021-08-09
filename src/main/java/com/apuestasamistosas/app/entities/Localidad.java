@@ -17,6 +17,7 @@ public class Localidad {
     private String id;
     
     private String localidad;
+    
     @ManyToOne
     private Provincia provincia;
 

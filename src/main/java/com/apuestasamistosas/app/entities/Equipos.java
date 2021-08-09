@@ -17,13 +17,19 @@ public class Equipos {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+   
     @NotEmpty
     private String nombre;
+  
     @NotEmpty
     private String deporte;
-    // alta define si el equipo esta habilitado para crear un evento, por defecto es true
+    
+    /*
+        alta define si el equipo esta habilitado para crear un evento, por defecto es true
+    */
+    
     @Column(columnDefinition = "boolean default true")
-    private boolean alta;
+    private Boolean alta;
 
     public String getId() {
         return id;

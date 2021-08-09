@@ -21,18 +21,26 @@ public class Proveedores {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+   
     @Column(columnDefinition = "boolean default true")
-    private boolean alta;
+    private Boolean alta;
+    
     @NotEmpty
     private String nombre;
+   
     @NotEmpty
     private String provincia;
+   
     @NotEmpty
     private String ciudad;
+   
     private String calle;
+  
     private String codigoPostal;
+  
     @NotEmpty
     private String telefono;
+   
     private String responsable;
 
     public String getId() {

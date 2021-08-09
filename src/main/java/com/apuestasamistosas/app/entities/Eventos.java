@@ -20,23 +20,42 @@ public class Eventos {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+   
     @NotNull
     @OneToOne
     private Equipos equipoA;
+   
     @NotNull
     @OneToOne
     private Equipos equipoB;
-    // si es true el evento debe aparecer en el dashboard, por defecto es true
+    
+    /*
+       si es true el evento debe aparecer en el dashboard, por defecto es true
+    */
+    
     @Column(columnDefinition = "boolean default true")
-    private boolean alta;
+    private Boolean alta;
+    
     @NotNull
     private LocalDateTime fechaEvento;
+    
+    /* 
+        si es true entonces el usuario ya no puede apostar en este evento
+    */
+    
     @NotNull
-    // si es true entonces el usuario ya no puede apostar en este evento
     private boolean expirado;
-    // true = equipoA , false = equipoB, null = empate
+
+    /*
+        true = equipoA , false = equipoB, null = empate
+    */
+    
     private boolean resultado;
-    // el estado puede ser FINALIZADO, ENCURSO o SUSPENDIDO
+
+    /* 
+        el estado puede ser FINALIZADO, ENCURSO o SUSPENDIDO
+    */ 
+    
     @NotNull
     private EstadoEvento estado;
 

@@ -18,18 +18,27 @@ public class Apuesta {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    
     private EstadoApuesta estado;
     @OneToOne
     private Usuario usuarioA;
+    
     @OneToOne
     private Usuario usuarioB;
+    
     private LocalDateTime fechaApuesta;
+    
     @OneToOne
     private Premio premio;
+   
     @OneToOne
     private Eventos evento;
-    // si es true gana usuarioA si es false gana usuarioB, si es null es porque fue empate
-    private boolean usuarioGanador;
+    
+    /*
+       si es true gana usuarioA si es false gana usuarioB, si es null es porque fue empate
+    */
+    
+    private Boolean usuarioGanador;
 
     public String getId() {
         return id;
