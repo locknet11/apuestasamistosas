@@ -1,14 +1,16 @@
 
 package com.apuestasamistosas.app.entities;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import org.hibernate.annotations.GenericGenerator;
+
 
 
 @Entity
@@ -19,13 +21,17 @@ public class Proveedores {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
+    @Column(columnDefinition = "boolean default true")
+    private boolean alta;
+    @NotEmpty
     private String nombre;
+    @NotEmpty
     private String provincia;
+    @NotEmpty
     private String ciudad;
     private String calle;
     private String codigoPostal;
+    @NotEmpty
     private String telefono;
     private String responsable;
 
@@ -37,14 +43,14 @@ public class Proveedores {
         this.id = id;
     }
 
-    public Date getFechaAlta() {
-        return fechaAlta;
+    public boolean isAlta() {
+        return alta;
     }
 
-    public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
+    public void setAlta(boolean alta) {
+        this.alta = alta;
     }
-
+    
     public String getNombre() {
         return nombre;
     }
