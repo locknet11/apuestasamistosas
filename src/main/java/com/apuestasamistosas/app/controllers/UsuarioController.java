@@ -3,8 +3,6 @@ package com.apuestasamistosas.app.controllers;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +22,13 @@ public class UsuarioController {
         return "registro";
     }
 
+    /* Metodo que recibe la informacion del formulario y llama al metodo registroUsuario
+       para persistir los datos. 
+     */
+    
     @PostMapping("/register")
     public String register(
-            @RequestParam(name = "apellido") String nombre,
+            @RequestParam(name = "nombre") String nombre,
             @RequestParam(name = "apellido") String apellido,
             @RequestParam(name = "fechaNacimiento") LocalDate fechaNacimiento,
             @RequestParam(name = "provincia") String provincia,
@@ -39,7 +41,8 @@ public class UsuarioController {
             @RequestParam(name = "email") String email,
             @RequestParam(name = "telefono") String telefono) {
         try {
-            usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad, ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
+            usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
+                    ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
         } catch (ErrorUsuario e) {
             System.out.println("Error al registrar al usuario");
             System.out.println(e);
@@ -47,5 +50,8 @@ public class UsuarioController {
         }
         return "index";
     }
+    
+    /*  */
+    
 
 }

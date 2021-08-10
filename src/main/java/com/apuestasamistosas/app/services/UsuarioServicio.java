@@ -4,7 +4,7 @@ import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.repositories.UsuarioRepositorio;
 import java.time.LocalDate;
-import java.util.InputMismatchException;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,16 +20,20 @@ public class UsuarioServicio {
         que el email no se encuentre previamente registrado, que las contraseñas coincidan,
         y que el telefono ingresado tenga solo numeros.
      */
-    public void validarDatos(String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
+    
+    public void validarDatos(String password, String passwordConfirmation, String email,
+            String telefono, LocalDate fechaNacimiento) throws ErrorUsuario {
 
         Optional<Usuario> checkEmail = usuarioRepositorio.findByEmail(email);
 
         /* Validamos que el email no este previamente registrado */
+        
         if (checkEmail.isPresent()) {
             throw new ErrorUsuario("Este correo ya se encuentra registrado.");
         }
 
         /* Validamos que las contraseñas ingresadas sean iguales */
+        
         if (!password.equals(passwordConfirmation)) {
             throw new ErrorUsuario("Las claves no coinciden.");
         }
@@ -46,14 +50,25 @@ public class UsuarioServicio {
             }
         }
 
+        /*  Validamos que el usuario tenga entre 18 y 110 años */
+        
+        LocalDate hoy = LocalDate.now();
+
+        Long edad = fechaNacimiento.until(hoy, ChronoUnit.YEARS);
+
+        if (edad < 18 || edad > 110) {
+            throw new ErrorUsuario("Tiene que ser mayor de edad para poder registrarse.");
+        }
+
     }
 
     /* Metodo de registro del usuario */
-    public void registroUsuario(String nombre, String apellido, LocalDate fechaNacimiento , String provincia,
+    
+    public void registroUsuario(String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
             String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
 
-        validarDatos(password, passwordConfirmation, email, telefono);
+        validarDatos(password, passwordConfirmation, email, telefono, fechaNacimiento);
         String encoded_password = new BCryptPasswordEncoder().encode(password);
 
         Usuario usuario = new Usuario();
@@ -73,5 +88,9 @@ public class UsuarioServicio {
         usuarioRepositorio.save(usuario);
 
     }
+    
+    /*  Metodo de modificacion del usuario */
+    
+    
 
 }
