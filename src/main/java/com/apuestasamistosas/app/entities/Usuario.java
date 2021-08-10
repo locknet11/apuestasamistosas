@@ -49,6 +49,7 @@ public class Usuario {
     @Email
     private String email;
 
+    @NotEmpty
     private String telefono;
 
     private Integer ganados;
