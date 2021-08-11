@@ -8,6 +8,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,13 +19,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
+    
+    /*  Logger que lleva el registro de cada transaccion  */
+    
+    Logger logger = LoggerFactory.getLogger(UsuarioServicio.class);
 
     /*  el metodo validarDatos hace 4 validaciones basicas, 
         que el email no se encuentre previamente registrado, que las contraseñas coincidan,
@@ -38,27 +44,32 @@ public class UsuarioServicio implements UserDetailsService {
         /* Validamos que el email no este previamente registrado */
         
         if (checkEmail.isPresent()) {
-            throw new ErrorUsuario("Este correo ya se encuentra registrado.");
+            logger.error(ErrorUsuario.MAIL_REGIST);
+            throw new ErrorUsuario(ErrorUsuario.MAIL_REGIST);
         }
 
         /* Validamos que las contraseñas ingresadas sean iguales */
         
         if (!password.equals(passwordConfirmation)) {
-            throw new ErrorUsuario("Las claves no coinciden.");
+            logger.error(ErrorUsuario.DIST_CLAVE);
+            throw new ErrorUsuario(ErrorUsuario.DIST_CLAVE);
         }
 
         /* Validamos que el telefono solo tenga numeros (maximo 13 digitos) y no este vacio */
         
         if (telefono.isEmpty()) {
-            throw new ErrorUsuario("Debe ingresar un numero telefónico.");
+            logger.error(ErrorUsuario.NO_TEL);
+            throw new ErrorUsuario(ErrorUsuario.NO_TEL);
         } else {
             try {
                 Long num = Long.parseLong(telefono);
                 if (num > 13) {
-                    throw new ErrorUsuario("Solo pueden ser numeros (max. 13)");
+                    logger.error(ErrorUsuario.DIGIT_TEL);
+                    throw new ErrorUsuario(ErrorUsuario.DIGIT_TEL);
                 }
             } catch (NumberFormatException e) {
-                throw new ErrorUsuario("Solo pueden ser numeros (max. 13)");
+                logger.error(ErrorUsuario.DIGIT_TEL);
+                throw new ErrorUsuario(ErrorUsuario.DIGIT_TEL);
             }
         }
 
@@ -69,13 +80,15 @@ public class UsuarioServicio implements UserDetailsService {
         Long edad = fechaNacimiento.until(hoy, ChronoUnit.YEARS);
 
         if (edad < 18 || edad > 110) {
-            throw new ErrorUsuario("Tiene que ser mayor de edad para poder registrarse.");
+            logger.error(ErrorUsuario.MAYOR_EDAD);
+            throw new ErrorUsuario(ErrorUsuario.MAYOR_EDAD);
         }
 
     }
 
     /* Metodo de registro del usuario */
     
+    @Transactional
     public void registroUsuario(String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
             String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
@@ -103,6 +116,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     /*  Metodo de modificacion del usuario */
     
+    @Transactional
     public void modificarUsuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
             String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
@@ -110,9 +124,8 @@ public class UsuarioServicio implements UserDetailsService {
         validarDatos(password, passwordConfirmation, email, telefono, fechaNacimiento);
 
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
-        
-        
-        if (thisUser.isPresent()){
+
+        if (thisUser.isPresent()) {
             String encoded_password = new BCryptPasswordEncoder().encode(password);
             Usuario usuario = thisUser.get();
             usuario.setNombre(nombre);
@@ -129,38 +142,51 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setTelefono(telefono);
 
             usuarioRepositorio.save(usuario);
-            
-        }else{
-            throw new ErrorUsuario("Este usuario no existe");
-        }
-            
-    }
-    
-    /*  Metodo de login del usuario */
 
+        } else {
+            logger.error(ErrorUsuario.NO_EXISTE);
+            throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
+        }
+
+    }
+
+    /*  Metodo para dar de baja la cuenta  */
+    
+    // aca va el metodo
+    
+    /*  Metodo de login del usuario, si el usuario no existe o esta dado de baja va retornar null */
+    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Usuario> thisUser = usuarioRepositorio.findByEmail(email);
-        
-        if(thisUser.isPresent()){
-            
+
+        if (thisUser.isPresent()) {
+
             Usuario usuario = thisUser.get();
-            List<GrantedAuthority> permisos = new ArrayList<>();
-            
-            /*  Definicion de los permisos */
-            
-            GrantedAuthority p1 = new SimpleGrantedAuthority("USUARIO");
-            GrantedAuthority p2 = new SimpleGrantedAuthority("APUESTA");
-            permisos.add(p1);
-            permisos.add(p2);
-                       
-            User user = new User(usuario.getEmail(), usuario.getPassword(), permisos);
-            
-            return user;
-        }else{
-            return null;
+
+            if (usuario.isAlta()) {
+                List<GrantedAuthority> permisos = new ArrayList<>();
+
+                /*  Definicion de los permisos */
+                
+                GrantedAuthority p1 = new SimpleGrantedAuthority("USUARIO");
+                GrantedAuthority p2 = new SimpleGrantedAuthority("APUESTA");
+                permisos.add(p1);
+                permisos.add(p2);
+
+                User user = new User(usuario.getEmail(), usuario.getPassword(), permisos);
+
+                return user;
+
+            } else {
+                logger.error(ErrorUsuario.NO_ACTIVO);
+                throw new UsernameNotFoundException(ErrorUsuario.NO_ACTIVO);
+            }
+        } else {
+            logger.error(ErrorUsuario.NO_EXISTE);
+            throw new UsernameNotFoundException(ErrorUsuario.NO_EXISTE);
         }
-        
+
     }
 
 }

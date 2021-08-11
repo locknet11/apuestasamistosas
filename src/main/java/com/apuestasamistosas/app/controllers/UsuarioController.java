@@ -5,13 +5,14 @@ import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UsuarioController {
 
     @Autowired
@@ -19,7 +20,23 @@ public class UsuarioController {
 
     @GetMapping
     public String index() {
+        return "redirect:/";
+    }
+    
+    /*  Metodo GET para mostrar el form de registro */
+    
+    @GetMapping("/signup")
+    public String signup(){
         return "registro";
+    }
+    
+    /*  metodo GET para resolver cuando un usuario apreta Refresh en un formulario fallido.
+        Basicamente mapea al metodo signup el cual devuelve el form de registro
+    */
+    
+    @GetMapping("/register")
+    public String registerGet(){
+        return "redirect:/user/signup";
     }
 
     /* Metodo que recibe la informacion del formulario y llama al metodo registroUsuario
@@ -27,7 +44,7 @@ public class UsuarioController {
      */
     
     @PostMapping("/register")
-    public String register(
+    public String registerPost(
             @RequestParam(name = "nombre") String nombre,
             @RequestParam(name = "apellido") String apellido,
             @RequestParam(name = "fechaNacimiento") LocalDate fechaNacimiento,
@@ -51,7 +68,15 @@ public class UsuarioController {
         return "index";
     }
     
-    /*  */
+    /*  Metodo que devuelve la pagina de login  */
     
+    @GetMapping("/login")
+    public String login(ModelMap model, @RequestParam(name = "error", required = false) String error){
+        if(error != null){
+            model.put("error", "Usuario o contraseña incorrectos.");
+        }
+        
+        return "login";
+    }
 
 }
