@@ -1,5 +1,6 @@
 package com.apuestasamistosas.app.entities;
 
+import com.apuestasamistosas.app.entities.direcciones.Direcciones;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,7 +20,7 @@ public class Localidad {
     private String localidad;
     
     @ManyToOne
-    private Provincia provincia;
+    private Direcciones provincia;
 
     public String getLocalidad() {
         return localidad;
@@ -29,11 +30,11 @@ public class Localidad {
         this.localidad = localidad;
     }
 
-    public Provincia getProvincia() {
+    public Direcciones getProvincia() {
         return provincia;
     }
 
-    public void setProvincia(Provincia provincia) {
+    public void setProvincia(Direcciones provincia) {
         this.provincia = provincia;
     }
 
