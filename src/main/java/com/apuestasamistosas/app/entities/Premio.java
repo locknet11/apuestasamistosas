@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "premio")
+@Table(name = "premios")
 public class Premio {
 
     @Id
