@@ -15,4 +15,5 @@ public class ErrorProveedores extends Exception{
     public static final String NO_TEL = "Debe ingresar un numero de teléfono.";
     public static final String NO_NOMBRE = "El nombre no puede estar vacio";
     public static final String NO_RESP = "Debe ingresar un responsable.";
+    public static final String NO_PROV = "Este proveedor no existe";
 }

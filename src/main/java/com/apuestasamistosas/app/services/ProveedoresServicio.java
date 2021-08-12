@@ -22,7 +22,7 @@ public class ProveedoresServicio {
     
     ProveedoresValidacion pv = new ProveedoresValidacion();
     
-    /*  Metodo de alta de proveedor */
+    /*  Metodo de registro de proveedor */
     
     @Transactional
     public void registroProveedor(String nombre, String provincia,
@@ -69,6 +69,9 @@ public class ProveedoresServicio {
             proveedor.setResponsable(responsable);
             
             proveedorRepositorio.save(proveedor);
+        }else{
+            logger.error(ErrorProveedores.NO_PROV);
+            throw new ErrorProveedores(ErrorProveedores.NO_PROV);
         }
     }
     
@@ -85,6 +88,9 @@ public class ProveedoresServicio {
             
             proveedorRepositorio.save(proveedor);
 
+        }else {
+            logger.error(ErrorProveedores.NO_PROV);
+            throw new ErrorProveedores(ErrorProveedores.NO_PROV);
         }
 
     }
@@ -102,6 +108,9 @@ public class ProveedoresServicio {
             
             proveedorRepositorio.save(proveedor);
 
+        }else {
+            logger.error(ErrorProveedores.NO_PROV);
+            throw new ErrorProveedores(ErrorProveedores.NO_PROV);
         }
 
     }
