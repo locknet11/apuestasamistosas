@@ -3,6 +3,7 @@ package com.apuestasamistosas.app.services;
 import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.repositories.UsuarioRepositorio;
+import com.apuestasamistosas.app.validations.UsuarioValidacion;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -30,61 +31,8 @@ public class UsuarioServicio implements UserDetailsService {
     /*  Logger que lleva el registro de cada transaccion  */
     
     Logger logger = LoggerFactory.getLogger(UsuarioServicio.class);
-
-    /*  el metodo validarDatos hace 4 validaciones basicas, 
-        que el email no se encuentre previamente registrado, que las contraseñas coincidan,
-        que el telefono ingresado tenga solo numeros y que el usuario sea mayor de edad.
-     */
     
-    public void validarDatos(String password, String passwordConfirmation, String email,
-            String telefono, LocalDate fechaNacimiento) throws ErrorUsuario {
-
-        Optional<Usuario> checkEmail = usuarioRepositorio.findByEmail(email);
-
-        /* Validamos que el email no este previamente registrado */
-        
-        if (checkEmail.isPresent()) {
-            logger.error(ErrorUsuario.MAIL_REGIST);
-            throw new ErrorUsuario(ErrorUsuario.MAIL_REGIST);
-        }
-
-        /* Validamos que las contraseñas ingresadas sean iguales */
-        
-        if (!password.equals(passwordConfirmation)) {
-            logger.error(ErrorUsuario.DIST_CLAVE);
-            throw new ErrorUsuario(ErrorUsuario.DIST_CLAVE);
-        }
-
-        /* Validamos que el telefono solo tenga numeros (maximo 13 digitos) y no este vacio */
-        
-        if (telefono.isEmpty()) {
-            logger.error(ErrorUsuario.NO_TEL);
-            throw new ErrorUsuario(ErrorUsuario.NO_TEL);
-        } else {
-            try {
-                Long num = Long.parseLong(telefono);
-                if (num > 13) {
-                    logger.error(ErrorUsuario.DIGIT_TEL);
-                    throw new ErrorUsuario(ErrorUsuario.DIGIT_TEL);
-                }
-            } catch (NumberFormatException e) {
-                logger.error(ErrorUsuario.DIGIT_TEL);
-                throw new ErrorUsuario(ErrorUsuario.DIGIT_TEL);
-            }
-        }
-
-        /*  Validamos que el usuario tenga entre 18 y 110 años */
-        
-        LocalDate hoy = LocalDate.now();
-
-        Long edad = fechaNacimiento.until(hoy, ChronoUnit.YEARS);
-
-        if (edad < 18 || edad > 110) {
-            logger.error(ErrorUsuario.MAYOR_EDAD);
-            throw new ErrorUsuario(ErrorUsuario.MAYOR_EDAD);
-        }
-
-    }
+    UsuarioValidacion uv = new UsuarioValidacion();
 
     /* Metodo de registro del usuario */
     
@@ -93,7 +41,7 @@ public class UsuarioServicio implements UserDetailsService {
             String localidad, String ciudad, String calle, String codigoPostal,
             String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
 
-        validarDatos(password, passwordConfirmation, email, telefono, fechaNacimiento);
+        uv.validarDatos(nombre, apellido, password, passwordConfirmation, email, telefono, fechaNacimiento);
         String encoded_password = new BCryptPasswordEncoder().encode(password);
 
         Usuario usuario = new Usuario();
@@ -119,11 +67,11 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void modificarUsuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
-            String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
-
-        validarDatos(password, passwordConfirmation, email, telefono, fechaNacimiento);
+            String password, String passwordConfirmation, String telefono) throws ErrorUsuario {
 
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
+        
+        uv.validarDatosModificar(nombre, apellido, password, passwordConfirmation, telefono, fechaNacimiento);
 
         if (thisUser.isPresent()) {
             String encoded_password = new BCryptPasswordEncoder().encode(password);
@@ -138,7 +86,6 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setCalle(calle);
             usuario.setCodigoPostal(codigoPostal);
             usuario.setPassword(encoded_password);
-            usuario.setEmail(email);
             usuario.setTelefono(telefono);
 
             usuarioRepositorio.save(usuario);
@@ -152,8 +99,35 @@ public class UsuarioServicio implements UserDetailsService {
 
     /*  Metodo para dar de baja la cuenta  */
     
-    // aca va el metodo
+    @Transactional
+    public void bajaUsuario(String id) throws ErrorUsuario {
+        Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
+
+        if (thisUser.isPresent()) {
+            Usuario usuario = thisUser.get();
+            usuario.setAlta(false);
+            usuarioRepositorio.save(usuario);
+        } else {
+            logger.error(ErrorUsuario.NO_EXISTE);
+            throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
+        }
+    }
     
+    /*  Metodo para dar de alta la cuenta */
+
+    @Transactional
+    public void altaUsuario(String id) throws ErrorUsuario {
+        Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
+
+        if (thisUser.isPresent()) {
+            Usuario usuario = thisUser.get();
+            usuario.setAlta(true);
+            usuarioRepositorio.save(usuario);
+        } else {
+            logger.error(ErrorUsuario.NO_EXISTE);
+            throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
+        }
+    }
     /*  Metodo de login del usuario, si el usuario no existe o esta dado de baja va retornar null */
     
     @Override
@@ -176,6 +150,8 @@ public class UsuarioServicio implements UserDetailsService {
 
                 User user = new User(usuario.getEmail(), usuario.getPassword(), permisos);
 
+                logger.info("Se ha loggeado el user: " + usuario.getEmail());
+                
                 return user;
 
             } else {

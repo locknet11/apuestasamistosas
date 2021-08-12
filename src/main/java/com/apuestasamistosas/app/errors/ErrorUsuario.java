@@ -17,6 +17,14 @@ public class ErrorUsuario extends Exception {
     public static final String NO_TEL = "Debe ingresar un numero de teléfono.";
     public static final String DIST_CLAVE = "Las contraseñas no coinciden";
     public static final String MAIL_REGIST = "Este correo ya se encuentra registrado.";
+    public static final String LONG_CLAVE = "La contraseña tiene que tener al menos 8 caracteres";
+    public static final String NO_NOMBRE = "El nombre no puede estar vacio";
+    public static final String NO_APELLIDO = "El apellido no puede estar vacio";
+    public static final String NO_EMAIL = "El correo no puede estar vacío.";
     
+    
+    /* IMPLEMENTACION A FUTURO: HABRIA QUE DIVIDIR LOS MENSAJES DE ERROR DE LOS
+       MENSAJES INFORMATIVOS, EJ: SE LOGGEA USER X. 
+    */
     
 }

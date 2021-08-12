@@ -52,10 +52,13 @@ public class Usuario {
     @NotEmpty
     private String telefono;
 
+    @Column(columnDefinition = "int default 0")
     private Integer ganados;
     
+    @Column(columnDefinition = "int default 0")
     private Integer perdidos;
     
+    @Column(columnDefinition = "int default 0")
     private Integer empatados;
 
     public String getId() {
