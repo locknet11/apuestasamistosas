@@ -26,25 +26,31 @@ public class PremioValidacion {
     
     public void validarDatos(String nombre, String nombreProveedor, Double precio) throws ErrorPremio{
         
-        Optional<Proveedores> thisProveedor = proveedorRepositorio.findByName(nombreProveedor);
         
-        /*  Verificamos que el nombre no este vacio */
+        /*  Verificamos que el nombre y el nombre del proveedor no este vacio */
         
-        if(nombre.isEmpty()){
+        if(nombre == null || nombre.isEmpty()){
             logger.error(ErrorPremio.NO_NOMBRE);
             throw new ErrorPremio(ErrorPremio.NO_NOMBRE);
         }
-        
-        /*  Verificamos que el proveedor exista. */
-        
-        if (!thisProveedor.isPresent()){
-            logger.error(ErrorProveedores.NO_PROV);
-            throw new ErrorPremio(ErrorProveedores.NO_PROV);
+
+        if (nombreProveedor == null || nombreProveedor.isEmpty()) {
+            logger.error(ErrorPremio.NO_NOMBRE);
+            throw new ErrorPremio(ErrorPremio.NO_NOMBRE);
+        } else {
+            /*  Verificamos que el proveedor exista. */
+            
+            Optional<Proveedores> thisProveedor = proveedorRepositorio.findByName(nombreProveedor);
+
+            if (!thisProveedor.isPresent()) {
+                logger.error(ErrorProveedores.NO_PROV);
+                throw new ErrorPremio(ErrorProveedores.NO_PROV);
+            }
         }
         
         /* Verificamos que el precio no sea negativo  */
         
-        if (precio <= 0){
+        if (precio == null || precio <= 0){
             logger.error(ErrorPremio.PRECIO_NEG);
             throw new ErrorPremio(ErrorPremio.PRECIO_NEG);
         }

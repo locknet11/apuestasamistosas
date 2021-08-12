@@ -28,11 +28,13 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     
+    @Autowired
+    UsuarioValidacion uv;
+    
     /*  Logger que lleva el registro de cada transaccion  */
     
     Logger logger = LoggerFactory.getLogger(UsuarioServicio.class);
     
-    UsuarioValidacion uv = new UsuarioValidacion();
 
     /* Metodo de registro del usuario */
     

@@ -46,7 +46,6 @@ public class Usuario {
     private String password;
 
     @NotEmpty
-    @Email
     private String email;
 
     @NotEmpty

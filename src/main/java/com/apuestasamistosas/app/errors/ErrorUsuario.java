@@ -16,11 +16,13 @@ public class ErrorUsuario extends Exception {
     public static final String DIGIT_TEL = "Solo pueden ser numeros (max. 13)";
     public static final String NO_TEL = "Debe ingresar un numero de teléfono.";
     public static final String DIST_CLAVE = "Las contraseñas no coinciden";
+    public static final String NO_CLAVE = "La contraseña no puede estar vacia.";
     public static final String MAIL_REGIST = "Este correo ya se encuentra registrado.";
     public static final String LONG_CLAVE = "La contraseña tiene que tener al menos 8 caracteres";
     public static final String NO_NOMBRE = "El nombre no puede estar vacio";
     public static final String NO_APELLIDO = "El apellido no puede estar vacio";
     public static final String NO_EMAIL = "El correo no puede estar vacío.";
+    public static final String NO_DATE = "La fecha de nacimiento de puede ser nula.";
     
     
     /* IMPLEMENTACION A FUTURO: HABRIA QUE DIVIDIR LOS MENSAJES DE ERROR DE LOS

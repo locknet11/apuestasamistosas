@@ -3,6 +3,7 @@ package com.apuestasamistosas.app.controllers;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
+import java.time.Month;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,25 +41,30 @@ public class UsuarioController {
     }
 
     /* Metodo que recibe la informacion del formulario y llama al metodo registroUsuario
-       para persistir los datos. 
+       para persistir los datos. Por defecto ningun parametro es requerido porque la validacion
+       se realiza enviando la informacion a la clase UsuarioValidacion, si la informacion no llega
+       en el estado esperado se controla cada una de las excepciones. Para el usuario es transparente
+       y es mucho mas seguro ya que si del lado del cliente se altera la estructura del formulario
+       no va repercutir en la BD ni tampoco generar excepciones no controladas. 
      */
     
     @PostMapping("/register")
     public String registerPost(
-            @RequestParam(name = "nombre") String nombre,
-            @RequestParam(name = "apellido") String apellido,
-            @RequestParam(name = "fechaNacimiento") LocalDate fechaNacimiento,
-            @RequestParam(name = "provincia") String provincia,
-            @RequestParam(name = "localidad") String localidad,
-            @RequestParam(name = "ciudad") String ciudad,
-            @RequestParam(name = "calle") String calle,
-            @RequestParam(name = "codigoPostal") String codigoPostal,
-            @RequestParam(name = "password") String password,
-            @RequestParam(name = "passwordConfirmation") String passwordConfirmation,
-            @RequestParam(name = "email") String email,
-            @RequestParam(name = "telefono") String telefono) {
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "apellido", required = false) String apellido,
+            @RequestParam(name = "fechaNacimiento", required = false) LocalDate fechaNacimiento,
+            @RequestParam(name = "provincia", required = false) String provincia,
+            @RequestParam(name = "localidad", required = false) String localidad,
+            @RequestParam(name = "ciudad", required = false) String ciudad,
+            @RequestParam(name = "calle", required = false) String calle,
+            @RequestParam(name = "codigoPostal", required = false) String codigoPostal,
+            @RequestParam(name = "password", required = false) String password,
+            @RequestParam(name = "passwordConfirmation", required = false) String passwordConfirmation,
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "telefono", required = false) String telefono) {
         try {
-            usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
+            LocalDate fech = LocalDate.of(1998, 03, 14);
+            usuarioServicio.registroUsuario(nombre, apellido, fech, provincia, localidad,
                     ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
         } catch (ErrorUsuario e) {
             System.out.println("Error al registrar al usuario");
