@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProvinciaRepositorio extends JpaRepository<Direcciones, Long>{
+public interface DireccionesRepositorio extends JpaRepository<Direcciones, Long>{
 
 
 }

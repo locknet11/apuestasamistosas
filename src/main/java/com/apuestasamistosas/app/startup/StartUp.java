@@ -2,7 +2,6 @@
 package com.apuestasamistosas.app.startup;
 
 import com.apuestasamistosas.app.entities.direcciones.Direcciones;
-import com.apuestasamistosas.app.repositories.ProvinciaRepositorio;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,6 +10,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
 import lombok.extern.java.Log;
+import com.apuestasamistosas.app.repositories.DireccionesRepositorio;
 
 
 
@@ -21,7 +21,7 @@ public class StartUp implements CommandLineRunner {
 //    @Value("/json/provincias.json")
 //    private String json;
     @Autowired
-    private ProvinciaRepositorio repo;
+    private DireccionesRepositorio repo;
 
     @Override
     public void run(String... args) throws Exception {
