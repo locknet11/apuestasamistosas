@@ -46,15 +46,18 @@ public class Usuario {
     private String password;
 
     @NotEmpty
-    @Email
     private String email;
 
+    @NotEmpty
     private String telefono;
 
+    @Column(columnDefinition = "int default 0")
     private Integer ganados;
     
+    @Column(columnDefinition = "int default 0")
     private Integer perdidos;
     
+    @Column(columnDefinition = "int default 0")
     private Integer empatados;
 
     public String getId() {
