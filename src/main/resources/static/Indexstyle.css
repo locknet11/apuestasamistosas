@@ -9,7 +9,7 @@ body{
 
 #color-nav{
 
-    background-color:#087E8B!important
+    background-color:black!important
     
 }
 
@@ -72,5 +72,78 @@ body{
     color:gray;
 }
 
+/* CARRUSEL */
+
+#foto{
+
+    width: auto; 
+    height: auto;
+       
+}  
+
+/* FOOTER */
 
 
+.container{
+
+    width: 100%;
+
+
+}
+
+.site-footer{
+
+    
+    left:0px;
+    bottom:0px;
+    height:60px;
+    width:100%; 
+    background-color:black;
+    padding:20px 0 20px;
+    font-size:15px;
+    line-height:20px;
+    color:white; 
+  }  
+  
+  
+  .site-footer .social-icons{
+    text-align:right;
+  }
+  .site-footer .social-icons a{
+    width:20px;
+    height:20px;
+    margin-left:6px;
+    margin-right:0;
+    border-radius:100%;
+    background-color:#3d3c33;
+    
+  } 
+  .copyright-text{
+    margin:0;
+  }
+  
+  @media (max-width:991px){
+    .site-footer [class^=col-]{
+      margin-bottom:30px;
+  }
+  }
+  
+  @media (max-width:767px){
+    .site-footer{
+      padding-bottom:0;
+  }
+    .site-footer .copyright-text,.site-footer .social-icons{
+      text-align: center;
+  }
+  }
+  .social-icons{
+    padding-left:0;
+    margin-bottom:0;
+    list-style:none;
+  }
+  .social-icons li{
+    display:inline-block;
+    margin-bottom:4px;
+  } 
+  
+  

@@ -1,6 +1,6 @@
 body {
 
-    background-color:#344a72;
+    background-color:#e6e4e4;
     font-family:'roboto',sans-serif;
 }
 
@@ -9,7 +9,7 @@ body {
 width:360px;
 height: auto;
 margin: auto; 
-background-color:white;
+background-color:black;
 border-radius:3px;
 
 }
@@ -17,14 +17,21 @@ border-radius:3px;
 
 h1{
 
+    font-style:'roboto',sans-serif;
+    font-size: 24px;
+    color:white;
     text-align: center;
     padding-top: 15px;
+    margin-top: 10px;
+    
 
 }
 
 h4{
 
+    font-style:'roboto',sans-serif;
     text-align: center;
+    color:white;
 }
 
 form{
@@ -39,6 +46,7 @@ form label{
     display:flex;
     margin-top: 20px;
     font-size: 18px;
+    color:white;
 }
 
 form input{
@@ -46,25 +54,38 @@ form input{
     width:100%;
     padding: 7px;
     border:none;
-    border: 1px solid gray;
+    border: 1px solid white;
     border-radius:6px;
     outline: none;
 
 }
 
-input[type="button"]{
+#provincia, #ciudad{
+
+    width:105%;
+    padding: 7px;
+    border:none;
+    border: 1px solid white;
+    border-radius:6px;
+    outline: none;
+
+} 
+
+
+
+input[type="submit"]{
  
     width: 320px;
     height: 35px;
     margin-top:20px;
     border: none;
-    background-color:#49c1a2;
+    background-color:#124559;
     color:white;
     font-size:18px;
 
 }
 
-input[type="button"]:hover{
+input[type="submit"]:hover{
 
     color:grey;
 }
@@ -82,7 +103,7 @@ p{
 .para-1{
     
     text-align:center;
-    color:black;
+    color:white;
     font-size:12px;
     margin-top: -10px;
     
@@ -91,7 +112,7 @@ p{
 
 .para-1 a{
 
-    color:#49c1a2;
+    color:white;
     
 
 }
@@ -101,4 +122,46 @@ p{
     color:grey;
 
 }
+
+/* FOOTER */
+
+
+.container{
+       
+    width: 100%;
+
+} 
+
+.site-footer{
+
+    
+    left:0px;
+    bottom:0px;
+    height:20px;
+    width:100%; 
+    background-color:black;
+    padding:0 0 60px; 
+    font-size:15px; 
+    /* line-height:20px; */
+    color:white; 
+}   
+  
+  
+.site-footer .social-icons{
+     margin-left:80%; 
+} 
+
+.social-icons li{
+    display:inline-block;
+    margin-bottom:20px;
+} 
+
+  
+.copyright-text{
+    margin:0;
+    color:white;
+    margin-right:70%; 
+    margin-bottom:auto;
+}
+  
 

@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -9,8 +8,9 @@
   <link rel="icon" href="../templates/indexstyle">
   <title>Home</title>
 
- 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
   <link rel="stylesheet" href="../static/indexstyle.css">
 
@@ -18,10 +18,6 @@
 </head>
 
 <body>
-
-
-
- 
 
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="color-nav">
@@ -61,21 +57,83 @@
             </li>
           </div>
         </ul>
-
       </div>
     </div>
-  </nav>
+ </nav>
+
+  <!-- CARROUSEL -->
+
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+      <div class="carousel-item active">
+
+        <img src="../static/images/futbol2.jpg" class="d-block w-100" id="foto" alt="imagen uno">
+
+      </div>
+
+      <div class="carousel-item">
+
+        <img src="../static/images/tennis.jpg" class="d-block w-100" id="foto" alt="imagen dos">
+
+      </div>
+
+      <div class="carousel-item">
+
+        <img src="../static/images/nba.jpg" class="d-block w-100" id="foto" alt="imagen tres">
+
+      </div>
+
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 
 
   <!--  INICIO FOOTER -->
 
- 
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved.
 
-   
+          </p>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
 
 
- <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+            <li><a href="https://www.instagram.com/?hl=es"><img class="Instagram"
+                  src="../static/images/icono inst (1).png" alt=""></a></li>
+            <li><a href="https://www.facebook.com/"><img class="facebook" src="../static/images/icono face.png"
+                  alt=""></a></li>
+            <li><a href="https://twitter.com/"><img class="twitter" src="../static/images/icono twitter.png" alt=""></a>
+            </li>
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+  </script>
 </body>
 
-</html> 
+</html>
