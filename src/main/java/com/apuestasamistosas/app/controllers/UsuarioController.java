@@ -3,7 +3,6 @@ package com.apuestasamistosas.app.controllers;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
-import java.time.Month;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,8 +62,7 @@ public class UsuarioController {
             @RequestParam(name = "email", required = false) String email,
             @RequestParam(name = "telefono", required = false) String telefono) {
         try {
-            LocalDate fech = LocalDate.of(1998, 03, 14);
-            usuarioServicio.registroUsuario(nombre, apellido, fech, provincia, localidad,
+            usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
                     ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
         } catch (ErrorUsuario e) {
             System.out.println("Error al registrar al usuario");
