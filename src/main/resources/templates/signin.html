@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In</title>
+
+  <link rel="stylesheet" href="../static/signupstyle.css">
+ 
+
+
+</head>
+
+<body>
+
+  <div class="signup-box">
+    <h1>Registrarse</h1>
+    <h4>Es gratis y toma solo unos minutos</h4>
+    <form>
+      <label>Nombre</label>
+      <input type="text" name="nombre" placeholder="Ingresa tu nombre">
+
+      <label>Apellido</label>
+      <input type="text" name="apellido" placeholder="Ingresa tu Apellido">
+
+      <label>Fecha de Nacimiento</label>
+      <input type="date" name="fechaNacimiento" placeholder="Ingresa tu fecha de nacimiento">
+
+
+      <div class="provinci select-container">
+        <label>Provincia</label>
+        <select id="provincia" name="provincia" class="form-control form-control-select" data-testid="shipping_country"
+          placeholder="Provincia">
+          <option value="MDZ">Mendoza</option>
+          <option value="SL">San Luis</option>
+          <option value="SJ">San Juan</option>
+          <option value="CBA">Cordoba</option>
+          <option value="JUJ">Jujuy</option>
+          <option value="SAL">Salta</option>
+        </select>
+
+      </div>
+
+      <div class="ciudad select-container">
+        <label>Ciudad</label>
+        <select id="ciudad" name="ciudad" class="form-control form-control-select" data-testid="shipping_country"
+          placeholder="Ciudad">
+          <option value="LUJ">Luján de Cuyo</option>
+          <option value="MA">Maipú</option>
+          <option value="GU">Guaymallén</option>
+          <option value="LH">Las Heras</option>
+          <option value="GC">Godoy Cruz</option>
+          <option value="SR">San Rafael</option>
+        </select>
+
+      </div>
+
+
+      <label>Dirección</label>
+      <input type="text" name="calle" placeholder="Dirección">
+
+      <label>Código Postal</label>
+      <input type="text" name="codigoPostal" placeholder="Código Postal">
+
+      <label>Teléfono</label>
+      <input type="number" name="telefono" placeholder="Ingresa un número de teléfono">
+
+      <label>E-mail</label>
+      <input type="email" name="email" placeholder="Ingresa tu E-mail">
+
+      <label>Contraseña</label>
+      <input type="Password" name="password" placeholder="Ingresa una contraseña">
+
+      <label>Confirmar contraseña</label>
+      <input type="text" name="passwordConfirmation" placeholder="Repite la contraseña">
+
+
+      <input type="submit" value="Registrarse">
+
+    </form>
+
+    <p class="para-1">Ya estas registrado?<a href="login.html"> Clickea Aquí</a></p>
+  </div>
+
+
+
+
+  <!--  INICIO FOOTER -->
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12"> 
+          <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved.</p>
+      </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
+
+
+            <li><a href="https://www.instagram.com/?hl=es"><img class="Instagram"
+                  src="../static/images/icono inst (1).png" alt=""></a></li>
+            <li><a href="https://www.facebook.com/"><img class="facebook" src="../static/images/icono face.png"
+                  alt=""></a></li>
+            <li><a href="https://twitter.com/"><img class="twitter" src="../static/images/icono twitter.png" alt=""></a>
+            </li>
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+
+</html>
