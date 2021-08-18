@@ -49,13 +49,17 @@ public class Usuario {
     @Email
     private String email;
 
+    @NotEmpty
     private String telefono;
 
-    private Integer ganados;
+    @Column(columnDefinition = "int default 0")
+    private Integer ganados = 0;
     
-    private Integer perdidos;
+    @Column(columnDefinition = "int default 0")
+    private Integer perdidos = 0;
     
-    private Integer empatados;
+    @Column(columnDefinition = "int default 0")
+    private Integer empatados = 0;
 
     public String getId() {
         return id;
