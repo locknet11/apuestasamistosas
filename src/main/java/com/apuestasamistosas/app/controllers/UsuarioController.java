@@ -3,7 +3,9 @@ package com.apuestasamistosas.app.controllers;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
+import java.time.Month;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +53,7 @@ public class UsuarioController {
     public String registerPost(
             @RequestParam(name = "nombre", required = false) String nombre,
             @RequestParam(name = "apellido", required = false) String apellido,
-            @RequestParam(name = "fechaNacimiento", required = false) LocalDate fechaNacimiento,
+            @RequestParam(name = "fechaNacimiento", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
             @RequestParam(name = "provincia", required = false) String provincia,
             @RequestParam(name = "localidad", required = false) String localidad,
             @RequestParam(name = "ciudad", required = false) String ciudad,
@@ -69,7 +71,7 @@ public class UsuarioController {
             System.out.println(e);
             return "registro";
         }
-        return "index";
+        return "redirect:/";
     }
     
     /*  Metodo que devuelve la pagina de login  */

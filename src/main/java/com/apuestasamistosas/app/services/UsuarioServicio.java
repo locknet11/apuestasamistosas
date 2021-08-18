@@ -5,7 +5,6 @@ import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.repositories.UsuarioRepositorio;
 import com.apuestasamistosas.app.validations.UsuarioValidacion;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
