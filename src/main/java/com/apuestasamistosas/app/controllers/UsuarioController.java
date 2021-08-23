@@ -1,12 +1,18 @@
 package com.apuestasamistosas.app.controllers;
 
+import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
+import java.util.Optional;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,8 +101,20 @@ public class UsuarioController {
     
     @GetMapping("/login")
     public String login(ModelMap model, @RequestParam(name = "error", required = false) String error) throws ErrorUsuario{
+       
         if(error != null){
             model.put("error", "Usuario o contraseña incorrectos.");
+        }
+        
+        
+        /*  con el siguiente codigo nos encargamos de que al usuario que ya esta logueado
+            sea redirigido al dashboard en caso de que acceda a la pagina de login
+        */
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
+        if(!(auth instanceof AnonymousAuthenticationToken)){
+            return "redirect:/user/dashboard";
         }
         
         return "login";
