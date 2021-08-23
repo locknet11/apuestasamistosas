@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/user")
@@ -68,7 +69,8 @@ public class UsuarioController {
             @RequestParam(name = "passwordConfirmation", required = false) String passwordConfirmation,
             @RequestParam(name = "email", required = false) String email,
             @RequestParam(name = "telefono", required = false) String telefono,
-            ModelMap model) throws MessagingException, ErrorUsuario {
+            @RequestParam(name = "archivo", required = false) MultipartFile archivo,
+            ModelMap model) throws MessagingException, ErrorUsuario, Exception {
         try {
             
         /*  con el siguiente codigo nos encargamos de que al usuario que ya esta logueado
@@ -82,7 +84,7 @@ public class UsuarioController {
             }
 
             usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
-                    ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
+                    ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono, archivo);
 
         } catch (ErrorUsuario e) {
             System.out.println(e);

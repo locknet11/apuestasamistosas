@@ -1,5 +1,6 @@
 package com.apuestasamistosas.app.services;
 
+import com.apuestasamistosas.app.entities.Foto;
 import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.repositories.UsuarioRepositorio;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -37,6 +39,9 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private MailServicio mailServicio;
+    
+    @Autowired
+    private FotoServicio fotoServicio;
 
     /*  Logger que lleva el registro de cada transaccion  */
     Logger logger = LoggerFactory.getLogger(UsuarioServicio.class);
@@ -46,11 +51,12 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void registroUsuario(String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
-            String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
+            String password, String passwordConfirmation, String email, String telefono, MultipartFile archivo) throws ErrorUsuario, Exception {
 
         uv.validarDatos(nombre, apellido, password, passwordConfirmation, email, telefono, fechaNacimiento);
         String encoded_password = new BCryptPasswordEncoder().encode(password);
 
+        Foto foto = fotoServicio.guardar(archivo);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
@@ -67,6 +73,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setCodConfirmacion(RandomGenerator.generate());
         usuario.setConfirmado(false);
         usuario.setAdmin(false);
+        usuario.setFoto(foto);
 
         usuarioRepositorio.save(usuario);
 
@@ -90,7 +97,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void modificarUsuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
-            String password, String passwordConfirmation, String telefono) throws ErrorUsuario {
+            String password, String passwordConfirmation, String telefono, MultipartFile archivo) throws ErrorUsuario, Exception {
 
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
 
@@ -110,6 +117,12 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setCodigoPostal(codigoPostal);
             usuario.setPassword(encoded_password);
             usuario.setTelefono(telefono);
+            String idFoto=null;
+            if (usuario.getFoto()!=null) {
+                idFoto=usuario.getFoto().getId();
+            }
+            Foto foto = fotoServicio.actualizar(idFoto,archivo);
+            usuario.setFoto(foto);
 
             usuarioRepositorio.save(usuario);
 
