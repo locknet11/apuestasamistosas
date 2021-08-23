@@ -3,12 +3,14 @@ package com.apuestasamistosas.app.controllers;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
-import java.time.Month;
+import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +31,7 @@ public class UsuarioController {
     
     @GetMapping("/signup")
     public String signup(){
-        return "registro";
+        return "signup";
     }
     
     /*  metodo GET para resolver cuando un usuario apreta Refresh en un formulario fallido.
@@ -49,7 +51,7 @@ public class UsuarioController {
        no va repercutir en la BD ni tampoco generar excepciones no controladas. 
      */
     
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public String registerPost(
             @RequestParam(name = "nombre", required = false) String nombre,
             @RequestParam(name = "apellido", required = false) String apellido,
@@ -62,14 +64,29 @@ public class UsuarioController {
             @RequestParam(name = "password", required = false) String password,
             @RequestParam(name = "passwordConfirmation", required = false) String passwordConfirmation,
             @RequestParam(name = "email", required = false) String email,
-            @RequestParam(name = "telefono", required = false) String telefono) {
+            @RequestParam(name = "telefono", required = false) String telefono,
+            ModelMap model) throws MessagingException, ErrorUsuario {
         try {
             usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
                     ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
         } catch (ErrorUsuario e) {
-            System.out.println("Error al registrar al usuario");
             System.out.println(e);
-            return "registro";
+            
+            model.addAttribute("error", e.getMessage());
+            model.put("nombre", nombre);
+            model.put("apellido", apellido);
+            model.put("fechaNacimiento", fechaNacimiento);
+            model.put("provincia", provincia);
+            model.put("localidad", localidad);
+            model.put("ciudad", ciudad);
+            model.put("calle", calle);
+            model.put("codigoPostal", codigoPostal);
+            model.put("password", password);
+            model.put("passwordConfirmation", passwordConfirmation);
+            model.put("telefono", telefono);
+            model.put("email", email);
+            
+            return "signup";
         }
         return "redirect:/";
     }
@@ -77,12 +94,28 @@ public class UsuarioController {
     /*  Metodo que devuelve la pagina de login  */
     
     @GetMapping("/login")
-    public String login(ModelMap model, @RequestParam(name = "error", required = false) String error){
+    public String login(ModelMap model, @RequestParam(name = "error", required = false) String error) throws ErrorUsuario{
         if(error != null){
             model.put("error", "Usuario o contraseña incorrectos.");
         }
         
         return "login";
+    }
+    
+    @GetMapping("/confirm/{codConfirmacion}")
+    public String confirm(@PathVariable String codConfirmacion){
+        try{
+            usuarioServicio.confirmarCuenta(codConfirmacion);
+            return "cuentaconfirmada";
+        }catch(ErrorUsuario e){
+            return "codinvalido";
+        }
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/dashboard")
+    public String dashboard(){
+        return "dashboard";
     }
 
 }

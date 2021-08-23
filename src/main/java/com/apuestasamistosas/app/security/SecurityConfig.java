@@ -33,17 +33,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 			http.authorizeRequests()
-				.antMatchers("/css/*", "/js/*", "/img/*", "/**").permitAll()
+				.antMatchers("/css/*", "/js/*", "/img/*", "/**","/static/*").permitAll()
 				.and().formLogin()
-					.loginPage("/login")
-						.loginProcessingUrl("/logincheck")
+					.loginPage("/user/login")
+						.loginProcessingUrl("/user/logincheck")
 						.usernameParameter("username")
 						.passwordParameter("password")
-						.defaultSuccessUrl("/")
+						.defaultSuccessUrl("/user/dashboard")
 						.failureUrl("/user/login?error=error")
 						.permitAll()
 				.and().logout()
-					.logoutUrl("/logout")
+					.logoutUrl("/user/logout")
 					.logoutSuccessUrl("/")
 					.permitAll().and().csrf().disable();
                 

@@ -19,29 +19,28 @@ public class Usuario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
-    @Column(columnDefinition = "boolean default true")
+
     private Boolean alta;
-    
+
     @NotEmpty
     private String nombre;
-   
+
     @NotEmpty
     private String apellido;
-   
+
     private String provincia;
-   
+
     private String localidad;
-   
+
     private String ciudad;
-    
+
     private String calle;
-   
+
     private String codigoPostal;
-   
+
     @NotNull
     private LocalDate fechaNacimiento;
-    
+
     @NotEmpty
     private String password;
 
@@ -52,14 +51,23 @@ public class Usuario {
     @NotEmpty
     private String telefono;
 
-    @Column(columnDefinition = "int default 0")
     private Integer ganados = 0;
-    
-    @Column(columnDefinition = "int default 0")
+
     private Integer perdidos = 0;
-    
-    @Column(columnDefinition = "int default 0")
+
     private Integer empatados = 0;
+
+    private String codConfirmacion;
+
+    private Boolean confirmado;
+
+    public String getCodConfirmacion() {
+        return codConfirmacion;
+    }
+
+    public void setCodConfirmacion(String codConfirmacion) {
+        this.codConfirmacion = codConfirmacion;
+    }
 
     public String getId() {
         return id;
@@ -69,7 +77,7 @@ public class Usuario {
         this.id = id;
     }
 
-    public boolean isAlta() {
+    public boolean getAlta() {
         return alta;
     }
 
@@ -187,6 +195,14 @@ public class Usuario {
 
     public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
+    }
+
+    public Boolean getConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(Boolean confirmado) {
+        this.confirmado = confirmado;
     }
 
 }
