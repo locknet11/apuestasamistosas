@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=, initial-scale=1">
     <title>Log In</title>
 
-    <link rel="stylesheet" href="../static/loginstyle.css">
+    <link rel="stylesheet" href="/css/loginstyle.css" type="text/css">
 
 </head>
 
@@ -16,17 +16,18 @@
 
         <h1>Iniciar Sesión</h1>
 
-        <form>
+        <form action="logincheck" method="POST">
 
+            <p style="color: red;" th:if="${error != null}" th:text="${error}"></p>
             <label>E-mail</label>
-            <input type="email" placeholder="Ingresa tu e-mail">
+            <input type="email" placeholder="Ingresa tu e-mail" name="username">
 
             <label>Contraseña</label>
-            <input type="Password" placeholder="Ingresa tu contraseña">
+            <input type="Password" placeholder="Ingresa tu contraseña" name="password">
 
             <input type="submit" value="Ingresar">
 
-            <p class="para-1">No tienes una cuenta?<a href="signin.html"> Regístrate Aquí</a></p>
+            <p class="para-1">No tienes una cuenta?<a href="signup"> Regístrate Aquí</a></p>
 
         </form>
 
