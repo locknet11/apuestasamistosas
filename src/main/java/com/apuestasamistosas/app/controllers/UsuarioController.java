@@ -1,12 +1,9 @@
 package com.apuestasamistosas.app.controllers;
 
-import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
-import java.util.Optional;
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -73,11 +70,23 @@ public class UsuarioController {
             @RequestParam(name = "telefono", required = false) String telefono,
             ModelMap model) throws MessagingException, ErrorUsuario {
         try {
+            
+        /*  con el siguiente codigo nos encargamos de que al usuario que ya esta logueado
+            sea redirigido al dashboard en caso de que acceda a la pagina de login
+        */
+        
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+            if (!(auth instanceof AnonymousAuthenticationToken)) {
+                return "redirect:/user/dashboard";
+            }
+
             usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
                     ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
+
         } catch (ErrorUsuario e) {
             System.out.println(e);
-            
+
             model.addAttribute("error", e.getMessage());
             model.put("nombre", nombre);
             model.put("apellido", apellido);
@@ -91,10 +100,11 @@ public class UsuarioController {
             model.put("passwordConfirmation", passwordConfirmation);
             model.put("telefono", telefono);
             model.put("email", email);
-            
+
             return "signup";
         }
-        return "redirect:/";
+        model.addAttribute("email", email);
+        return "confirmar-cuenta";
     }
     
     /*  Metodo que devuelve la pagina de login  */
@@ -120,20 +130,38 @@ public class UsuarioController {
         return "login";
     }
     
+    /*  Metodo que recibe el codigo de confirmacion del usuario y activa la cuenta */
+    
     @GetMapping("/confirm/{codConfirmacion}")
     public String confirm(@PathVariable String codConfirmacion){
         try{
             usuarioServicio.confirmarCuenta(codConfirmacion);
-            return "cuentaconfirmada";
+            return "cuenta-confirmada";
         }catch(ErrorUsuario e){
-            return "codinvalido";
+            return "redirect:/error";
         }
     }
+    
+    /*  Metodo que autoriza unicamente a los usuarios registrados y logueados a acceder al dashboard */
     
     @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @GetMapping("/dashboard")
     public String dashboard(){
         return "dashboard";
+    }
+    
+    
+    /* Metodo que recibe el email desde la vista y en caso de encontrar el usuario reenvia el correo*/
+    
+    @PostMapping("/resendEmail")
+    public String resendEmail(ModelMap model, @RequestParam(name = "email", required = false) String email) throws ErrorUsuario{
+        try{
+            usuarioServicio.reenviarAccountConfirmation(email);
+        }catch(ErrorUsuario e){
+            model.put("error", e.getMessage());
+        }
+        model.addAttribute("email", email);
+        return "confirmar-cuenta";
     }
 
 }

@@ -60,6 +60,8 @@ public class Usuario {
     private String codConfirmacion;
 
     private Boolean confirmado;
+    
+    private Boolean admin = false;
 
     public String getCodConfirmacion() {
         return codConfirmacion;
@@ -203,6 +205,14 @@ public class Usuario {
 
     public void setConfirmado(Boolean confirmado) {
         this.confirmado = confirmado;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
 }

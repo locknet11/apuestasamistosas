@@ -46,7 +46,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void registroUsuario(String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
-            String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario, MessagingException {
+            String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
 
         uv.validarDatos(nombre, apellido, password, passwordConfirmation, email, telefono, fechaNacimiento);
         String encoded_password = new BCryptPasswordEncoder().encode(password);
@@ -66,11 +66,24 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setTelefono(telefono);
         usuario.setCodConfirmacion(RandomGenerator.generate());
         usuario.setConfirmado(false);
+        usuario.setAdmin(false);
 
         usuarioRepositorio.save(usuario);
 
         mailServicio.accountConfirmation(usuario);
 
+    }
+    
+    /*  Metodo para reenviar el link de confirmacion */
+    
+    public void reenviarAccountConfirmation(String email) throws ErrorUsuario{
+        Optional<Usuario> thisUser = usuarioRepositorio.findByEmail(email);
+        if(thisUser.isPresent()){
+            Usuario usuario = thisUser.get();
+            mailServicio.accountConfirmation(usuario);
+        }else{
+            throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
+        }
     }
 
     /*  Metodo de modificacion del usuario */
@@ -165,9 +178,15 @@ public class UsuarioServicio implements UserDetailsService {
             if (usuario.getAlta() && usuario.getConfirmado()) {
                 List<GrantedAuthority> permisos = new ArrayList<>();
 
-                /*  Definicion de los permisos */
+                /*  Definicion de los permisos en base al tipo de usuario */
                 GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_USUARIO");
                 GrantedAuthority p2 = new SimpleGrantedAuthority("ROLE_APUESTA");
+                GrantedAuthority p3 = new SimpleGrantedAuthority("ROLE_ADMIN");
+                
+                if(usuario.getAdmin()){
+                    permisos.add(p3);
+                }
+                
                 permisos.add(p1);
                 permisos.add(p2);
 
