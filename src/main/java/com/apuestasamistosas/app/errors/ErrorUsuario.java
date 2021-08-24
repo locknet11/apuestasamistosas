@@ -23,7 +23,7 @@ public class ErrorUsuario extends Exception {
     public static final String NO_APELLIDO = "El apellido no puede estar vacio";
     public static final String NO_EMAIL = "El correo no puede estar vacío.";
     public static final String NO_DATE = "La fecha de nacimiento de puede ser nula.";
-    
+    public static final String COD_CONFIRM = "El codigo de confirmacion es invalido.";
     
     /* IMPLEMENTACION A FUTURO: HABRIA QUE DIVIDIR LOS MENSAJES DE ERROR DE LOS
        MENSAJES INFORMATIVOS, EJ: SE LOGGEA USER X. 

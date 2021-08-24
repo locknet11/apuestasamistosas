@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Confirma tu cuenta</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Confirma tu cuenta de Apuestas Amistosas</h1> <br>
+        <h3>Hemos enviado un correo a la dirección:</h3>
+        <h3 style="color: green;" th:if="${email != null}" th:text="${email}"></h3>
+        <h4>Sigue los pasos para activar tu cuenta.</h4>
+        <br><br>
+        <h5>¿No recibiste el correo? Haz click en el boton para reenviar</h5>
+        <form action="resendEmail" method="POST">
+            <input type="hidden" name="email" th:value="${email}">
+            <button>Reenviar correo</button>
+        </form>
+        <p style="color: red;" th:if="${error != null}" th:text="${error}"></p>
+    </body>
+</html>
