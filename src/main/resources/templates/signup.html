@@ -75,15 +75,15 @@
                 <div class="row">
                     <div class="col-md">
                         <label>Nombre</label>
-                        <input type="text" name="nombre" placeholder="Ingresa tu nombre">
+                        <input type="text" name="nombre" placeholder="Ingresa tu nombre" th:value="${nombre}">
                     </div>
                     <div class="col-md">
                         <label>Apellido</label>
-                        <input type="text" name="apellido" placeholder="Ingresa tu Apellido">
+                        <input type="text" name="apellido" placeholder="Ingresa tu Apellido" th:value="${apellido}">
                     </div>
                     <div class="col-md-5">
                         <label>Fecha de nacimiento</label>
-                        <input type="date" name="fechaNacimiento" placeholder="Ingresa tu fecha de nacimiento">
+                        <input type="date" name="fechaNacimiento" placeholder="Ingresa tu fecha de nacimiento" th:value="${fechaNacimiento}">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                         <div class="provincia select-container">
                             <label>Provincia</label>
                             <select id="provincia" name="provincia" class="form-control form-control-select" data-testid="shipping_country"
-                                    placeholder="Provincia">
+                                    placeholder="Provincia" th:value="${provincia}">
                                 <option value="MDZ">Mendoza</option>
                                 <option value="SL">San Luis</option>
                                 <option value="SJ">San Juan</option>
@@ -109,7 +109,7 @@
                         <div class="ciudad select-container">
                             <label>Ciudad</label>
                             <select id="ciudad" name="ciudad" class="form-control form-control-select" data-testid="shipping_country"
-                                    placeholder="Ciudad">
+                                    placeholder="Ciudad" th:value="${ciudad}">
                                 <option value="LUJ">Luján de Cuyo</option>
                                 <option value="MA">Maipú</option>
                                 <option value="GU">Guaymallén</option>
@@ -127,11 +127,11 @@
                 <div class="row">
                     <div class="col">
                         <label>Dirección</label>
-                        <input type="text" name="calle" placeholder="Dirección">
+                        <input type="text" name="calle" placeholder="Dirección" th:value="${calle}">
                     </div>
                     <div class="col-md-4">
                         <label>CP</label>
-                        <input type="text" name="codigoPostal" placeholder="Código Postal">
+                        <input type="text" name="codigoPostal" placeholder="Código Postal" th:value="${codigoPostal}">
                     </div>
                 </div>
 
@@ -139,11 +139,11 @@
 
                     <div class="col">
                         <label>E-mail</label>
-                        <input type="email" name="email" placeholder="Ingresa tu e-mail">
+                        <input type="email" name="email" placeholder="Ingresa tu e-mail" th:value="${email}">
                     </div>
                     <div class="col-md-4">
                         <label>Teléfono</label>
-                        <input type="number" name="telefono" placeholder="Teléfono">
+                        <input type="number" name="telefono" placeholder="Teléfono" th:value="${telefono}">
                     </div>
                 </div>
 
@@ -151,15 +151,15 @@
 
                     <div class="col">
                         <label>Contraseña</label>
-                        <input type="password" name="password" placeholder="Ingresa una contraseña">
+                        <input type="password" name="password" placeholder="Ingresa una contraseña" th:value="${password}">
                     </div>
                     <div class="col-md">
                         <label>Confirmar contraseña</label>
-                        <input type="password" name="passwordConfirmation" placeholder="Repite la contraseña">
+                        <input type="password" name="passwordConfirmation" placeholder="Repite la contraseña" th:value="${passwordConfirmation}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Foto Usuario</label> <input type="file" class="form-control" name="archivo">
+                    <label>Foto Usuario</label> <input type="file" class="form-control" name="archivo" th:value="${archivo}">
                 </div>
 
 

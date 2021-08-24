@@ -28,10 +28,14 @@ public class AdminController {
     @Autowired
     private EquiposServicio equiposServicio;
             
+    @GetMapping("/panel")
+    public String panel(){
+        return "admin-index";
+    }
     
     @GetMapping
     public String adminIndex(){
-        return "admin-index";
+        return "redirect:/admin/panel";
     }
 
 }
