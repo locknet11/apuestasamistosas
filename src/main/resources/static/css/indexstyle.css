@@ -26,15 +26,13 @@ body{
 
 .nav-item{
 
-    font-size:15px;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color:white;
-    margin-left: 20px;
+  font-size:15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color:white;
+  margin-left: 20px;
 } 
-
-
  
 .sign-link{
     
@@ -147,3 +145,6 @@ body{
   } 
   
   
+  
+  
+    
