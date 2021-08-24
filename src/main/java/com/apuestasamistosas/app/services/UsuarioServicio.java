@@ -1,17 +1,16 @@
 package com.apuestasamistosas.app.services;
 
-import com.apuestasamistosas.app.entities.Foto;
 import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
-import com.apuestasamistosas.app.repositories.FotoRepositorio;
 import com.apuestasamistosas.app.repositories.UsuarioRepositorio;
+import com.apuestasamistosas.app.utilities.RandomGenerator;
 import com.apuestasamistosas.app.validations.UsuarioValidacion;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.mail.Multipart;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,30 +23,30 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
+
     @Autowired
-    private FotoServicio fotoServicio;
-    
+    private UsuarioValidacion uv;
+
     @Autowired
-    UsuarioValidacion uv;
-    
+    private MailServicio mailServicio;
+
     /*  Logger que lleva el registro de cada transaccion  */
-    
     Logger logger = LoggerFactory.getLogger(UsuarioServicio.class);
-    
+
 
     /* Metodo de registro del usuario */
-    
     @Transactional
-    public void registroUsuario(MultipartFile archivo,String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
+    public void registroUsuario(String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
-            String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario, Exception {
+            String password, String passwordConfirmation, String email, String telefono) throws ErrorUsuario {
 
         uv.validarDatos(nombre, apellido, password, passwordConfirmation, email, telefono, fechaNacimiento);
         String encoded_password = new BCryptPasswordEncoder().encode(password);
@@ -65,23 +64,36 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setPassword(encoded_password);
         usuario.setEmail(email);
         usuario.setTelefono(telefono);
-        
-        Foto foto = fotoServicio.guardar(archivo);
-        usuario.setFoto(foto);
+        usuario.setCodConfirmacion(RandomGenerator.generate());
+        usuario.setConfirmado(false);
+        usuario.setAdmin(false);
 
         usuarioRepositorio.save(usuario);
 
+        mailServicio.accountConfirmation(usuario);
+
+    }
+    
+    /*  Metodo para reenviar el link de confirmacion */
+    
+    public void reenviarAccountConfirmation(String email) throws ErrorUsuario{
+        Optional<Usuario> thisUser = usuarioRepositorio.findByEmail(email);
+        if(thisUser.isPresent()){
+            Usuario usuario = thisUser.get();
+            mailServicio.accountConfirmation(usuario);
+        }else{
+            throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
+        }
     }
 
     /*  Metodo de modificacion del usuario */
-    
     @Transactional
-    public void modificarUsuario(MultipartFile archivo,String id, String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
+    public void modificarUsuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
-            String password, String passwordConfirmation, String telefono) throws ErrorUsuario, Exception {
+            String password, String passwordConfirmation, String telefono) throws ErrorUsuario {
 
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
-        
+
         uv.validarDatosModificar(nombre, apellido, password, passwordConfirmation, telefono, fechaNacimiento);
 
         if (thisUser.isPresent()) {
@@ -98,12 +110,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setCodigoPostal(codigoPostal);
             usuario.setPassword(encoded_password);
             usuario.setTelefono(telefono);
-            String idFoto=null;
-            if (usuario.getFoto()!=null) {
-                idFoto=usuario.getFoto().getId();
-            }
-            Foto foto = fotoServicio.actualizar(idFoto,archivo);
-            usuario.setFoto(foto);
+
             usuarioRepositorio.save(usuario);
 
         } else {
@@ -114,7 +121,6 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     /*  Metodo para dar de baja la cuenta  */
-    
     @Transactional
     public void bajaUsuario(String id) throws ErrorUsuario {
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
@@ -128,9 +134,23 @@ public class UsuarioServicio implements UserDetailsService {
             throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
         }
     }
-    
-    /*  Metodo para dar de alta la cuenta */
 
+    /*  Metodo para confirmar cuenta  */
+    @Transactional
+    public void confirmarCuenta(String codConfirmacion) throws ErrorUsuario {
+        Optional<Usuario> thisUser = usuarioRepositorio.findByConfirmationId(codConfirmacion);
+
+        if (thisUser.isPresent()) {
+            Usuario usuario = thisUser.get();
+            usuario.setConfirmado(true);
+            usuarioRepositorio.save(usuario);
+        } else {
+            logger.error(ErrorUsuario.COD_CONFIRM);
+            throw new ErrorUsuario(ErrorUsuario.COD_CONFIRM);
+        }
+    }
+
+    /*  Metodo para dar de alta la cuenta */
     @Transactional
     public void altaUsuario(String id) throws ErrorUsuario {
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
@@ -144,8 +164,9 @@ public class UsuarioServicio implements UserDetailsService {
             throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
         }
     }
+
     /*  Metodo de login del usuario, si el usuario no existe o esta dado de baja va retornar null */
-    
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Usuario> thisUser = usuarioRepositorio.findByEmail(email);
@@ -154,20 +175,27 @@ public class UsuarioServicio implements UserDetailsService {
 
             Usuario usuario = thisUser.get();
 
-            if (usuario.isAlta()) {
+            if (usuario.getAlta() && usuario.getConfirmado()) {
                 List<GrantedAuthority> permisos = new ArrayList<>();
 
-                /*  Definicion de los permisos */
+                /*  Definicion de los permisos en base al tipo de usuario */
+                GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_USUARIO");
+                GrantedAuthority p2 = new SimpleGrantedAuthority("ROLE_APUESTA");
+                GrantedAuthority p3 = new SimpleGrantedAuthority("ROLE_ADMIN");
                 
-                GrantedAuthority p1 = new SimpleGrantedAuthority("USUARIO");
-                GrantedAuthority p2 = new SimpleGrantedAuthority("APUESTA");
+                if(usuario.getAdmin()){
+                    permisos.add(p3);
+                }
+                
                 permisos.add(p1);
                 permisos.add(p2);
 
+                ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+                HttpSession session = attr.getRequest().getSession(true);
+                session.setAttribute("sesionUsuario", usuario);
+
                 User user = new User(usuario.getEmail(), usuario.getPassword(), permisos);
 
-                logger.info("Se ha loggeado el user: " + usuario.getEmail());
-                
                 return user;
 
             } else {

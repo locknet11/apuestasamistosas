@@ -4,13 +4,15 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Pagina no encontrada</title>
+        <title>Dashboard</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>El recurso que solicistaste no existe</div>
+        <h1>Dashboard Usuario</h1>
+        
+        <h2 th:if="${session.sesionUsuario != null}" th:text="${'Hola! ' + session.sesionUsuario.nombre}"></h2>
     </body>
 </html>

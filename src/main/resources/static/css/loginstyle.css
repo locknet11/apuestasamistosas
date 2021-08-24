@@ -1,0 +1,198 @@
+body{
+
+    background-color:#a09696;
+    font-family:'roboto',sans-serif;
+
+}
+
+h1{
+    font-style:'roboto',sans-serif;
+    font-size: 24px;
+    color:white;
+}
+
+.login-box {
+
+    
+    width:360px;
+    height: 300px;
+    margin:100px 470px 0px; 
+    background-color:black;
+    border-radius:3px;
+}
+
+h1{
+
+    text-align: center;
+    padding-top: 15px;
+
+}
+
+h4{
+
+    text-align: center;
+}
+
+form{
+
+    width: 300px;
+    margin-left: 20px;
+
+}
+
+form label{
+
+    display:flex;
+    margin-top: 20px;
+    font-size: 16px;
+    color:white;
+}
+
+form input{
+
+    width:100%;
+    padding: 7px;
+    border:none;
+    border: 1px solid white;
+    border-radius:6px;
+    outline: none;
+
+}
+
+#provincia{
+
+    width:100%;
+    padding: 7px;
+    border:none;
+    border: 1px solid white;
+    border-radius:6px;
+    outline: none;
+
+}
+
+input[type="submit"]{
+ 
+    width: 320px;
+    height: 35px;
+    margin-top:20px;
+    border: none;
+    background-color:#124559;
+    color:white;
+    font-size:18px;
+
+}
+
+input[type="submit"]:hover{
+
+    color:grey;
+}
+
+    
+
+p{
+
+    text-align:center;
+    padding-top: 20px;
+    font-size: 15px;
+
+}
+
+.para-1{
+    
+    text-align:center;
+    color:white;
+    font-size:12px;
+    margin-top: -10px;
+    
+}
+
+
+.para-1 a{
+
+    color:white;
+    
+
+}
+
+.para-1 a:hover{
+
+    color:grey;
+
+}
+
+
+
+
+
+/* FOOTER */
+
+
+.container {
+    max-width: 100%;
+    box-sizing: border-box;
+
+}
+
+.site-footer{
+    margin-top: 200px;
+
+    left:0px;
+    bottom:0px;
+    height:60px;
+    background-color:black;
+    padding:20 0 20px;
+    font-size:15px;
+    line-height:20px;
+    color:white;
+
+  position: absolute;
+  
+  width: 100%;
+ 
+  
+    
+  }  
+  
+  .copyright-text{
+    margin:0;
+    margin-right: 3em;
+  }
+
+  
+ /*  .site-footer .social-icons{
+    text-align:right;
+  }
+  .site-footer .social-icons a{
+    width:20px;
+    height:20px;
+    margin-left:6px;
+    margin-right:0;
+    border-radius:100%;
+    background-color:#3d3c33;
+    
+  }
+  
+  
+  @media (max-width:991px){
+    .site-footer [class^=col-]{
+      margin-bottom:30px;
+  }
+  }
+  
+  @media (max-width:767px){
+    .site-footer{
+      padding-bottom:0;
+  }
+    .site-footer .copyright-text,.site-footer .social-icons{
+      text-align: center;
+  }
+  }
+  .social-icons{
+    padding-left:0;
+    margin-bottom:0;
+    list-style:none;
+  }
+  .social-icons li{
+    display:inline-block;
+    margin-bottom:4px;
+  }  */

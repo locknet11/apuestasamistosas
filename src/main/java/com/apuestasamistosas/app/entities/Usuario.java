@@ -5,7 +5,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -20,48 +19,57 @@ public class Usuario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
-    @Column(columnDefinition = "boolean default true")
+
     private Boolean alta;
-    
+
     @NotEmpty
     private String nombre;
-   
+
     @NotEmpty
     private String apellido;
-   
+
     private String provincia;
-   
+
     private String localidad;
-   
+
     private String ciudad;
-    
+
     private String calle;
-   
+
     private String codigoPostal;
-   
+
     @NotNull
     private LocalDate fechaNacimiento;
-    
+
     @NotEmpty
     private String password;
 
     @NotEmpty
+    @Email
     private String email;
 
     @NotEmpty
     private String telefono;
 
-    @Column(columnDefinition = "int default 0")
-    private Integer ganados;
+    private Integer ganados = 0;
+
+    private Integer perdidos = 0;
+
+    private Integer empatados = 0;
+
+    private String codConfirmacion;
+
+    private Boolean confirmado;
     
-    @Column(columnDefinition = "int default 0")
-    private Integer perdidos;
-    
-    @Column(columnDefinition = "int default 0")
-    private Integer empatados;
-    @OneToOne
-    private Foto foto;
+    private Boolean admin = false;
+
+    public String getCodConfirmacion() {
+        return codConfirmacion;
+    }
+
+    public void setCodConfirmacion(String codConfirmacion) {
+        this.codConfirmacion = codConfirmacion;
+    }
 
     public String getId() {
         return id;
@@ -71,12 +79,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public boolean isAlta() {
-        return getAlta();
+    public boolean getAlta() {
+        return alta;
     }
 
     public void setAlta(boolean alta) {
-        this.setAlta((Boolean) alta);
+        this.alta = alta;
     }
 
     public String getNombre() {
@@ -84,7 +92,7 @@ public class Usuario {
     }
 
     public void setNombre(String nombre) {
-        this.setNombre(nombre);
+        this.nombre = nombre;
     }
 
     public String getApellido() {
@@ -92,7 +100,7 @@ public class Usuario {
     }
 
     public void setApellido(String apellido) {
-        this.setApellido(apellido);
+        this.apellido = apellido;
     }
 
     public LocalDate getFechaNacimiento() {
@@ -100,7 +108,7 @@ public class Usuario {
     }
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.setFechaNacimiento(fechaNacimiento);
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getPassword() {
@@ -108,7 +116,7 @@ public class Usuario {
     }
 
     public void setPassword(String password) {
-        this.setPassword(password);
+        this.password = password;
     }
 
     public String getEmail() {
@@ -116,7 +124,7 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        this.setEmail(email);
+        this.email = email;
     }
 
     public String getTelefono() {
@@ -124,7 +132,7 @@ public class Usuario {
     }
 
     public void setTelefono(String telefono) {
-        this.setTelefono(telefono);
+        this.telefono = telefono;
     }
 
     public Integer getGanados() {
@@ -191,22 +199,20 @@ public class Usuario {
         this.codigoPostal = codigoPostal;
     }
 
-    public Boolean getAlta() {
-        return alta;
+    public Boolean getConfirmado() {
+        return confirmado;
     }
 
-    public void setAlta(Boolean alta) {
-        this.alta = alta;
+    public void setConfirmado(Boolean confirmado) {
+        this.confirmado = confirmado;
     }
 
-    public Foto getFoto() {
-        return foto;
+    public Boolean getAdmin() {
+        return admin;
     }
 
-    public void setFoto(Foto foto) {
-        this.foto = foto;
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
-
-   
 
 }

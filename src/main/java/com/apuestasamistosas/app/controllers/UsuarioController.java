@@ -3,16 +3,20 @@ package com.apuestasamistosas.app.controllers;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
-import java.time.Month;
+import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/user")
@@ -25,18 +29,20 @@ public class UsuarioController {
     public String index() {
         return "redirect:/";
     }
-
+    
     /*  Metodo GET para mostrar el form de registro */
+    
     @GetMapping("/signup")
-    public String signup() {
-        return "registro";
+    public String signup(){
+        return "signup";
     }
-
+    
     /*  metodo GET para resolver cuando un usuario apreta Refresh en un formulario fallido.
         Basicamente mapea al metodo signup el cual devuelve el form de registro
-     */
+    */
+    
     @GetMapping("/register")
-    public String registerGet() {
+    public String registerGet(){
         return "redirect:/user/signup";
     }
 
@@ -47,10 +53,9 @@ public class UsuarioController {
        y es mucho mas seguro ya que si del lado del cliente se altera la estructura del formulario
        no va repercutir en la BD ni tampoco generar excepciones no controladas. 
      */
-    @PostMapping("/register")
+    
+    @PostMapping("/signup")
     public String registerPost(
-            
-            MultipartFile archivo,
             @RequestParam(name = "nombre", required = false) String nombre,
             @RequestParam(name = "apellido", required = false) String apellido,
             @RequestParam(name = "fechaNacimiento", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
@@ -62,27 +67,101 @@ public class UsuarioController {
             @RequestParam(name = "password", required = false) String password,
             @RequestParam(name = "passwordConfirmation", required = false) String passwordConfirmation,
             @RequestParam(name = "email", required = false) String email,
-            @RequestParam(name = "telefono", required = false) String telefono) throws Exception {
+            @RequestParam(name = "telefono", required = false) String telefono,
+            ModelMap model) throws MessagingException, ErrorUsuario {
         try {
-
-            usuarioServicio.registroUsuario(archivo, nombre, apellido, fechaNacimiento, provincia, localidad,
-                    ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
-        } catch (ErrorUsuario e) {
-          
-            return "registro";
-        }
+            
+        /*  con el siguiente codigo nos encargamos de que al usuario que ya esta logueado
+            sea redirigido al dashboard en caso de que acceda a la pagina de login
+        */
         
-        return "index";
-    }
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+            if (!(auth instanceof AnonymousAuthenticationToken)) {
+                return "redirect:/user/dashboard";
+            }
+
+            usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
+                    ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono);
+
+        } catch (ErrorUsuario e) {
+            System.out.println(e);
+
+            model.addAttribute("error", e.getMessage());
+            model.put("nombre", nombre);
+            model.put("apellido", apellido);
+            model.put("fechaNacimiento", fechaNacimiento);
+            model.put("provincia", provincia);
+            model.put("localidad", localidad);
+            model.put("ciudad", ciudad);
+            model.put("calle", calle);
+            model.put("codigoPostal", codigoPostal);
+            model.put("password", password);
+            model.put("passwordConfirmation", passwordConfirmation);
+            model.put("telefono", telefono);
+            model.put("email", email);
+
+            return "signup";
+        }
+        model.addAttribute("email", email);
+        return "confirmar-cuenta";
+    }
+    
     /*  Metodo que devuelve la pagina de login  */
+    
     @GetMapping("/login")
-    public String login(ModelMap model, @RequestParam(name = "error", required = false) String error) {
-        if (error != null) {
+    public String login(ModelMap model, @RequestParam(name = "error", required = false) String error) throws ErrorUsuario{
+       
+        if(error != null){
             model.put("error", "Usuario o contraseña incorrectos.");
         }
-
+        
+        
+        /*  con el siguiente codigo nos encargamos de que al usuario que ya esta logueado
+            sea redirigido al dashboard en caso de que acceda a la pagina de login
+        */
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
+        if(!(auth instanceof AnonymousAuthenticationToken)){
+            return "redirect:/user/dashboard";
+        }
+        
         return "login";
+    }
+    
+    /*  Metodo que recibe el codigo de confirmacion del usuario y activa la cuenta */
+    
+    @GetMapping("/confirm/{codConfirmacion}")
+    public String confirm(@PathVariable String codConfirmacion){
+        try{
+            usuarioServicio.confirmarCuenta(codConfirmacion);
+            return "cuenta-confirmada";
+        }catch(ErrorUsuario e){
+            return "redirect:/error";
+        }
+    }
+    
+    /*  Metodo que autoriza unicamente a los usuarios registrados y logueados a acceder al dashboard */
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/dashboard")
+    public String dashboard(){
+        return "dashboard";
+    }
+    
+    
+    /* Metodo que recibe el email desde la vista y en caso de encontrar el usuario reenvia el correo*/
+    
+    @PostMapping("/resendEmail")
+    public String resendEmail(ModelMap model, @RequestParam(name = "email", required = false) String email) throws ErrorUsuario{
+        try{
+            usuarioServicio.reenviarAccountConfirmation(email);
+        }catch(ErrorUsuario e){
+            model.put("error", e.getMessage());
+        }
+        model.addAttribute("email", email);
+        return "confirmar-cuenta";
     }
 
 }
