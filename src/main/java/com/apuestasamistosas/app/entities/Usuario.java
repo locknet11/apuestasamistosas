@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -62,6 +63,9 @@ public class Usuario {
     private Boolean confirmado;
     
     private Boolean admin = false;
+    
+    @OneToOne
+    private Foto foto;
 
     public String getCodConfirmacion() {
         return codConfirmacion;
@@ -213,6 +217,14 @@ public class Usuario {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
     }
 
 }
