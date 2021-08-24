@@ -6,9 +6,10 @@ and open the template in the editor.
 -->
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title th:if="${code != null}" th:text="${'AA - Error ' + code}"></title>
+        <title th:if="${code != null}" th:text="${'Error ' + code + ' - ' + message}"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/images/logo1.png" />
     </head>
     <body>
         <h1 th:if="${message != null}" th:text="${message}"></h1>

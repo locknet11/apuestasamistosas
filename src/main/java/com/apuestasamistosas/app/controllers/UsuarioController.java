@@ -35,6 +35,15 @@ public class UsuarioController {
     
     @GetMapping("/signup")
     public String signup(){
+        /*  con el siguiente codigo nos encargamos de que al usuario que ya esta logueado
+            sea redirigido al dashboard en caso de que acceda a la pagina de login
+         */
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/user/dashboard";
+        }
         return "signup";
     }
     
@@ -72,17 +81,6 @@ public class UsuarioController {
             @RequestParam(name = "archivo", required = false) MultipartFile archivo,
             ModelMap model) throws MessagingException, ErrorUsuario, Exception {
         try {
-            
-        /*  con el siguiente codigo nos encargamos de que al usuario que ya esta logueado
-            sea redirigido al dashboard en caso de que acceda a la pagina de login
-        */
-        
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-            if (!(auth instanceof AnonymousAuthenticationToken)) {
-                return "redirect:/user/dashboard";
-            }
-
             usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
                     ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono, archivo);
 
@@ -102,6 +100,7 @@ public class UsuarioController {
             model.put("passwordConfirmation", passwordConfirmation);
             model.put("telefono", telefono);
             model.put("email", email);
+            model.put("archivo", archivo);
 
             return "signup";
         }
@@ -140,8 +139,9 @@ public class UsuarioController {
             usuarioServicio.confirmarCuenta(codConfirmacion);
             return "cuenta-confirmada";
         }catch(ErrorUsuario e){
-            return "redirect:/error";
+            
         }
+        return "redirect:/error";
     }
     
     /*  Metodo que autoriza unicamente a los usuarios registrados y logueados a acceder al dashboard */

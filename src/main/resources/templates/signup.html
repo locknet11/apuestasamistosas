@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/images/logo1.png">
+
+        <title>Registrarse</title>
+
+        <link rel="stylesheet" href="/css/signupstyle.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+
+
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="color-nav">
+            <div class="container-fluid">
+
+                <a href="/"><img class="logo1" src="/images/logo1.png" alt=""></a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/">Inicio</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Eventos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Premios</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/login" tabindex="-1" aria-disabled="false"
+                               >Log In</a
+                            >
+                        </li>
+                    </ul>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--  FORMULARIO -->
+
+        <div class="signup-box">
+            <h1>¡Registrate!</h1>
+            <h4>Es gratis y toma solo unos minutos</h4>
+            <form action="signup" method="POST">
+
+                <p style="color: red; font-family: 'Source Sans Pro', serif; font-size: 17px;" th:if="${error != null}" th:text="${error}"></p>
+
+
+                <div class="row">
+                    <div class="col-md">
+                        <label>Nombre</label>
+                        <input type="text" name="nombre" placeholder="Ingresa tu nombre" th:value="${nombre}">
+                    </div>
+                    <div class="col-md">
+                        <label>Apellido</label>
+                        <input type="text" name="apellido" placeholder="Ingresa tu Apellido" th:value="${apellido}">
+                    </div>
+                    <div class="col-md-5">
+                        <label>Fecha de nacimiento</label>
+                        <input type="date" name="fechaNacimiento" placeholder="Ingresa tu fecha de nacimiento" th:value="${fechaNacimiento}">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+                        <div class="provincia select-container">
+                            <label>Provincia</label>
+                            <select id="provincia" name="provincia" class="form-control form-control-select" data-testid="shipping_country"
+                                    placeholder="Provincia" th:value="${provincia}">
+                                <option value="MDZ">Mendoza</option>
+                                <option value="SL">San Luis</option>
+                                <option value="SJ">San Juan</option>
+                                <option value="CBA">Cordoba</option>
+                                <option value="JUJ">Jujuy</option>
+                                <option value="SAL">Salta</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="ciudad select-container">
+                            <label>Ciudad</label>
+                            <select id="ciudad" name="ciudad" class="form-control form-control-select" data-testid="shipping_country"
+                                    placeholder="Ciudad" th:value="${ciudad}">
+                                <option value="LUJ">Luján de Cuyo</option>
+                                <option value="MA">Maipú</option>
+                                <option value="GU">Guaymallén</option>
+                                <option value="LH">Las Heras</option>
+                                <option value="GC">Godoy Cruz</option>
+                                <option value="SR">San Rafael</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <label>Dirección</label>
+                        <input type="text" name="calle" placeholder="Dirección" th:value="${calle}">
+                    </div>
+                    <div class="col-md-4">
+                        <label>CP</label>
+                        <input type="text" name="codigoPostal" placeholder="Código Postal" th:value="${codigoPostal}">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+                        <label>E-mail</label>
+                        <input type="email" name="email" placeholder="Ingresa tu e-mail" th:value="${email}">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Teléfono</label>
+                        <input type="number" name="telefono" placeholder="Teléfono" th:value="${telefono}">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+                        <label>Contraseña</label>
+                        <input type="password" name="password" placeholder="Ingresa una contraseña" th:value="${password}">
+                    </div>
+                    <div class="col-md">
+                        <label>Confirmar contraseña</label>
+                        <input type="password" name="passwordConfirmation" placeholder="Repite la contraseña" th:value="${passwordConfirmation}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Foto Usuario</label> <input type="file" class="form-control" name="archivo" th:value="${archivo}">
+                </div>
+
+
+                <input type="submit" value="Registrarse">
+
+            </form>
+
+            <br>
+
+            <p class="para-1">Ya estas registrado? <a href="login">Clickea Aquí</a></p>
+        </div>
+
+
+
+
+
+
+
+        <!--  INICIO FOOTER -->
+
+        <footer class="site-footer">
+            <div class="container">
+
+                <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved.
+
+                </p>
+
+            </div>
+        </footer>
+
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+        </script>
+    </body>
+
+
+</html>
