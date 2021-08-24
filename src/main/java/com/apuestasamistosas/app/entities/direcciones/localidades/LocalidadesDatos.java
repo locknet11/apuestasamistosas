@@ -1,34 +1,38 @@
 
-package com.apuestasamistosas.app.entities.direcciones;
+package com.apuestasamistosas.app.entities.direcciones.localidades;
 
-import com.apuestasamistosas.app.entities.direcciones.Parametros;
+
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.*;
-import lombok.AllArgsConstructor;
-
-
+import org.hibernate.annotations.ManyToAny;
+import static org.hibernate.engine.internal.Cascade.cascade;
 
 @Entity
-@AllArgsConstructor
 @Table
-public class Direcciones {
-    
+public class LocalidadesDatos {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
-    
     private Integer total;
     private Integer cantidad;
     private Integer inicio;
+   
+    
     @OneToMany(cascade = CascadeType.ALL)
-    private List <Provincias> provincias;
+    private List <Localidades> localidades;
     @OneToOne(cascade = CascadeType.ALL)
     private Parametros parametros;
-       
-    public Direcciones() {
+    
+
+    public LocalidadesDatos() {
     }
 
     public Long getId() {
@@ -63,12 +67,12 @@ public class Direcciones {
         this.inicio = inicio;
     }
 
-    public List <Provincias> getProvincias() {
-        return provincias;
+    public List <Localidades> getLocalidades() {
+        return localidades;
     }
 
-    public void setProvincias(List <Provincias> provincias) {
-        this.provincias = provincias;
+    public void setLocalidades(List <Localidades> localidades) {
+        this.localidades = localidades;
     }
 
     public Parametros getParametros() {
@@ -80,5 +84,5 @@ public class Direcciones {
     }
     
     
-    
+   
 }

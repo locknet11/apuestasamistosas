@@ -1,6 +1,6 @@
 package com.apuestasamistosas.app.entities.direcciones;
 
-import com.apuestasamistosas.app.entities.direcciones.Centroide;
+//import com.apuestasamistosas.app.entities.direcciones.Centroide;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,8 +19,9 @@ public class Provincias {
     private String nombre;    
     private String categoria;
     private String iso_nombre;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Centroide centroide;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Centroide centroide;
+    
 
     public String getId() {
         return id;
@@ -78,13 +79,13 @@ public class Provincias {
         this.iso_nombre = iso_nombre;
     }
 
-    public Centroide getCentroide() {
-        return centroide;
-    }
-
-    public void setCentroide(Centroide centroide) {
-        this.centroide = centroide;
-    }
-    
+//    public Centroide getCentroide() {
+//        return centroide;
+//    }
+//
+//    public void setCentroide(Centroide centroide) {
+//        this.centroide = centroide;
+//    }
+//    
     
 }

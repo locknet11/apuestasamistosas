@@ -1,5 +1,6 @@
-package com.apuestasamistosas.app.entities.direcciones;
+package com.apuestasamistosas.app.entities.direcciones.localidades;
 
+import com.apuestasamistosas.app.entities.direcciones.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
