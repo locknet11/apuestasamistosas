@@ -14,17 +14,13 @@ import java.io.InputStream;
 
 
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Value;
-
-
 
 
 @Component
 @Log
 public class StartUpLocalidades implements CommandLineRunner {
 
-    @Value("${demo.json.string}")
-    private String json;
+  
     
     @Autowired
     private LocalidadesRepositorio repo;
