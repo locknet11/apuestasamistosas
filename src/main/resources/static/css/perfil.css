@@ -1,0 +1,89 @@
+/* NAV BAR */
+
+
+body{
+
+    background-color:black !important;
+    
+} 
+
+#color-nav{
+
+    background-color:black!important;
+     
+}
+
+
+.logo1{
+
+    width:70%;
+    height:70%;
+    margin-left: 35%;
+    border-radius: 100%;
+       
+} 
+
+
+
+.nav-item{
+
+  font-size:15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color:white;
+  margin-left: 20px;
+} 
+
+.user_photo{
+
+    background-color:white;
+    margin-right: 200px;
+    width:50px ;
+    height:50px;
+    border:solid 1.5px;
+    border-color: white;
+    border-radius: 100%;
+    margin-top:5px;
+    
+  }
+  
+  
+  
+
+
+
+/* FOOTER */
+
+
+.container {
+    max-width: 100%;
+    box-sizing: border-box;
+  
+  }
+  
+  .site-footer{
+    margin-top: 200px;
+  
+    left:0px;
+    bottom:0px;
+    height:60px;
+    background-color:black;
+    padding:20 0 20px;
+    font-size:15px;
+    line-height:20px;
+    color:white;
+  
+  /* position: absolute; */
+  
+  width: 100%;
+  
+  
+    
+  }  
+  
+  .copyright-text{
+    margin:0;
+    margin-top:20px;
+    text-align:center;
+  }

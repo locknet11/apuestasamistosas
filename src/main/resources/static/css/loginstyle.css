@@ -1,6 +1,46 @@
+
+
+/* NAV BAR */
+
+
 body{
 
-    background-color:#a09696;
+    background-color:black!important;
+    
+}  
+
+#color-nav{
+
+    background-color:black!important;
+    
+}
+
+
+.logo1{
+
+    width:65%;
+    height:65%;
+    margin-left: 35%;
+       
+} 
+
+
+
+.nav-item{
+
+  font-size:15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color:white;
+  margin-left: 20px;
+} 
+
+/* FORMULARIO */
+
+body{
+
+    background-color:#e6e4e4;
     font-family:'roboto',sans-serif;
 
 }
@@ -15,10 +55,12 @@ h1{
 
     
     width:360px;
-    height: 300px;
-    margin:100px 470px 0px; 
+    height: 350px;
+    margin:50px 365px 0px; 
     background-color:black;
     border-radius:3px;
+    border:1px solid;
+    border-color: white;
 }
 
 h1{
@@ -59,16 +101,7 @@ form input{
 
 }
 
-#provincia{
 
-    width:100%;
-    padding: 7px;
-    border:none;
-    border: 1px solid white;
-    border-radius:6px;
-    outline: none;
-
-}
 
 input[type="submit"]{
  

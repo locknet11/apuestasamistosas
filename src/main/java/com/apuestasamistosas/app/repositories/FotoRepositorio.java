@@ -1,4 +1,3 @@
-
 package com.apuestasamistosas.app.repositories;
 
 import com.apuestasamistosas.app.entities.Foto;
