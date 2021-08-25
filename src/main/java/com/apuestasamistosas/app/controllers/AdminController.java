@@ -1,4 +1,3 @@
-
 package com.apuestasamistosas.app.controllers;
 
 import com.apuestasamistosas.app.services.EquiposServicio;
@@ -15,27 +14,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 public class AdminController {
-    
+
     @Autowired
     private EventosServicio eventoServicio;
-    
+
     @Autowired
     private PremioServicio premioServicio;
-    
+
     @Autowired
     private ProveedoresServicio proveedoresServicio;
-    
+
     @Autowired
     private EquiposServicio equiposServicio;
-            
+
     @GetMapping("/panel")
-    public String panel(){
-        return "admin-index";
+    public String panel() {
+        return "/admin/index";
     }
-    
+
     @GetMapping
-    public String adminIndex(){
+    public String index() {
         return "redirect:/admin/panel";
+    }
+
+    /*  Metodos relacionados a las cargas (POST y GET) */
+    
+    @GetMapping("/load")
+    public String load() {
+        return "redirect:/admin/panel";
+    }
+
+    @GetMapping("/load/teams")
+    public String loadTeams() {
+        return "/admin/cargas/equipos";
+    }
+
+    @GetMapping("/load/events")
+    public String loadEvents() {
+        return "/admin/cargas/eventos";
+    }
+
+    @GetMapping("/load/providers")
+    public String loadProviders() {
+        return "/admin/cargas/proveedores";
+    }
+
+    @GetMapping("/load/rewards")
+    public String loadRewards() {
+        return "/admin/cargas/premios";
     }
 
 }
