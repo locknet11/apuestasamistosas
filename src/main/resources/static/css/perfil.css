@@ -18,11 +18,14 @@ body{
 
     width:70%;
     height:70%;
-    margin-left: 35%;
+
     border-radius: 100%;
        
-} 
+}
 
+.dropdown-toggle::after {
+    content: none;
+}
 
 
 .nav-item{
@@ -38,13 +41,11 @@ body{
 .user_photo{
 
     background-color:white;
-    margin-right: 200px;
-    width:50px ;
-    height:50px;
+    height:2.5rem;
     border:solid 1.5px;
     border-color: white;
     border-radius: 100%;
-    margin-top:5px;
+
     
   }
   

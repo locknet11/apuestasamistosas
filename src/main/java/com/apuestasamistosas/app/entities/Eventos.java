@@ -20,7 +20,6 @@ public class Eventos {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private String nombre;
    
     @NotNull
     @OneToOne
@@ -44,49 +43,30 @@ public class Eventos {
         si es true entonces el usuario ya no puede apostar en este evento
     */
     
-    @NotNull @Column(columnDefinition = "boolean default true")
+    @NotNull
+    @Column(columnDefinition = "boolean default false")
     private boolean expirado;
-    /* 
-        el estado puede ser; disponible para apostar o no disponible
-    */ 
-    
-    
-    private boolean resultado;
-    
+
     /*
         true = equipoA , false = equipoB, null = empate
     */
+    
+    private boolean resultado;
 
+    /* 
+        el estado puede ser FINALIZADO, ENCURSO o SUSPENDIDO
+    */ 
     
-    
-    @NotNull
     private EstadoEvento estado;
 
     public String getId() {
         return id;
     }
-    
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Boolean getAlta() {
-        return alta;
-    }
-
-    public void setAlta(Boolean alta) {
-        this.alta = alta;
-    }
-    
     public Equipos getEquipoA() {
         return equipoA;
     }

@@ -1,5 +1,6 @@
 package com.apuestasamistosas.app.controllers;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,17 @@ public class ErrorsController implements ErrorController {
     @RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
 
+        
         ModelAndView errorPage = new ModelAndView("error");
-        String errorMsg = "";
-        int httpErrorCode = getErrorCode(httpRequest);
-
+        String errorMsg;
+        Integer httpErrorCode;
+        
+        if(getErrorCode(httpRequest) != null){
+            httpErrorCode = getErrorCode(httpRequest);
+        }else{
+            httpErrorCode = 0;
+        }
+       
         switch (httpErrorCode) {
             case 400: {
                 errorMsg = "El recurso solicitado no existe.";
@@ -38,6 +46,9 @@ public class ErrorsController implements ErrorController {
                 errorMsg = "Ocurrió un error interno.";
                 break;
             }
+            
+            default:
+                errorMsg = "Ocurrio un error inesperado.";
         }
 
         errorPage.addObject("code", httpErrorCode);
@@ -45,8 +56,8 @@ public class ErrorsController implements ErrorController {
         return errorPage;
     }
 
-    private int getErrorCode(HttpServletRequest httpRequest) {
-        return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
+    private Integer getErrorCode(HttpServletRequest httpRequest) {
+        return (Integer) httpRequest.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
     }
 
     public String getErrorPath() {
