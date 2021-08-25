@@ -13,4 +13,12 @@ public class GeneralController {
     public String index(){
         return "index";
     }
+    
+        
+    @GetMapping("/perfil")
+    public String perfil(){
+        return "perfil";
+    }
+
 }
+
