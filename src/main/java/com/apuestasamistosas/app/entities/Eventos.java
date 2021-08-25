@@ -44,6 +44,7 @@ public class Eventos {
     */
     
     @NotNull
+    @Column(columnDefinition = "boolean default false")
     private boolean expirado;
 
     /*
@@ -56,7 +57,6 @@ public class Eventos {
         el estado puede ser FINALIZADO, ENCURSO o SUSPENDIDO
     */ 
     
-    @NotNull
     private EstadoEvento estado;
 
     public String getId() {

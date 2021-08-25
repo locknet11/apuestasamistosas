@@ -1,0 +1,18 @@
+
+.loadForm{
+    border: 1px solid;
+    border-color: white;
+    padding: 1.5rem;
+    border-radius: 2%;
+    background-color: white;
+    box-shadow: 0px 0px 15px black;
+
+}
+
+.send-button{
+    width: 100%;
+}
+
+.error-msg{
+    color: red;
+}

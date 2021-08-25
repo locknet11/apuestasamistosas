@@ -2,7 +2,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Panel de administración</title>
+        <title>Carga Equipos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="/images/logo1.png" />
@@ -64,7 +64,33 @@
             </div>
         </nav>
 
-        
 
+        <!-- Formulario -->
+        <div class="m-2">
+            <div class="col-md-5 col-sm-6 col-lg-4 m-auto mt-4">
+                <div class="loadForm">
+                    <form action="loadTeam" method="POST">
+                        <h2 class="mb-3 text-center">Cargar equipo</h2>
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input class="form-control" type="text" name="nombre" placeholder="Nombre del equipo" required>
+                        <br>
+                        <label class="form-label" for="equipo">Deporte</label>
+                        <select class="form-select" name="equipo">
+                            <option value="futbol">Futbol</option>
+                            <option value="hockey">Hockey</option>
+                            <option value="voley">Volleyball</option>
+                            <option value="basket">Basketball</option>
+                            <option value="rugby">Rugby</option>
+                            <option value="tenis">Tenis</option>
+                        </select>
+                        <br>
+                        <label class="form-label" for="nombre">Foto</label>
+                        <input class="form-control" type="file" name="nombre" placeholder="Bandera o escudo del equipo" accept=".jpg,.jpeg,.png">
+                        <br>
+                        <button class="btn btn-primary send-button">Cargar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

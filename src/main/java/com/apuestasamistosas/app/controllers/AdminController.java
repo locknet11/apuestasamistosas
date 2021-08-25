@@ -4,6 +4,7 @@ import com.apuestasamistosas.app.services.EquiposServicio;
 import com.apuestasamistosas.app.services.EventosServicio;
 import com.apuestasamistosas.app.services.PremioServicio;
 import com.apuestasamistosas.app.services.ProveedoresServicio;
+import com.apuestasamistosas.app.services.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class AdminController {
     @Autowired
     private EquiposServicio equiposServicio;
 
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+    
     @GetMapping("/panel")
     public String panel() {
         return "/admin/index";
