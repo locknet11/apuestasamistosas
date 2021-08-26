@@ -38,7 +38,6 @@ margin-left: 20px;
 
 
 
-
 body {
 
   background-color: #e6e4e4;
@@ -73,7 +72,7 @@ body {
   margin-top:50px;
   border:1px solid;
   border-color: white;
-  box-shadow: 0px 0px 10px red;
+  box-shadow: 0px 0px 10px#124559;
 
 }
 
@@ -200,16 +199,7 @@ p {
 
 .site-footer {
 
-  /*   
-    left:0px;
-    bottom:0px;
-    height:60px;
-    width:100%; 
-    background-color:black;
-    padding:20px 0 20px;
-    font-size:15px;
-    line-height:20px;
-    color:white;  */
+
 
   margin-top: 50px;
   left: 0px;
@@ -261,13 +251,3 @@ p {
   }
 }
 
-/* .social-icons {
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-}
-
-.social-icons li {
-  display: inline-block;
-  margin-bottom: 4px;
-} */

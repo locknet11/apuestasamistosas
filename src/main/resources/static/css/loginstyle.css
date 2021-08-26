@@ -92,7 +92,7 @@ h1{
     border-radius:3px;
     border:1px solid;
     border-color: white;
-    box-shadow: 0px 0px 10px #B019B0;
+    box-shadow: 0px 0px 10px  #124559;
 }
 
 h1{
@@ -141,7 +141,7 @@ input[type="submit"]{
     margin: 0 auto;
     margin-top:20px;
     border: none;
-    background-color:#660166;
+    background-color: #124559;
     color:white;
     font-size:18px;
 
