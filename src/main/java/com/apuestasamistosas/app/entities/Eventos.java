@@ -20,6 +20,7 @@ public class Eventos {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    private String nombre;
    
     @NotNull
     @OneToOne
@@ -121,6 +122,14 @@ public class Eventos {
 
     public void setEstado(EstadoEvento estado) {
         this.estado = estado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     

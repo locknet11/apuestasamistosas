@@ -5,16 +5,16 @@ import com.apuestasamistosas.app.entities.Proveedores;
 import com.apuestasamistosas.app.errors.ErrorPremio;
 import com.apuestasamistosas.app.errors.ErrorProveedores;
 import com.apuestasamistosas.app.repositories.ProveedoresRepositorio;
-import com.apuestasamistosas.app.services.ProveedoresServicio;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class PremioValidacion {
           
-    Logger logger = LoggerFactory.getLogger(ProveedoresServicio.class);
+    Logger logger = LoggerFactory.getLogger(PremioValidacion.class);
 
     @Autowired
     private ProveedoresRepositorio proveedorRepositorio;

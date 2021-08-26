@@ -18,6 +18,7 @@ public class PremioServicio {
 
     Logger logger = LoggerFactory.getLogger(UsuarioServicio.class);
     
+    @Autowired
     private PremioValidacion pv = new PremioValidacion();
     
     @Autowired
@@ -93,5 +94,11 @@ public class PremioServicio {
          }
     }
     
+    
+    /*  Metodos de listado */
+    
+    public long contarTodos(){
+        return premioRepositorio.count();
+    }
 
 }

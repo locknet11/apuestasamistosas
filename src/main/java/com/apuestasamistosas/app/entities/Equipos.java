@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.annotations.GenericGenerator;
@@ -30,6 +31,9 @@ public class Equipos {
     
     @Column(columnDefinition = "boolean default true")
     private Boolean alta;
+    
+    @OneToOne
+    private Foto foto;
 
     public String getId() {
         return id;
@@ -61,6 +65,14 @@ public class Equipos {
 
     public void setAlta(boolean alta) {
         this.alta = alta;
+    }
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
     }
     
     
