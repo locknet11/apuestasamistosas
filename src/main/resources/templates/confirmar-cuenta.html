@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Confirma tu cuenta</title>
@@ -17,6 +13,7 @@ and open the template in the editor.
         <h4>Sigue los pasos para activar tu cuenta.</h4>
         <br><br>
         <h5>¿No recibiste el correo? Haz click en el boton para reenviar</h5>
+
         <form action="resendEmail" method="POST">
             <input type="hidden" name="email" th:value="${email}">
             <button>Reenviar correo</button>
