@@ -12,7 +12,6 @@
             rel="stylesheet"
             integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
             crossorigin="anonymous"/>
-
         <link rel="stylesheet" href="/css/indexstyle.css" />
         <link rel="stylesheet" href="/css/admin/style.css"/>
     </head>
@@ -68,7 +67,39 @@
             </div>
         </nav>
 
-        
+        <div class="row m-2">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+                <h2>Base de datos</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Cantidad</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Usuarios</td>
+                            <td th:if="${cantUsuarios != null}" th:text="${cantUsuarios}"></td>
+                        </tr>
+                        <tr>
+                            <td>Proveedores</td>
+                            <td th:if="${cantProveedores != null}" th:text="${cantProveedores}"></td>
+                        </tr>
+                        <tr>
+                            <td>Premios</td>
+                            <td th:if="${cantPremios != null}" th:text="${cantPremios}"></td>
+                        </tr>
+                        <tr>
+                            <td>Equipos</td>
+                            <td th:if="${cantEquipos != null}" th:text="${cantEquipos}"></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
 
     </body>
 </html>

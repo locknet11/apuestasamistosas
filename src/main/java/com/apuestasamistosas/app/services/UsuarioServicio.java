@@ -220,5 +220,11 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
+    
+    /*  Metodos de listado  */
+    
+    public long contarTodos(){
+        return usuarioRepositorio.count();
+    }
 
 }

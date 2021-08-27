@@ -4,17 +4,16 @@ package com.apuestasamistosas.app.validations;
 import com.apuestasamistosas.app.entities.Proveedores;
 import com.apuestasamistosas.app.errors.ErrorProveedores;
 import com.apuestasamistosas.app.repositories.ProveedoresRepositorio;
-import com.apuestasamistosas.app.services.ProveedoresServicio;
-import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class ProveedoresValidacion {
     
-      Logger logger = LoggerFactory.getLogger(ProveedoresServicio.class);
+      Logger logger = LoggerFactory.getLogger(ProveedoresValidacion.class);
       
       @Autowired
       private ProveedoresRepositorio proveedorRepositorio;
@@ -53,8 +52,8 @@ public class ProveedoresValidacion {
             throw new ErrorProveedores(ErrorProveedores.NO_TEL);
         } else {
             try {
-                Long num = Long.parseLong(telefono);
-                if (num > 13) {
+                Integer numLenght = telefono.length();
+                if (numLenght > 13) {
                     logger.error(ErrorProveedores.DIGIT_TEL);
                     throw new ErrorProveedores(ErrorProveedores.DIGIT_TEL);
                 }
@@ -83,8 +82,8 @@ public class ProveedoresValidacion {
             throw new ErrorProveedores(ErrorProveedores.NO_TEL);
         } else {
             try {
-                Long num = Long.parseLong(telefono);
-                if (num > 13) {
+                Integer numLength = telefono.length();
+                if (numLength > 13) {
                     logger.error(ErrorProveedores.DIGIT_TEL);
                     throw new ErrorProveedores(ErrorProveedores.DIGIT_TEL);
                 }

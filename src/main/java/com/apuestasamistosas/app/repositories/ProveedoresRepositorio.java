@@ -1,6 +1,7 @@
 package com.apuestasamistosas.app.repositories;
 
 import com.apuestasamistosas.app.entities.Proveedores;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +13,7 @@ public interface ProveedoresRepositorio extends JpaRepository<Proveedores, Strin
 
     @Query("SELECT p FROM Proveedores p WHERE p.nombre = :nombre")
     public Optional<Proveedores> findByName(@Param("nombre") String nombre);
+    
+    @Query("SELECT p.nombre FROM Proveedores p")
+    public List<String> listarNombres();
 }

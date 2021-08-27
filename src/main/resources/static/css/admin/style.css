@@ -16,3 +16,8 @@
 .error-msg{
     color: red;
 }
+
+.success-msg{
+    color: green;
+    font-weight: bold;
+}
