@@ -44,7 +44,7 @@ public class AdminController {
         model.addAttribute("cantProveedores", proveedoresServicio.contarTodos());
         model.addAttribute("cantPremios", premioServicio.contarTodos());
         model.addAttribute("cantEquipos", equiposServicio.contarTodos());
-        return "/admin/index";
+        return "admin/index";
     }
 
     @GetMapping
@@ -61,24 +61,24 @@ public class AdminController {
 
     @GetMapping("/load/teams")
     public String loadTeamsView() {
-        return "/admin/cargas/equipos";
+        return "admin/cargas/equipos";
     }
 
     @GetMapping("/load/events")
     public String loadEventsView(ModelMap model) {
         model.addAttribute("equipos", equiposServicio.listarObjetos());
-        return "/admin/cargas/eventos";
+        return "admin/cargas/eventos";
     }
 
     @GetMapping("/load/providers")
     public String loadProvidersView() {
-        return "/admin/cargas/proveedores";
+        return "admin/cargas/proveedores";
     }
 
     @GetMapping("/load/rewards")
     public String loadRewardsView(ModelMap model) {
         model.addAttribute("proveedores", proveedoresServicio.listarNombres());
-        return "/admin/cargas/premios";
+        return "admin/cargas/premios";
     }
     
     /*  Metodos POST relacionados a las cargas  */
@@ -100,7 +100,7 @@ public class AdminController {
             model.addAttribute("archivo", archivo);
         }
         
-        return "/admin/cargas/equipos";
+        return "admin/cargas/equipos";
     }
     
 //    @PostMapping("/load/events")
@@ -132,7 +132,7 @@ public class AdminController {
             model.addAttribute("telefono", telefono);
             model.addAttribute("responsable", responsable);
         }
-        return "/admin/cargas/proveedores";
+        return "admin/cargas/proveedores";
     }
 
     @PostMapping("/load/rewards")
@@ -152,9 +152,9 @@ public class AdminController {
             model.addAttribute("precio", precio);
             model.addAttribute("proveedor", proveedor);
             model.addAttribute("proveedores", proveedoresServicio.listarNombres());
-            return "/admin/cargas/premios";
+            return "admin/cargas/premios";
         }
-        return "/admin/cargas/premios";
+        return "admin/cargas/premios";
     }
     
 
