@@ -21,6 +21,7 @@ public class Eventos {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
+   
     @NotNull
     @OneToOne
     private Equipos equipoA;
@@ -72,7 +73,7 @@ public class Eventos {
     }
 
     public void setEquipoA(Equipos equipoA) {
-        this.setEquipoA(equipoA);
+        this.equipoA = equipoA;
     }
 
     public Equipos getEquipoB() {
@@ -80,15 +81,15 @@ public class Eventos {
     }
 
     public void setEquipoB(Equipos equipoB) {
-        this.setEquipoB(equipoB);
+        this.equipoB = equipoB;
     }
 
     public boolean isAlta() {
-        return getAlta();
+        return alta;
     }
 
     public void setAlta(boolean alta) {
-        this.setAlta((Boolean) alta);
+        this.alta = alta;
     }
 
     public LocalDateTime getFechaEvento() {
@@ -96,7 +97,7 @@ public class Eventos {
     }
 
     public void setFechaEvento(LocalDateTime fechaEvento) {
-        this.setFechaEvento(fechaEvento);
+        this.fechaEvento = fechaEvento;
     }
 
     public boolean isExpirado() {
@@ -104,7 +105,7 @@ public class Eventos {
     }
 
     public void setExpirado(boolean expirado) {
-        this.setExpirado(expirado);
+        this.expirado = expirado;
     }
 
     public boolean isResultado() {
@@ -130,17 +131,6 @@ public class Eventos {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    
-
-    public Boolean getAlta() {
-        return alta;
-    }
-
-    public void setAlta(Boolean alta) {
-        this.alta = alta;
-    }
-
     
     
     

@@ -5,6 +5,7 @@ import com.apuestasamistosas.app.entities.Proveedores;
 import com.apuestasamistosas.app.errors.ErrorProveedores;
 import com.apuestasamistosas.app.repositories.ProveedoresRepositorio;
 import com.apuestasamistosas.app.validations.ProveedoresValidacion;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ public class ProveedoresServicio {
     
     Logger logger = LoggerFactory.getLogger(ProveedoresServicio.class);
     
+    @Autowired
     ProveedoresValidacion pv = new ProveedoresValidacion();
     
     /*  Metodo de registro de proveedor */
@@ -113,6 +115,16 @@ public class ProveedoresServicio {
             throw new ErrorProveedores(ErrorProveedores.NO_PROV);
         }
 
+    }
+    
+    /*  Listar informacion  */
+    
+    public List<String> listarNombres(){
+        return proveedorRepositorio.listarNombres();
+    }
+    
+    public long contarTodos(){
+        return proveedorRepositorio.count();
     }
 
 

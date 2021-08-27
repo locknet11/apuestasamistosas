@@ -50,7 +50,7 @@
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="/admin/load/providers">Cargar proveedores</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Cargar premios</a></li>
+                                <li><a class="dropdown-item" href="/admin/load/rewards">Cargar premios</a></li>
                             </ul>
                         </li>
 
@@ -69,19 +69,21 @@
         <div class="m-2">
             <div class="col-md-5 col-sm-6 col-lg-4 m-auto mt-4">
                 <div class="loadForm">
-                    <form action="loadTeam" method="POST">
+                    <form action="rewards" method="POST">
                         <h2 class="mb-3 text-center">Cargar premio</h2>
+                        <p class="error-msg text-center" th:if="${error != null}" th:text="${error}"></p>
+                        <p class="success-msg text-center" th:if="${success != null}" th:text="${success}"></p>                       
                         <label class="form-label" for="nombre">Nombre</label>
-                        <input class="form-control" type="text" name="nombre" placeholder="Nombre del premio" required>
+                        <input class="form-control" type="text" name="nombre" placeholder="Nombre del premio" th:value="${nombre}" required>
                         <br>
                         <label class="form-label" for="precio">Precio</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">$</span>
-                            <input type="number" class="form-control" name="precio">
+                            <input type="number" class="form-control" name="precio" th:value="${precio}">
                         </div>
                         <br>
                         <label class="form-label" for="proveedor">Proveedor</label>
-                        <select class="form-select" name="proveedor">
+                        <select class="form-select" name="proveedor" th:value="${proveedor}">
                             <option th:each="proveedor :${proveedores}"
                                     th:text="${proveedor}">
                         </select>
