@@ -16,6 +16,34 @@ public class Transaccion {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private Double saldo;
+    private String idObject;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Double saldo) {
+        this.saldo = saldo;
+    }
+
+    public String getIdObject() {
+        return idObject;
+    }
+
+    public void setIdObject(String idObject) {
+        this.idObject = idObject;
+    }
+    
+    
+    
     
     
     
