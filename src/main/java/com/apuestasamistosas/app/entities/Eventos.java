@@ -131,6 +131,11 @@ public class Eventos {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "Eventos{" + "id=" + id + ", nombre=" + nombre + ", equipoA=" + equipoA + ", equipoB=" + equipoB + ", alta=" + alta + ", fechaEvento=" + fechaEvento + ", expirado=" + expirado + ", resultado=" + resultado + ", estado=" + estado + '}';
+    }
     
     
     

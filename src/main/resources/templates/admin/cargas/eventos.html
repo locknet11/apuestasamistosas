@@ -69,8 +69,10 @@
         <div class="m-2 mb-5">
             <div class="col-md-5 col-sm-6 col-lg-4 m-auto mt-4">
                 <div class="loadForm">
-                    <form action="loadTeam" method="POST">
+                    <form action="events" method="POST">
                         <h2 class="mb-3 text-center">Cargar evento</h2>
+                        <p class="error-msg text-center" th:if="${error != null}" th:text="${error}"></p>
+                        <p class="success-msg text-center" th:if="${success != null}" th:text="${success}"></p>
                         <label class="form-label" for="nombre">Nombre</label>
                         <input class="form-control" type="text" name="nombre" placeholder="Nombre o descripcion del evento" th:value="${nombre}">
                         <br>
@@ -79,24 +81,20 @@
                             <div class="col-sm-6 mb-2">
                                 <div class="provincia select-container">
                                     <label class="form-label">Local</label>
-                                    <select id="equipoA" name="equipoA" class="form-control form-control-select"
-                                            placeholder="Equipo A" th:value="${equipoA}" th:object="${equipos}" required>
-                                        <option th:each="equipo :${equipos}"
-                                                th:text="${equipo.nombre}">
+                                    <select  id="equipoA" name="equipoA" class="form-control form-control-select " required>
+                                        <option th:each="equipoA :${equipos}" th:text="${equipoA.nombre}" th:value="${equipoA.nombre}">
                                     </select>
 
                                 </div>
-                                
+
                             </div>
-                            
+
                             <div class="col-sm-6">
-                                
+
                                 <div class="ciudad select-container">
                                     <label class="form-label">Visitante</label>
-                                    <select id="equipoB" name="equipoB" class="form-control form-control-select"
-                                            placeholder="Equipo B" th:value="${equipoB}" required>
-                                        <option th:each="equipo :${equipos}"
-                                                th:text="${equipo}">
+                                    <select name="equipoB" th:value="${equipoB}" id="equipoB"  class="form-control form-control-select" required>
+                                        <option th:each="equipoB :${equipos}" th:text="${equipoB.nombre}" th:value="${equipoB.nombre}">
                                     </select>
                                 </div>
                             </div>
@@ -106,7 +104,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-6 mb-3">
                                 <label class="form-label">Fecha</label>
-                                <input type="date" min="2021-08-25" class="form-control" name="fechaEvento" placeholder="Fecha" th:value="${fechaEvento}" required>
+                                <input type="date" th:attr="min=${fechaMinima}" class="form-control" name="fechaEvento" placeholder="Fecha" th:value="${fechaEvento}" required>
 
                             </div>
 
