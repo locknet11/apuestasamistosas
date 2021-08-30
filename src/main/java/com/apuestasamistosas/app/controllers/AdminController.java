@@ -1,6 +1,7 @@
 package com.apuestasamistosas.app.controllers;
 
 import com.apuestasamistosas.app.errors.ErrorEquipos;
+import com.apuestasamistosas.app.errors.ErrorEventos;
 import com.apuestasamistosas.app.errors.ErrorPremio;
 import com.apuestasamistosas.app.errors.ErrorProveedores;
 import com.apuestasamistosas.app.services.EquiposServicio;
@@ -8,7 +9,10 @@ import com.apuestasamistosas.app.services.EventosServicio;
 import com.apuestasamistosas.app.services.PremioServicio;
 import com.apuestasamistosas.app.services.ProveedoresServicio;
 import com.apuestasamistosas.app.services.UsuarioServicio;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,7 +48,8 @@ public class AdminController {
         model.addAttribute("cantProveedores", proveedoresServicio.contarTodos());
         model.addAttribute("cantPremios", premioServicio.contarTodos());
         model.addAttribute("cantEquipos", equiposServicio.contarTodos());
-        return "/admin/index";
+        model.addAttribute("cantEventos", eventoServicio.contarTodos());
+        return "admin/index";
     }
 
     @GetMapping
@@ -61,24 +66,25 @@ public class AdminController {
 
     @GetMapping("/load/teams")
     public String loadTeamsView() {
-        return "/admin/cargas/equipos";
+        return "admin/cargas/equipos";
     }
 
     @GetMapping("/load/events")
     public String loadEventsView(ModelMap model) {
         model.addAttribute("equipos", equiposServicio.listarObjetos());
-        return "/admin/cargas/eventos";
+        model.addAttribute("fechaMinima", LocalDate.now().plusDays(2));
+        return "admin/cargas/eventos";
     }
 
     @GetMapping("/load/providers")
     public String loadProvidersView() {
-        return "/admin/cargas/proveedores";
+        return "admin/cargas/proveedores";
     }
 
     @GetMapping("/load/rewards")
     public String loadRewardsView(ModelMap model) {
         model.addAttribute("proveedores", proveedoresServicio.listarNombres());
-        return "/admin/cargas/premios";
+        return "admin/cargas/premios";
     }
     
     /*  Metodos POST relacionados a las cargas  */
@@ -100,13 +106,35 @@ public class AdminController {
             model.addAttribute("archivo", archivo);
         }
         
-        return "/admin/cargas/equipos";
+        return "admin/cargas/equipos";
     }
     
-//    @PostMapping("/load/events")
-//    public String loadEvents(){
-//        
-//    }
+    @PostMapping("/load/events")
+    public String loadEvents(
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "equipoA", required = false) String equipoA,
+            @RequestParam(name = "equipoB", required = false) String equipoB,
+            @RequestParam(name = "fechaEvento", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaEvento,
+            @RequestParam(name = "horaEvento", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime horaEvento,
+            ModelMap model
+    ) throws ErrorEventos{
+        try{
+            eventoServicio.registroEvento(nombre, equipoA, equipoB, fechaEvento, horaEvento);
+            model.addAttribute("success", "Se ha cargado correctamente");
+            model.addAttribute("fechaMinima", LocalDate.now().plusDays(2));
+        }catch(ErrorEventos e){
+            model.put("error", e.getMessage());
+            model.addAttribute("equipos", equiposServicio.listarObjetos());
+            model.addAttribute("nombre", nombre);
+            model.addAttribute("equipoA", equipoA);
+            model.addAttribute("equipoB", equipoB);
+            model.addAttribute("fechaEvento", fechaEvento);
+            model.addAttribute("horaEvento", horaEvento);
+            model.addAttribute("fechaMinima", LocalDate.now().plusDays(2));
+        }
+        model.addAttribute("equipos", equiposServicio.listarObjetos());
+        return "admin/cargas/eventos";
+    }
     
     @PostMapping("/load/providers")
     public String loadProviders(
@@ -132,7 +160,7 @@ public class AdminController {
             model.addAttribute("telefono", telefono);
             model.addAttribute("responsable", responsable);
         }
-        return "/admin/cargas/proveedores";
+        return "admin/cargas/proveedores";
     }
 
     @PostMapping("/load/rewards")
@@ -152,9 +180,9 @@ public class AdminController {
             model.addAttribute("precio", precio);
             model.addAttribute("proveedor", proveedor);
             model.addAttribute("proveedores", proveedoresServicio.listarNombres());
-            return "/admin/cargas/premios";
+            return "admin/cargas/premios";
         }
-        return "/admin/cargas/premios";
+        return "admin/cargas/premios";
     }
     
 
