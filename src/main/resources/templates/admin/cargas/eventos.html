@@ -81,8 +81,8 @@
                             <div class="col-sm-6 mb-2">
                                 <div class="provincia select-container">
                                     <label class="form-label">Local</label>
-                                    <select  id="equipoA" name="equipoA" class="form-control form-control-select " required>
-                                        <option th:each="equipoA :${equipos}" th:text="${equipoA.nombre}" th:value="${equipoA.nombre}">
+                                    <select id="equipoA" name="equipoA"  class="form-control form-control-select " required>
+                                        <option th:each="teamA :${equipos}" th:text="${teamA.nombre}" th:value="${equipoA}">
                                     </select>
 
                                 </div>
@@ -93,8 +93,8 @@
 
                                 <div class="ciudad select-container">
                                     <label class="form-label">Visitante</label>
-                                    <select name="equipoB" th:value="${equipoB}" id="equipoB"  class="form-control form-control-select" required>
-                                        <option th:each="equipoB :${equipos}" th:text="${equipoB.nombre}" th:value="${equipoB.nombre}">
+                                    <select name="equipoB" id="equipoB"  class="form-control form-control-select" required>
+                                        <option th:each="teamB :${equipos}" th:text="${teamB.nombre}" th:value="${equipoB}">
                                     </select>
                                 </div>
                             </div>

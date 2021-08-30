@@ -3,6 +3,8 @@ package com.apuestasamistosas.app.services;
 
 import com.apuestasamistosas.app.entities.Equipos;
 import com.apuestasamistosas.app.entities.Eventos;
+import com.apuestasamistosas.app.enums.EstadoEvento;
+import com.apuestasamistosas.app.enums.ResultadoEvento;
 import com.apuestasamistosas.app.errors.ErrorEventos;
 import com.apuestasamistosas.app.repositories.EquiposRepositorio;
 import com.apuestasamistosas.app.repositories.EventosRepositorio;
@@ -10,6 +12,7 @@ import com.apuestasamistosas.app.validations.EventosValidacion;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +54,18 @@ public class EventosServicio {
         evento.setEquipoB(b);
         evento.setExpirado(false);
         evento.setAlta(true);
-        evento.setFechaEvento(fechaCompleta); 
+        evento.setFechaEvento(fechaCompleta);
+        evento.setEstado(EstadoEvento.CONFIRMADO);
+        evento.setResultado(ResultadoEvento.INDEFINIDO);
         
+        eventosRepositorio.save(evento);
+    }
+    
+    /*  Metodo para setear en verdadera la expiracion de un evento */
+    
+    @Transactional
+    public void expirarEvento(Eventos evento) throws ErrorEventos{
+        evento.setExpirado(true);
         eventosRepositorio.save(evento);
     }
     
@@ -61,6 +74,10 @@ public class EventosServicio {
     
     public long contarTodos(){
         return eventosRepositorio.count();
+    }
+    
+    public List<Eventos> eventosOrdenadosPorFecha(){
+        return eventosRepositorio.listAllByDates();
     }
     
 }

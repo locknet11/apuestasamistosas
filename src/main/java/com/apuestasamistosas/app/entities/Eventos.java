@@ -2,9 +2,12 @@
 package com.apuestasamistosas.app.entities;
 
 import com.apuestasamistosas.app.enums.EstadoEvento;
+import com.apuestasamistosas.app.enums.ResultadoEvento;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -47,17 +50,17 @@ public class Eventos {
     @NotNull
     @Column(columnDefinition = "boolean default false")
     private boolean expirado;
-
-    /*
-        true = equipoA , false = equipoB, null = empate
-    */
     
-    private boolean resultado;
+    /*  El resultado puede ser EQUIPO_A, EQUIPO_B, EMPATE o INDEFINIDO */
+    
+    @Enumerated(EnumType.STRING)
+    private ResultadoEvento resultado;
 
     /* 
         el estado puede ser FINALIZADO, ENCURSO o SUSPENDIDO
     */ 
     
+    @Enumerated(EnumType.STRING)
     private EstadoEvento estado;
 
     public String getId() {
@@ -108,14 +111,6 @@ public class Eventos {
         this.expirado = expirado;
     }
 
-    public boolean isResultado() {
-        return resultado;
-    }
-
-    public void setResultado(boolean resultado) {
-        this.resultado = resultado;
-    }
-
     public EstadoEvento getEstado() {
         return estado;
     }
@@ -135,6 +130,14 @@ public class Eventos {
     @Override
     public String toString() {
         return "Eventos{" + "id=" + id + ", nombre=" + nombre + ", equipoA=" + equipoA + ", equipoB=" + equipoB + ", alta=" + alta + ", fechaEvento=" + fechaEvento + ", expirado=" + expirado + ", resultado=" + resultado + ", estado=" + estado + '}';
+    }
+
+    public ResultadoEvento getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(ResultadoEvento resultado) {
+        this.resultado = resultado;
     }
     
     
