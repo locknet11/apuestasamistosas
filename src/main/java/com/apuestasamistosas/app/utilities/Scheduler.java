@@ -30,7 +30,7 @@ public class Scheduler{
     /*  En esta clase se van a definir todos los metodos relacionados con la planificacion
         de tareas. Por ejemplo, el metodo supervisorEvento estara controlando cada 1 minuto
         que la fecha de los eventos no se pasen de la fecha limite para apostar, cuando esta fecha 
-        se exceda, se llamara al metodo de expirarEvento de la clase Evento.
+        se exceda, se llamara al metodo de expirarEvento de la clase EventoServicio.
     */
     
     @Scheduled(cron = "0 * * * * ?", zone = "America/Argentina/Buenos_Aires")
@@ -39,23 +39,22 @@ public class Scheduler{
         List<Eventos> thisList = eventoServicio.eventosOrdenadosPorFecha();
 
         if (thisList == null || thisList.isEmpty()) {
-            logger.error(ErrorScheduler.NULL_EVENTS);
-            throw new ErrorScheduler(ErrorScheduler.NULL_EVENTS);
-        }
-        
-        Integer plazoMaximo = 86400000;
-        ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
-        LocalDateTime hoy = LocalDateTime.now(argentina);
+            logger.warn(ErrorScheduler.NULL_EVENTS);
+        } else {
 
-        for (Eventos evento : thisList) {
-            Long distanciaEntreFechas = hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
-            if(distanciaEntreFechas <= plazoMaximo && evento.isExpirado() == false){
-                eventoServicio.expirarEvento(evento);
-                logger.info("Se expiro el evento con ID \'" + evento.getId() + "\'");
+            Integer plazoMaximo = 86400000;
+            ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
+            LocalDateTime hoy = LocalDateTime.now(argentina);
+
+            for (Eventos evento : thisList) {
+                Long distanciaEntreFechas = hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
+                if (distanciaEntreFechas <= plazoMaximo && evento.isExpirado() == false) {
+                    eventoServicio.expirarEvento(evento);
+                    logger.info("Se expiro el evento con ID \'" + evento.getId() + "\'");
+                }
             }
-        }
-        
 
+        }
     }
 
 }

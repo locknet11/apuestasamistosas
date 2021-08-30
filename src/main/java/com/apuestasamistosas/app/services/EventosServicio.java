@@ -77,7 +77,11 @@ public class EventosServicio {
     }
     
     public List<Eventos> eventosOrdenadosPorFecha(){
-        return eventosRepositorio.listAllByDates();
+        if(eventosRepositorio.listAllByDates() != null){
+            return eventosRepositorio.listAllByDates().get();
+        }else {
+            return null;
+        }   
     }
     
 }
