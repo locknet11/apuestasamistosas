@@ -69,7 +69,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setPassword(encoded_password);
         usuario.setEmail(email);
         usuario.setTelefono(telefono);
-        usuario.setCodConfirmacion(RandomGenerator.generate());
+        usuario.setCodConfirmacion(RandomGenerator.generateUUID());
         usuario.setConfirmado(false);
         usuario.setAdmin(false);
         usuario.setFoto(foto);

@@ -8,6 +8,7 @@ import com.apuestasamistosas.app.enums.ResultadoEvento;
 import com.apuestasamistosas.app.errors.ErrorEventos;
 import com.apuestasamistosas.app.repositories.EquiposRepositorio;
 import com.apuestasamistosas.app.repositories.EventosRepositorio;
+import com.apuestasamistosas.app.utilities.RandomGenerator;
 import com.apuestasamistosas.app.validations.EventosValidacion;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -66,6 +67,22 @@ public class EventosServicio {
     @Transactional
     public void expirarEvento(Eventos evento) throws ErrorEventos{
         evento.setExpirado(true);
+        eventosRepositorio.save(evento);
+    }
+    
+    /*  Metodo para setear el estado de un evento   */
+    
+    @Transactional
+    public void actualizarEstado(Eventos evento, EstadoEvento estado){
+        evento.setEstado(estado);
+        eventosRepositorio.save(evento);
+    }
+    
+    /*  Metodo para establecer el resultado de un evento  */
+    
+    @Transactional
+    public void establecerResultado(Eventos evento){
+        evento.setResultado(RandomGenerator.resultadoAleatorio());
         eventosRepositorio.save(evento);
     }
     

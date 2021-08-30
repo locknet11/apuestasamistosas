@@ -2,6 +2,7 @@
 package com.apuestasamistosas.app.utilities;
 
 import com.apuestasamistosas.app.entities.Eventos;
+import com.apuestasamistosas.app.enums.EstadoEvento;
 import com.apuestasamistosas.app.errors.ErrorEventos;
 import com.apuestasamistosas.app.errors.ErrorScheduler;
 import com.apuestasamistosas.app.services.ApuestaServicio;
@@ -27,6 +28,9 @@ public class Scheduler{
     @Autowired
     private ApuestaServicio apuestaServicio;
     
+    private final ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
+    private final LocalDateTime hoy = LocalDateTime.now(this.argentina);
+    
     /*  En esta clase se van a definir todos los metodos relacionados con la planificacion
         de tareas. Por ejemplo, el metodo supervisorEvento estara controlando cada 1 minuto
         que la fecha de los eventos no se pasen de la fecha limite para apostar, cuando esta fecha 
@@ -34,7 +38,7 @@ public class Scheduler{
     */
     
     @Scheduled(cron = "0 * * * * ?", zone = "America/Argentina/Buenos_Aires")
-    public void supervisorEvento() throws ErrorScheduler, ErrorEventos {
+    public void supervisorEvento() throws ErrorEventos {
 
         List<Eventos> thisList = eventoServicio.eventosOrdenadosPorFecha();
 
@@ -43,11 +47,9 @@ public class Scheduler{
         } else {
 
             Integer plazoMaximo = 86400000;
-            ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
-            LocalDateTime hoy = LocalDateTime.now(argentina);
-
+            
             for (Eventos evento : thisList) {
-                Long distanciaEntreFechas = hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
+                Long distanciaEntreFechas = this.hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
                 if (distanciaEntreFechas <= plazoMaximo && evento.isExpirado() == false) {
                     eventoServicio.expirarEvento(evento);
                     logger.info("Se expiro el evento con ID \'" + evento.getId() + "\'");
@@ -56,5 +58,35 @@ public class Scheduler{
 
         }
     }
+    
+    
+    /*  El metodo a continuacion cambia los estados del evento y establece un resultado aleatorio 
+        El tiempo maximo usado es de 90 minutos que es la duracion estandar de un partido de futbol.
+        Estos valores son relativos y esta implementacion es provisoria.
+    */
+    
+    @Scheduled(cron = "0 * * * * ?", zone = "America/Argentina/Buenos_Aires")
+    public void supervisorEstados() throws ErrorEventos {
+
+        List<Eventos> thisList = eventoServicio.eventosOrdenadosPorFecha();
+
+        if (thisList == null || thisList.isEmpty()) {
+            logger.warn(ErrorScheduler.NULL_EVENTS);
+        } else {
+            for (Eventos evento : thisList) {
+                if(this.hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS) <= 0){
+                    eventoServicio.actualizarEstado(evento, EstadoEvento.EN_CURSO);
+                    logger.info("Se actualizo a EN_CURSO el evento con ID \'" + evento.getId() + "\'");
+                }else if (this.hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS) <= -5400000){
+                    eventoServicio.actualizarEstado(evento, EstadoEvento.FINALIZADO);
+                    logger.info("Se actualizo a FINALIZADO el evento con ID \'" + evento.getId() + "\'");
+                    eventoServicio.establecerResultado(evento);
+                    logger.info("Resultado del evento: " + evento.getResultado());
+                }
+            }
+        }
+    }
+    
+    
 
 }
