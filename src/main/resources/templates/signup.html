@@ -67,7 +67,7 @@
         <div class="signup-box">
             <h1>¡Registrate!</h1>
             <h4>Es gratis y toma solo unos minutos</h4>
-            <form action="signup" method="POST">
+            <form action="signup" method="POST" enctype="multipart/form-data">
 
                 <p style="color: red; font-family: 'Source Sans Pro', serif; font-size: 17px;" th:if="${error != null}" th:text="${error}"></p>
 
@@ -159,7 +159,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Foto Usuario</label> <input type="file" class="form-control" name="archivo" th:value="${archivo}">
+                    <label>Foto Usuario</label> <input type="file" class="form-control" name="archivo" th:value="${archivo}" accept=".jpg,.jpeg,.png">
                 </div>
 
 
