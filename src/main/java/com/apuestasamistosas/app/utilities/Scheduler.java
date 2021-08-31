@@ -74,12 +74,17 @@ public class Scheduler{
             logger.warn(ErrorScheduler.NULL_EVENTS);
         } else {
             for (Eventos evento : thisList) {
-                if(this.hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS) <= 0){
+                Long distanciaHoraria = this.hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
+                
+                if(distanciaHoraria <= 0 && distanciaHoraria >= 60000){
                     eventoServicio.actualizarEstado(evento, EstadoEvento.EN_CURSO);
                     logger.info("Se actualizo a EN_CURSO el evento con ID \'" + evento.getId() + "\'");
-                }else if (this.hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS) <= -5400000){
+                    
+                }else if (distanciaHoraria <= -5400000 && evento.getEstado() != EstadoEvento.FINALIZADO){
+                    
                     eventoServicio.actualizarEstado(evento, EstadoEvento.FINALIZADO);
                     logger.info("Se actualizo a FINALIZADO el evento con ID \'" + evento.getId() + "\'");
+                    
                     eventoServicio.establecerResultado(evento);
                     logger.info("Resultado del evento: " + evento.getResultado());
                 }
