@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
@@ -38,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 			http.authorizeRequests()
-				.antMatchers("/css/*", "/js/*", "/images/*", "/**","/static/** /static/*/*").permitAll()
+				.antMatchers("/css/*", "/js/*", "/images/*", "/**").permitAll()
 				.and().formLogin()
 					.loginPage("/user/login")
 						.loginProcessingUrl("/user/logincheck")
