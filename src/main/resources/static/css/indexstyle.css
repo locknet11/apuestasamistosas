@@ -2,55 +2,42 @@
 
 
 body{
-
-    background-color:#e6e4e4;
-    
+ 
+  background-color:black !important;
+  
 } 
 
 #color-nav{
 
-    background-color:black!important
-    
+  background-color:black!important;
+ 
+   
 }
 
 
 .logo1{
 
-    width:65%;
-    height:65%;
-    margin-left: 20%;
-       
-} 
+  width:70%;
+  height:70%;
+  border-radius: 100%;
+     
+}
 
+.dropdown-toggle::after {
+  content: none;
+}
 
 
 .nav-item{
 
-  font-size:15px;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color:white;
-  margin-left: 20px;
+font-size:15px;
+text-decoration: none;
+text-transform: uppercase;
+letter-spacing: 0.2em;
+color:white;
+margin-left: 20px;
 } 
- 
-.sign-link{
-    
-   
-    color:white;
-    font-size: 10px;
-    text-decoration: none;
-    position: absolute; 
-    letter-spacing:  0.2em;
-    margin-left: 300px; 
-    float:left;
-    padding-top:10px;   
-}
 
-.sign-link:hover{
-
-    color:gray;
-}
 
 .log-link{
 
@@ -70,81 +57,43 @@ body{
     color:gray;
 }
 
-/* CARRUSEL */
 
-#foto{
 
-    width: auto; 
-    height: auto;
-       
-}  
+ 
 
 /* FOOTER */
 
 
-.container{
-
-    width: 100%;
-
+.container {
+  max-width: 100%;
+  box-sizing: border-box; 
+  margin:0;
+  padding:0;
+  min-height: 100hv;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
 
 }
 
 .site-footer{
+  
 
-    
-    left:0px;
-    bottom:0px;
-    height:60px;
-    width:100%; 
-    background-color:black;
-    padding:20px 0 20px;
-    font-size:15px;
-    line-height:20px;
-    color:white; 
-  }  
+  font-size:15px;
+  color:white;
+  width: 100%;
+  flex-wrap: wrap;
+  background-color: black;
+  bottom: 0;
+  height: 40px;
+
   
-  
-  .site-footer .social-icons{
-    text-align:right;
-  }
-  .site-footer .social-icons a{
-    width:20px;
-    height:20px;
-    margin-left:6px;
-    margin-right:0;
-    border-radius:100%;
-    background-color:#3d3c33;
-    
-  } 
-  .copyright-text{
-    margin:0;
-  }
-  
-  @media (max-width:991px){
-    .site-footer [class^=col-]{
-      margin-bottom:30px;
-  }
-  }
-  
-  @media (max-width:767px){
-    .site-footer{
-      padding-bottom:0;
-  }
-    .site-footer .copyright-text,.site-footer .social-icons{
-      text-align: center;
-  }
-  }
-  .social-icons{
-    padding-left:0;
-    margin-bottom:0;
-    list-style:none;
-  }
-  .social-icons li{
-    display:inline-block;
-    margin-bottom:4px;
-  } 
-  
-  
-  
-  
-    
+
+}  
+
+.copyright-text{
+  font-size: 0.6em;
+  margin:0;
+  margin-top:20px; 
+  text-align:center;
+  padding:1%;
+}

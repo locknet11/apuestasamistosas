@@ -1,91 +1,83 @@
 /* NAV BAR */
 
 
+ 
 body{
-
-    background-color:black !important;
-    
+ 
+  background-color:black !important;
+  
 } 
 
 #color-nav{
 
-    background-color:black!important;
-     
+  background-color:black!important;
+ 
+   
 }
 
 
 .logo1{
 
-    width:70%;
-    height:70%;
-    margin-left: 20%;
-    border-radius: 100%;
-       
-} 
+  width:70%;
+  height:70%;
+  border-radius: 100%;
+     
+}
 
+.dropdown-toggle::after {
+  content: none;
+}
 
 
 .nav-item{
 
-  font-size:15px;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color:white;
-  margin-left: 20px;
+font-size:15px;
+text-decoration: none;
+text-transform: uppercase;
+letter-spacing: 0.2em;
+color:white;
+margin-left: 20px;
 } 
- 
 
 .user_photo{
 
   background-color:white;
-  margin-right: 20px;
-  width:50px ;
-  height:50px;
+  height:2.5rem;
   border:solid 1.5px;
   border-color: white;
   border-radius: 100%;
-  margin-top:5px;
+
   
 }
 
+.dropdown-item{
 
-.perfil{
-
-  
-  margin-right: 40px;
-  margin-top:0px;
-  color:white;
-  font-size: 14px;
-  text-decoration: none;
-
-}
-
-.perfil:hover{
-
-  color:grey;
+  font-size: 0.5em;
 
 }
 /* TARJETAS */
 
+
 .card-deck{
 
-  margin-top:30px;
+  margin-top:15px;
 }
 
 .card{
-    margin: 5% 0%;
-  }
   
-.card-body{
-    margin: 0% 0% 0% 3%;
+    margin: 5% 1%;
+    
+  } 
+  
+/* .card-body{
+    margin: 0% 10% 0% 3%;
     padding: 6% 0%;
-}
+} */
 
 .card-img-top{
  
   height:200px;
-  width: 200 px;
+  width:200 px; 
 
 }
 
@@ -96,7 +88,7 @@ body{
 
 .card-img-top1{
 
-  height: 200px;
+  height: 200px; 
   width: 200 px;
   padding:0 70px 15px;
 
@@ -109,13 +101,6 @@ h4{
 
   input[type="submit"]{
  
-   /*  width: 275px;
-    height: 35px;
-    margin-top:20px;
-    border: none;
-    background-color:#124559;
-    color:white; 
-    font-size:15px; */
 
     width: 320px;
   height: 35px;
@@ -138,34 +123,36 @@ input[type="submit"]:hover{
 /* FOOTER */
 
 
+/* FOOTER */
+  
+  
 .container {
   max-width: 100%;
-  box-sizing: border-box;
-
+  box-sizing: border-box; 
+  margin:0;
+  padding:0;
 }
 
 .site-footer{
-  margin-top: 200px;
-
-  left:0px;
-  bottom:0px;
-  height:60px;
-  background-color:black;
-  padding:20 0 20px;
-  font-size:15px;
-  line-height:20px;
-  color:white;
-
-/* position: absolute; */
-
-width: 100%;
-
-
   
+
+  font-size:15px;
+  color:white;
+  width: 100%;
+  flex-wrap: wrap;
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  position: relative;
+
+
 }  
 
 .copyright-text{
+  font-size: 0.6em;
   margin:0;
-  margin-top:20px;
+  margin-top:20px; 
   text-align:center;
+  padding:1%;
 }
