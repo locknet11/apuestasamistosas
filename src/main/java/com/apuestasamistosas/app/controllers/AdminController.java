@@ -168,10 +168,11 @@ public class AdminController {
             @RequestParam(name = "nombre", required = false) String nombre,
             @RequestParam(name = "precio", required = false) Double precio,
             @RequestParam(name = "proveedor", required = false) String proveedor,
-            ModelMap model) throws ErrorPremio{
+            @RequestParam(name = "archivo", required = false) MultipartFile archivo,
+            ModelMap model) throws ErrorPremio, Exception{
 
         try{
-            premioServicio.registroPremio(nombre, precio, proveedor);
+            premioServicio.registroPremio(nombre, precio, proveedor, archivo);
             model.addAttribute("success", "Se ha cargado correctamente");
             model.addAttribute("proveedores", proveedoresServicio.listarNombres());
         }catch(ErrorPremio e){

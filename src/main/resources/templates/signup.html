@@ -15,44 +15,43 @@
 
 
 
+
     </head>
 
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="color-nav">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="color-nav">
             <div class="container-fluid">
-
-                <a href="/"><img class="logo1" src="/images/logo1.png" alt=""></a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
-
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/">Inicio</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Eventos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Premios</a>
-                        </li>
-                    </ul>
+        
+              <a href="#"><img class="logo1" src="/images/logo1.png" alt=""></a>
+        
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Inicio</a>
+                  </li>
+        
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Eventos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a>
+                  </li>
+        
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Premios</a>
+                  </li>
+                </ul>
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/login" tabindex="-1" aria-disabled="false"
-                               >Log In</a
+                            <a class="nav-link log-in" href="/user/login" tabindex="-1" aria-disabled="false"
+                               >Iniciar Sesión</a
                             >
                         </li>
                     </ul>
@@ -91,7 +90,7 @@
                     <div class="col">
                         <div class="provincia select-container">
                             <label>Provincia</label>
-                            <select id="provincia" name="provincia" class="form-control form-control-select" data-testid="shipping_country"
+                            <select id="provincia" name="provincia" class="form-control form-control-select text-white bg-black" data-testid="shipping_country"
                                     placeholder="Provincia" th:value="${provincia}">
                                 <option value="MDZ">Mendoza</option>
                                 <option value="SL">San Luis</option>
@@ -107,7 +106,7 @@
                     <div class="col">
                         <div class="ciudad select-container">
                             <label>Ciudad</label>
-                            <select id="ciudad" name="ciudad" class="form-control form-control-select" data-testid="shipping_country"
+                            <select id="ciudad" name="ciudad" class="form-control form-control-select text-white bg-black" data-testid="shipping_country"
                                     placeholder="Ciudad" th:value="${ciudad}">
                                 <option value="LUJ">Luján de Cuyo</option>
                                 <option value="MA">Maipú</option>
@@ -142,7 +141,7 @@
                     </div>
                     <div class="col-md-4">
                         <label>Teléfono</label>
-                        <input type="number" name="telefono" placeholder="Teléfono" th:value="${telefono}">
+                        <input type="tel" name="telefono" placeholder="Teléfono" th:value="${telefono}">
                     </div>
                 </div>
 
@@ -157,8 +156,8 @@
                         <input type="password" name="passwordConfirmation" placeholder="Repite la contraseña" th:value="${passwordConfirmation}">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Foto Usuario</label> <input type="file" class="form-control" name="archivo" th:value="${archivo}" accept=".jpg,.jpeg,.png">
+                <div class="form-group"> 
+                    <label>Foto Usuario</label> <input type="file" class="form-control text-white bg-black" name="archivo" th:value="${archivo}" accept=".jpg,.jpeg,.png">
                 </div>
 
 
@@ -170,6 +169,11 @@
 
             <p class="para-1">Ya estas registrado? <a href="login">Clickea Aquí</a></p>
         </div>
+
+
+
+
+
 
 
         <!--  INICIO FOOTER -->

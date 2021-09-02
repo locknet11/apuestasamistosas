@@ -17,7 +17,7 @@ body{
 .logo1{
 
     width:65%;
-    height:65%;
+    height:auto;
     margin-left: 20%;
        
 } 
@@ -32,7 +32,19 @@ body{
   letter-spacing: 0.2em;
   color:white;
   margin-left: 20px;
-} 
+}
+
+.user-photo{
+
+  background-color:white;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
+
  
 .sign-link{
     

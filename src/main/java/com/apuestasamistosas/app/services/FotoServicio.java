@@ -14,7 +14,7 @@ public class FotoServicio {
     private FotoRepositorio fotoRepositorio;
 
     public Foto guardar(MultipartFile archivo) throws Exception {
-        if (archivo != null) {
+        if (archivo.getSize() != 0) {
             try {
                 Foto foto = new Foto();
                 foto.setMime(archivo.getContentType());
@@ -23,12 +23,13 @@ public class FotoServicio {
                 return fotoRepositorio.save(foto);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                
+                return null;
             }
 
+        }else{
+            return null;
         }
-        return null;
-
+        
     }
     
     public Foto actualizar (String idfoto,MultipartFile archivo) throws Exception {

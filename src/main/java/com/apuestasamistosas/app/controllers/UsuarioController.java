@@ -149,7 +149,15 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @GetMapping("/dashboard")
     public String dashboard(){
-        return "dashboard";
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
+        if((auth instanceof AnonymousAuthenticationToken)){
+            return "redirect:/user/login";
+        }else{
+            return "dashboard";
+        }
+        
     }
     
     

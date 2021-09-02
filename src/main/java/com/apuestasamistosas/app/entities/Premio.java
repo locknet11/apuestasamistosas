@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -33,6 +34,10 @@ public class Premio {
   
     @ManyToOne
     private Proveedores proveedor;
+    
+    @OneToOne
+    private Foto foto;
+    
 
     public String getId() {
         return id;
@@ -80,6 +85,14 @@ public class Premio {
 
     public void setProveedor(Proveedores proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
     }
     
     
