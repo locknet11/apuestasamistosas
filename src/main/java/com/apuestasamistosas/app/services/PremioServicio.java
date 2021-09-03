@@ -117,7 +117,7 @@ public class PremioServicio {
         return premioRepositorio.findAll();
     }
     
-    public Optional<Premio> listarPorId(String id){
+    public Optional<Premio> buscarPorId(String id){
         return premioRepositorio.findById(id);
     }
 

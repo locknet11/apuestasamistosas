@@ -13,6 +13,7 @@ import com.apuestasamistosas.app.validations.EventosValidacion;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -94,10 +95,12 @@ public class EventosServicio {
     }
     
     public List<Eventos> eventosOrdenadosPorFecha(){
-        if(eventosRepositorio.listAllByDates() != null){
+    	Optional<List<Eventos>> thisList = eventosRepositorio.listAllByDates();
+    	
+        if(thisList.isPresent()){
             return eventosRepositorio.listAllByDates().get();
         }else {
-            return null;
+            return Collections.emptyList();
         }   
     }
     

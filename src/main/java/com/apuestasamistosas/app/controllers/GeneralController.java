@@ -1,11 +1,8 @@
 
 package com.apuestasamistosas.app.controllers;
 
-import com.apuestasamistosas.app.entities.Premio;
 import com.apuestasamistosas.app.services.PremioServicio;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +33,6 @@ public class GeneralController {
         }
         return "premios";
     }
-
 
 }
 

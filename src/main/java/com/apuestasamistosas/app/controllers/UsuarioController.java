@@ -81,6 +81,9 @@ public class UsuarioController {
             @RequestParam(name = "archivo", required = false) MultipartFile archivo,
             ModelMap model) throws MessagingException, ErrorUsuario, Exception {
         try {
+            if(archivo.getSize() >= 5000000){
+                throw new ErrorUsuario(ErrorUsuario.MAX_SIZE);
+            }
             usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
                     ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono, archivo);
 

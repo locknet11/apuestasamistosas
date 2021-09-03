@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
  
  
 body{
  background-color: black !important;
- background-image:url(../images/ladrillo6);
- font-family: 'roboto', sans-serif;
+ background:url(../images/ladrillo6) no-repeat center center fixed;
+ font-family: 'Roboto Condensed', sans-serif;
 } 
 
 #color-nav{
@@ -19,8 +19,8 @@ body{
 
 .logo1{
 
-  width:70%;
-  height:70%;
+  width:65%;
+  height:65%;
   border-radius: 100%;
      
 }
@@ -65,19 +65,18 @@ margin-left: 20px;
     height: auto;
     margin: auto;
     margin-top: 2%;
-    background-color:black;
+    background-color:rgba(0, 0, 0, 0.60);
     border-radius:8px;
     border:1px solid;
-    border-color: white;
-    box-shadow: 10px 10px 10px #016bd7;
+    border-color: #4278D8;
+    box-shadow: 0rem 0rem 0.8rem #4278D8;;
 
 }
 
 
 h1 {
 
-  font-style: 'roboto', sans-serif;
-  font-size: 24px;
+  font-size: 2.5rem;
   color: white;
   text-align: center;
   padding-top: 15px;
@@ -88,7 +87,6 @@ h1 {
 
 h4 {
 
-  font-style: 'roboto', sans-serif;
   text-align: center;
   color: white;
   padding: 5px;
@@ -123,7 +121,7 @@ form input {
   
   outline: none;
   color:white;
-  background-color:black;
+  background-color:rgba(0, 0, 0, 0.30);
 }
 
 
@@ -159,7 +157,8 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
 
-  color: grey;
+  color: black;
+  font-weight: bold;
 }
 
 
@@ -176,7 +175,7 @@ p {
 
   text-align: center;
   color: white;
-  font-size: 12px;
+  font-size: 1rem;
   margin-top: -10px;
 
 }
@@ -193,40 +192,4 @@ p {
 
   color: grey;
 
-}
-
-/* FOOTER */
-
-.container {
-  max-width: 100%;
-  box-sizing: border-box; 
-  margin:0;
-  padding:0;
-  min-height: 100hv;
-  display:grid;
-  grid-template-rows:auto 1fr auto;
-
-}
-
-.site-footer{
-  
-
-  font-size:15px;
-  color:white;
-  width: 100%;
-  flex-wrap: wrap;
-  background-color: black;
-  bottom: 0;
-  height: 40px;
-
-  
-
-}  
-
-.copyright-text{
-  font-size: 0.6em;
-  margin:0;
-  margin-top:20px; 
-  text-align:center;
-  padding:1%;
 }

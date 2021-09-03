@@ -10,5 +10,6 @@ public class ErrorEquipos extends Exception {
     public static final String NULL_SPORT = "El deporte no puede estar vacío o ser nulo";
     public static final String NULL_EQP = "El nombre del equipo no puede estar vacío";
     public static final String NULL_FOTO = "Debe seleccionar un escudo o bandera";
+    public static final String NO_EXISTS = "Este equipo no existe.";
 
 }

@@ -7,6 +7,8 @@ import com.apuestasamistosas.app.errors.ErrorEquipos;
 import com.apuestasamistosas.app.repositories.EquiposRepositorio;
 import com.apuestasamistosas.app.validations.EquiposValidacion;
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,10 @@ public class EquiposServicio {
     
     public List<String> listarNombres(){
         return equipoRepositorio.listarNombresEquipos();
+    }
+    
+    public Optional<Equipos> buscarPorId(String id){
+    	return equipoRepositorio.findById(id);
     }
     
 }

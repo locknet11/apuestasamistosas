@@ -1,9 +1,12 @@
 
 package com.apuestasamistosas.app.controllers;
 
+import com.apuestasamistosas.app.entities.Equipos;
 import com.apuestasamistosas.app.entities.Premio;
 import com.apuestasamistosas.app.entities.Usuario;
+import com.apuestasamistosas.app.errors.ErrorEquipos;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
+import com.apuestasamistosas.app.services.EquiposServicio;
 import com.apuestasamistosas.app.services.PremioServicio;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.util.Optional;
@@ -28,11 +31,14 @@ public class FotoController {
     @Autowired
     private UsuarioServicio usuarioServicio;
     
+    @Autowired
+    private EquiposServicio equipoServicio;
+    
     /*  SECCION PREMIOS  */
 
     @GetMapping("/rewards")
     public ResponseEntity<byte[]> rewardPhoto(@RequestParam String id) {
-        Optional<Premio> premio = premioServicio.listarPorId(id);
+        Optional<Premio> premio = premioServicio.buscarPorId(id);
         try {
             byte[] fotoPremio = premio.get().getFoto().getContenido();   
             HttpHeaders headers = new HttpHeaders();
@@ -66,4 +72,33 @@ public class FotoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
+    
+    /* SECCION EQUIPOS	*/
+    
+    @GetMapping("/teams")
+    public ResponseEntity<byte[]> teamPhoto(@RequestParam String id) throws ErrorEquipos{
+    	Optional<Equipos> equipo = equipoServicio.buscarPorId(id);
+    	
+    	try {
+    		if(!equipo.isPresent()) {
+    			throw new ErrorEquipos(ErrorEquipos.NO_EXISTS);
+    		}
+    		byte[] fotoEquipo = equipo.get().getFoto().getContenido();
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.setContentType(MediaType.IMAGE_JPEG);
+    		return new ResponseEntity<>(fotoEquipo, headers, HttpStatus.OK);
+    	}catch(ErrorEquipos e) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
