@@ -7,9 +7,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Table(name = "fotos")
 public class Foto {
 
     @Id

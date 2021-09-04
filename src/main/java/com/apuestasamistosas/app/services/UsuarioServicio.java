@@ -72,7 +72,10 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setCodConfirmacion(RandomGenerator.generateUUID());
         usuario.setConfirmado(false);
         usuario.setAdmin(false);
-        usuario.setFoto(foto);
+        if(foto != null){
+            usuario.setFoto(foto);
+        }
+        
 
         usuarioRepositorio.save(usuario);
 
@@ -227,4 +230,7 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.count();
     }
 
+    public Optional<Usuario> buscarPorId(String id){
+        return usuarioRepositorio.findById(id);
+    }
 }

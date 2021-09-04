@@ -14,6 +14,8 @@
             crossorigin="anonymous"/>
         <link rel="stylesheet" href="/css/indexstyle.css" />
         <link rel="stylesheet" href="/css/admin/style.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     </head>
 
     <body>
@@ -58,19 +60,56 @@
                         </li>
 
                     </ul>
-                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/user/logout" tabindex="-1" aria-disabled="false">Logout</a>
-                        </li>
-                    </ul>
+                    <div th:unless="${session.sesionUsuario != null}">
+                        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/user/login" tabindex="-1" aria-disabled="false"
+                                   >Log In</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/user/signup" tabindex="-1" aria-disabled="false"
+                                   >Sign Up</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div th:if="${session.sesionUsuario != null}">
+                        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                            <div th:unless="${session.sesionUsuario.foto != null}">
+                                <li class="nav-item">
+                                    <img class="rounded-circle user-photo" src="/images/usuario.png" th:alt="${session.sesionUsuario.nombre}">
+                                </li>
+                            </div>
+                            <div th:if="${session.sesionUsuario.foto != null}">
+                                <li class="nav-item">
+                                    <img class="rounded-circle user-photo" th:src="${'/photos/users/?id=' + session.sesionUsuario.id}" th:alt="${session.sesionUsuario.nombre}">
+                                </li>
+                            </div>
+                            <li class="nav-item dropdown mt-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+                                    aria-labelledby="navbarDropdownMenuLink" role="menu">
+                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                    <li><a class="dropdown-item" href="/user/logout">Cerrar Sesión</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
 
-        <div class="row m-2">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+        <div class="row m-2 text-white">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3 ">
                 <h2>Base de datos</h2>
-                <table class="table table-striped">
+                <table class="table text-white">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

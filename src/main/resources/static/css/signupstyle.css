@@ -1,18 +1,19 @@
-
-/* NAV BAR */
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
-
+ 
+ 
 body{
-
-    background-color:black !important;
-    
-}  
+ background-color: black !important;
+ background:url(../images/ladrillo6) no-repeat center center fixed;
+ font-family: 'Roboto Condensed', sans-serif;
+} 
 
 #color-nav{
 
   background-color:black!important;
-  
+ 
+   
 }
 
 
@@ -20,10 +21,13 @@ body{
 
   width:65%;
   height:65%;
-  margin-left: 20%;
+  border-radius: 100%;
      
-} 
+}
 
+.dropdown-toggle::after {
+  content: none;
+}
 
 
 .nav-item{
@@ -36,14 +40,6 @@ color:white;
 margin-left: 20px;
 } 
 
-
-
-
-body {
-
-  background-color: #e6e4e4;
-  font-family: 'roboto', sans-serif;
-}
 
 @media(max-width: 600px){
     .signup-box{
@@ -66,22 +62,21 @@ body {
 .signup-box {
 
 
-  height: auto;
-  margin: auto;
-  background-color: black;
-  border-radius: 3px;
-  margin-top:50px;
-  border:1px solid;
-  border-color: white;
-  box-shadow: 0px 0px 10px red;
+    height: auto;
+    margin: auto;
+    margin-top: 2%;
+    background-color:rgba(0, 0, 0, 0.60);
+    border-radius:8px;
+    border:1px solid;
+    border-color: #4278D8;
+    box-shadow: 0rem 0rem 0.8rem #4278D8;;
 
 }
 
 
 h1 {
 
-  font-style: 'roboto', sans-serif;
-  font-size: 24px;
+  font-size: 2.5rem;
   color: white;
   text-align: center;
   padding-top: 15px;
@@ -92,7 +87,6 @@ h1 {
 
 h4 {
 
-  font-style: 'roboto', sans-serif;
   text-align: center;
   color: white;
   padding: 5px;
@@ -103,6 +97,11 @@ form {
   width: 90%;
   margin: 0 auto;
 
+}
+
+select::placeholder{
+
+  color:grey
 }
 
 form label {
@@ -117,12 +116,15 @@ form input {
 
   width: 100%;
   padding: 7px;
-  border: none;
-  border: 1px solid white;
-  border-radius: 6px;
+  border:none;
+  border-bottom:1px solid #fff;
+  
   outline: none;
-
+  color:white;
+  background-color:rgba(0, 0, 0, 0.30);
 }
+
+
 
 #provincia,
 #ciudad {
@@ -134,8 +136,11 @@ form input {
   border-radius: 6px;
   outline: none;
 
-}
+} 
 
+.log-in{
+    font-size: 0.8rem;
+}
 
 
 input[type="submit"] {
@@ -152,7 +157,8 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
 
-  color: grey;
+  color: black;
+  font-weight: bold;
 }
 
 
@@ -169,7 +175,7 @@ p {
 
   text-align: center;
   color: white;
-  font-size: 12px;
+  font-size: 1rem;
   margin-top: -10px;
 
 }
@@ -187,87 +193,3 @@ p {
   color: grey;
 
 }
-
-/* FOOTER */
-/*
-
-.container {
-
-  width: 100%;
-
-
-}*/
-
-.site-footer {
-
-  /*   
-    left:0px;
-    bottom:0px;
-    height:60px;
-    width:100%; 
-    background-color:black;
-    padding:20px 0 20px;
-    font-size:15px;
-    line-height:20px;
-    color:white;  */
-
-  margin-top: 50px;
-  left: 0px;
-  bottom: 0px;
-  height: 60px;
-  background-color: black;
-  padding: 20 0 20px;
-  font-size: 15px;
- /*  line-height: 20px; */
-  color: white;
-  position: relative;
-  width: 100%;
-}
-
-
-.site-footer .social-icons {
-  text-align: right;
-}
-
-.site-footer .social-icons a {
-  width: 20px;
-  height: 20px;
-  margin-left: 6px;
-  margin-right: 0;
-  border-radius: 100%;
-  background-color: #3d3c33;
-
-}
-
-.copyright-text {
-  margin: 0;
-  text-align: center;
-}
-
-@media (max-width:991px) {
-  .site-footer [class^=col-] {
-    margin-bottom: 30px;
-  }
-}
-
-@media (max-width:767px) {
-  .site-footer {
-    padding-bottom: 0;
-  }
-
-  .site-footer .copyright-text {
-
-    text-align: center;
-  }
-}
-
-/* .social-icons {
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-}
-
-.social-icons li {
-  display: inline-block;
-  margin-bottom: 4px;
-} */

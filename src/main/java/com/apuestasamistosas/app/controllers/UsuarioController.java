@@ -81,6 +81,9 @@ public class UsuarioController {
             @RequestParam(name = "archivo", required = false) MultipartFile archivo,
             ModelMap model) throws MessagingException, ErrorUsuario, Exception {
         try {
+            if(archivo.getSize() >= 5000000){
+                throw new ErrorUsuario(ErrorUsuario.MAX_SIZE);
+            }
             usuarioServicio.registroUsuario(nombre, apellido, fechaNacimiento, provincia, localidad,
                     ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono, archivo);
 
@@ -149,7 +152,15 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @GetMapping("/dashboard")
     public String dashboard(){
-        return "dashboard";
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
+        if((auth instanceof AnonymousAuthenticationToken)){
+            return "redirect:/user/login";
+        }else{
+            return "dashboard";
+        }
+        
     }
     
     

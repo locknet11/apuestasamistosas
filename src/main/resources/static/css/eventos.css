@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syncopate&display=swap');
+
+@media only screen and (max-width: 600px) {
+	.page-w {
+		width: 95%;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.page-w {
+		width: 95%;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.page-w {
+		width: 65%;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.page-w {
+		width: 50%;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.page-w {
+		width: 50%;
+	}
+}
+
+body{
+ background-color: black !important;
+ background:url(../images/ladrillo6) no-repeat center center fixed;
+ font-family: 'Roboto Condensed', sans-serif;
+}
+
+.title{
+    font-size: 2.5rem;
+    font-family: 'Syncopate', sans-serif;
+}
+
+.img-size{
+    width: 4rem;
+    height: 5rem;;
+}
+
+.user-photo{
+
+  background-color:white;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}

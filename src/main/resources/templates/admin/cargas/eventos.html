@@ -15,6 +15,8 @@
 
         <link rel="stylesheet" href="/css/indexstyle.css" />
         <link rel="stylesheet" href="/css/admin/style.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     </head>
 
     <body>
@@ -43,7 +45,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Carga de datos
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/admin/load/teams">Cargar equipos</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="/admin/load/events">Cargar eventos</a></li>
@@ -56,11 +58,48 @@
 
 
                     </ul>
-                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/user/logout" tabindex="-1" aria-disabled="false">Logout</a>
-                        </li>
-                    </ul>
+                    <div th:unless="${session.sesionUsuario != null}">
+                        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/user/login" tabindex="-1" aria-disabled="false"
+                                   >Log In</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/user/signup" tabindex="-1" aria-disabled="false"
+                                   >Sign Up</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div th:if="${session.sesionUsuario != null}">
+                        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                            <div th:unless="${session.sesionUsuario.foto != null}">
+                                <li class="nav-item">
+                                    <img class="rounded-circle user-photo" src="/images/usuario.png" th:alt="${session.sesionUsuario.nombre}">
+                                </li>
+                            </div>
+                            <div th:if="${session.sesionUsuario.foto != null}">
+                                <li class="nav-item">
+                                    <img class="rounded-circle user-photo" th:src="${'/photos/users/?id=' + session.sesionUsuario.id}" th:alt="${session.sesionUsuario.nombre}">
+                                </li>
+                            </div>
+                            <li class="nav-item dropdown mt-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+                                    aria-labelledby="navbarDropdownMenuLink" role="menu">
+                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                    <li><a class="dropdown-item" href="/user/logout">Cerrar Sesión</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -74,7 +113,7 @@
                         <p class="error-msg text-center" th:if="${error != null}" th:text="${error}"></p>
                         <p class="success-msg text-center" th:if="${success != null}" th:text="${success}"></p>
                         <label class="form-label" for="nombre">Nombre</label>
-                        <input class="form-control" type="text" name="nombre" placeholder="Nombre o descripcion del evento" th:value="${nombre}">
+                        <input class="form-control" type="text" name="nombre" placeholder="Nombre o descripcion del evento" th:value="${nombre}" autofocus>
                         <br>
                         <div class="row">
 
