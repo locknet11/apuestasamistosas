@@ -97,7 +97,7 @@ public class UsuarioServicio implements UserDetailsService {
     public void modificarUsuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
             String password, String passwordConfirmation, String telefono, MultipartFile archivo) throws ErrorUsuario, Exception {
-
+       
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
 
         uv.validarDatosModificar(nombre, apellido, password, passwordConfirmation, telefono, fechaNacimiento);

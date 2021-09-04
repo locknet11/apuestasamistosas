@@ -87,7 +87,7 @@ public class Usuario {
     }
 
     public void setAlta(boolean alta) {
-        this.alta = alta;
+        this.setAlta((Boolean) alta);
     }
 
     public String getNombre() {
@@ -95,7 +95,7 @@ public class Usuario {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.setNombre(nombre);
     }
 
     public String getApellido() {
@@ -103,7 +103,7 @@ public class Usuario {
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido;
+        this.setApellido(apellido);
     }
 
     public LocalDate getFechaNacimiento() {
@@ -111,7 +111,7 @@ public class Usuario {
     }
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+        this.setFechaNacimiento(fechaNacimiento);
     }
 
     public String getPassword() {
@@ -119,7 +119,7 @@ public class Usuario {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.setPassword(password);
     }
 
     public String getEmail() {
@@ -127,7 +127,7 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.setEmail(email);
     }
 
     public String getTelefono() {
@@ -135,7 +135,7 @@ public class Usuario {
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        this.setTelefono(telefono);
     }
 
     public Integer getGanados() {
@@ -226,4 +226,11 @@ public class Usuario {
         this.foto = foto;
     }
 
+    public void setAlta(Boolean alta) {
+        this.alta = alta;
+    }
+
+    
+
+    
 }
