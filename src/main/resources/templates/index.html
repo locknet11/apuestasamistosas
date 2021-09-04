@@ -84,9 +84,13 @@
                                 </li>
                             </div>
                             <div th:if="${session.sesionUsuario.foto != null}">
-                                <li class="nav-item">
-                                    <img class="rounded-circle user-photo" th:src="${'/photos/users/?id=' + session.sesionUsuario.id}" th:alt="${session.sesionUsuario.nombre}">
-                                </li>
+                                
+							<a href="/user/dashboard" title="Dashboard">
+							<li class="nav-item"><img class="rounded-circle user-photo"
+								th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
+								th:alt="${session.sesionUsuario.nombre}"						
+							></li>
+							</a>
                             </div>
                             <li class="nav-item dropdown mt-1">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"

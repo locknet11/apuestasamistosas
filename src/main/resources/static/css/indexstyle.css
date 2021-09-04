@@ -1,11 +1,13 @@
 /* NAV BAR */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syncopate&display=swap');
 
 
 body{
-
-    background-color:black;
-    
-} 
+ background-color: black !important;
+ background:url(../images/ladrillo6) no-repeat center center fixed;
+ font-family: 'Roboto Condensed', sans-serif;
+}
 
 #color-nav{
 
