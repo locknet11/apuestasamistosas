@@ -41,7 +41,7 @@ and open the template in the editor.
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Eventos</a>
+                            <a class="nav-link" href="/events" tabindex="-1" aria-disabled="false">Eventos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a>
@@ -70,7 +70,7 @@ and open the template in the editor.
 
                     <h1>Confirma tu cuenta</h1>
                     <h3>Hemos enviado un e-mail a:</h3>
-                    <h4 style="color: green;" th:if="${email != null}" th:text="${email}"></h4>
+                    <h4 class="text-warning" th:if="${email != null}" th:text="${email}"></h4>
                     <br>
                     <h3>Sigue los pasos para activar tu cuenta.</h3>
                     <br>

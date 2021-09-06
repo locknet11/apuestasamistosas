@@ -88,8 +88,6 @@ public class UsuarioController {
                     ciudad, calle, codigoPostal, password, passwordConfirmation, email, telefono, archivo);
 
         } catch (ErrorUsuario e) {
-            System.out.println(e);
-
             model.addAttribute("error", e.getMessage());
             model.put("nombre", nombre);
             model.put("apellido", apellido);
@@ -142,9 +140,8 @@ public class UsuarioController {
             usuarioServicio.confirmarCuenta(codConfirmacion);
             return "cuenta-confirmada";
         }catch(ErrorUsuario e){
-            
+        	return "redirect:/error";
         }
-        return "redirect:/error";
     }
     
     /*  Metodo que autoriza unicamente a los usuarios registrados y logueados a acceder al dashboard */
@@ -175,6 +172,13 @@ public class UsuarioController {
         }
         model.addAttribute("email", email);
         return "confirmar-cuenta";
+    }
+    
+    /* PERFIL USUARIO */
+    
+    @GetMapping("/edit-profile")
+    public String profile() {
+    	return "editar-perfil";
     }
 
 }

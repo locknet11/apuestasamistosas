@@ -55,7 +55,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="rewards" tabindex="-1" aria-disabled="false"
+                            <a class="nav-link" href="/rewards" tabindex="-1" aria-disabled="false"
                                >Premios</a
                             >
                         </li>
@@ -100,7 +100,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                                     aria-labelledby="navbarDropdownMenuLink" role="menu">
-                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                    <li><a class="dropdown-item" href="/user/profile">Perfil</a></li>
                                     <li><a class="dropdown-item" href="/user/logout">Cerrar Sesión</a></li>
 									<div th:if="${session.sesionUsuario.admin == true}">
 									<li><a class="dropdown-item" href="/admin/panel">Admin Panel</a></li>

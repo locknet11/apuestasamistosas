@@ -1,45 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
-
- 
- 
-body{
- background-color: black !important;
- background:url(../images/ladrillo6) no-repeat center center fixed;
- font-family: 'Roboto Condensed', sans-serif;
-} 
-
-#color-nav{
-
-  background-color:black!important;
- 
-   
-}
-
-
-.logo1{
-
-  width:65%;
-  height:65%;
-  border-radius: 100%;
-     
-}
 
 .dropdown-toggle::after {
   content: none;
 }
-
-
-.nav-item{
-
-font-size:15px;
-text-decoration: none;
-text-transform: uppercase;
-letter-spacing: 0.2em;
-color:white;
-margin-left: 20px;
-} 
-
 
 @media(max-width: 600px){
     .signup-box{
@@ -65,11 +27,11 @@ margin-left: 20px;
     height: auto;
     margin: auto;
     margin-top: 2%;
-    background-color:rgba(0, 0, 0, 0.60);
+    background-color:#272A31;
     border-radius:8px;
     border:1px solid;
-    border-color: #4278D8;
-    box-shadow: 0rem 0rem 0.8rem #4278D8;;
+    border-color: #63A621;
+    box-shadow: 0rem 0rem 0.8rem #63A621;;
 
 }
 
@@ -121,7 +83,7 @@ form input {
   
   outline: none;
   color:white;
-  background-color:rgba(0, 0, 0, 0.30);
+  background-color:#272A31;
 }
 
 
@@ -149,15 +111,15 @@ input[type="submit"] {
 
   margin-top: 20px;
   border: none;
-  background-color: #124559;
-  color: white;
+  background-color: #63A621;
+  color: black;
   font-size: 18px;
 
 }
 
 input[type="submit"]:hover {
 
-  color: black;
+  color: white;
   font-weight: bold;
 }
 
@@ -176,7 +138,6 @@ p {
   text-align: center;
   color: white;
   font-size: 1rem;
-  margin-top: -10px;
 
 }
 
