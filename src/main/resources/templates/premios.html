@@ -1,685 +1,170 @@
-<!doctype html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="/images/logo1.png" />
+<title>Premios</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="../static/images/logo1.png">
-  <title>Premios</title>
-
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <link rel="stylesheet" href="../static/css/premios.css">
-
-
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous"
+/>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+	crossorigin="anonymous"
+></script>
+<link rel="stylesheet" href="/css/indexstyle.css" />
+<link rel="stylesheet" href="/css/premios.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+>
 </head>
-
 <body>
-
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="color-nav">
-    <div class="container-fluid">
-
-      <a href="#"><img class="logo1" src="../static/images/logo1.png" alt=""></a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Inicio</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Eventos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Premios</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-          <img class="user_photo" src="../static/images/usuario.png" alt="User">
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa fa-bars" aria-hidden="true"></i>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink"
-              role="menu">
-              <li><a class="dropdown-item" href="#">Perfil</a></li>
-              <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
-
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-    </ul>
-    </div>
-    </div>
-  </nav>
-  </nav>
-
-
-  <!-- PREMIOS -->
-
-  <div class="container1">
-
-    <!-- Card deck -->
-    <div class="card-deck row">
-
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/picada1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Juan Carlos Picadas</h4>
-            <!--Text-->
-            <p class="card-text">Picada para dos personas</p>
-            <h4>$1500</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/lomo1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Barloa</h4>
-            <!--Text-->
-            <p class="card-text">Lomo Completo</p>
-            <h4>$1000</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/hamb1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">La Hamburguesería</h4>
-            <!--Text-->
-            <p class="card-text">Hamburguesa doble con papas fritas</p>
-            <h4>$1000</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/pizza1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Capri Pizzas</h4>
-            <!--Text-->
-            <p class="card-text">Pizza Muzzarella</p>
-            <h4>$900</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/napo1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Rotiseria Pochola</h4>
-            <!--Text-->
-            <p class="card-text">Milanesa a la Napolitana c/ papas fritas</p>
-            <h4>$800</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/pastas1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Montecatini</h4>
-            <!--Text-->
-            <p class="card-text">Pastas a elección</p>
-            <h4>$800</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/vino1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Go Bar</h4>
-            <!--Text-->
-            <p class="card-text">Vino Catena Zapata Malbec</p>
-            <h4>$1800</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/gin1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drink</h4>
-            <!--Text-->
-            <p class="card-text">Gin Los Apóstoles 750ml + tónica</p>
-            <h4>$1450</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/campari1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Go Bar</h4>
-            <!--Text-->
-            <p class="card-text">Campari 750 ml + 2 jugos de Naranja</p>
-            <h4>$1020</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/smirnoff1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drink</h4>
-            <!--Text-->
-            <p class="card-text">Smirnoff 750ml y 5 speeds</p>
-            <h4>$920</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images/premios/fernet1" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Go Bar</h4>
-            <!--Text-->
-            <p class="card-text">Fernet Branca 770cc + Coca Cola 2 lts</p>
-            <h4>$750</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-
-
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top1" src="../static/images/premios/cerveza1.png" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drink</h4>
-            <!--Text-->
-            <p class="card-text">Pack x6 cerveza Quilmes</p>
-            <h4>$450</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top1" src="../static/images//premios/tabaco1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drugstore La Pandilla</h4>
-            <!--Text-->
-            <p class="card-text">Tabaco Las Hojas x 30gr</p>
-            <h4>$300</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top1" src="../static/images//premios/marlboro1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drugstore La Pandilla</h4>
-            <!--Text-->
-            <p class="card-text">Marlboro box 20</p>
-            <h4>$260</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top1" src="../static/images//premios/Philip-Morris-Caps.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drugstore La Pandilla</h4>
-            <!--Text-->
-            <p class="card-text">Phillip Morris box convertibles</p>
-            <h4>$240</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top1" src="../static/images//premios/lucky1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drugstore La Pandilla</h4>
-            <!--Text-->
-            <p class="card-text">Lucky Strike box 20</p>
-            <h4>$230</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top" src="../static/images//premios/habano1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drugstore La Pandilla</h4>
-            <!--Text-->
-            <p class="card-text">Habano Montecristo N°4</p>
-            <h4>$180</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-
-
-
-
-
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-
-        <div class="card">
-
-          <!--Card image-->
-          <div class="view overlay">
-            <img class="card-img-top1" src="../static/images//premios/clipper1.jpg" alt="Card image cap">
-            <a href="#!">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!--Card content-->
-          <div class="card-body">
-
-            <!--Title-->
-            <h4 class="card-title">Drugstore La Pandilla</h4>
-            <!--Text-->
-            <p class="card-text">Encendedor Clipper</p>
-            <h4>$150</h4>
-            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-            <!-- <button type="button" class="btn btn-primary">Apostar</button> -->
-            <input type="submit" value="Apostar">
-
-
-          </div>
-
-        </div>
-        <!-- Card -->
-      </div>
-    </div>
-  </div>
-
-
-
-
-  <!--  INICIO FOOTER -->
-
-
-  <footer class="site-footer">
-    <div class="container">
-
-      <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved.
-
-      </p>
-
-    </div>
-
-  </footer>
-
-
-
-
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
-  </script>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary"
+		id="color-nav"
+	>
+		<div class="container-fluid">
+			<a href="/"><img class="logo1" src="/images/logo1.png" alt="" /></a>
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" aria-current="page"
+						href="/"
+					>Inicio</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/events"
+						tabindex="-1" aria-disabled="false"
+					>Eventos</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						tabindex="-1" aria-disabled="false"
+					>Ranking</a></li>
+
+					<li class="nav-item"><a class="nav-link active" href="/rewards"
+						tabindex="-1" aria-disabled="false"
+					>Premios</a></li>
+
+				</ul>
+				<div th:unless="${session.sesionUsuario != null}">
+					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="/user/login"
+							tabindex="-1" aria-disabled="false"
+						>Log In</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/signup"
+							tabindex="-1" aria-disabled="false"
+						>Sign Up</a></li>
+					</ul>
+				</div>
+
+				<div th:if="${session.sesionUsuario != null}">
+					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+						<div th:unless="${session.sesionUsuario.foto != null}">
+							<li class="nav-item"><img class="rounded-circle user-photo"
+								src="/images/usuario.png"
+								th:alt="${session.sesionUsuario.nombre}"
+							></li>
+						</div>
+						<div th:if="${session.sesionUsuario.foto != null}">
+							
+							<a href="/user/dashboard" title="Dashboard">
+							<li class="nav-item"><img class="rounded-circle user-photo"
+								th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
+								th:alt="${session.sesionUsuario.nombre}"						
+							></li>
+							</a>
+						</div>
+						<li class="nav-item dropdown mt-1"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"
+						> <i class="fa fa-bars" aria-hidden="true"></i>
+						</a>
+
+							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+								aria-labelledby="navbarDropdownMenuLink" role="menu"
+							>
+								<li><a class="dropdown-item" href="/user/profile">Perfil</a></li>
+								<li><a class="dropdown-item" href="/user/logout">Cerrar
+										Sesión</a></li>
+								<div th:if="${session.sesionUsuario.admin == true}">
+									<li><a class="dropdown-item" href="/admin/panel">Admin
+											Panel</a></li>
+								</div>
+							</ul></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<!-- CARDS -->
+
+	<h1 class="title text-center text-white">PREMIOS</h1>
+	
+	<div th:if="${error != null}">
+		<h1 class="text-white text-center" th:text="${error}"></h1>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div th:each="premio : ${premios}"
+				class="mt-3 card-group col-sm-12 col-md-3 col-lg-3"
+			>
+				<div class="d-flex flex-column  custom-card">
+					<div class="img-box">
+						<img th:if="${premio.foto != null}"
+							th:src="${'/photos/rewards/?id=' + premio.id}"
+							class="card-img-top" alt="foto"
+						>
+					</div>
+					<div class="mt-auto p-2 text-center">
+						<h5 th:text="${premio.nombre}">Descripcion</h5>
+						<h6 th:text="${premio.proveedor.nombre}">Proveedor</h6>
+						<h4 style="font-weight: bold;" th:text="${'$' + premio.precio}">$$$</h4>
+						<div class="">
+							<button class="btn btn-dark w-100">Apostar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+	<br>
+
+
+	<div class="container">
+		<footer class="py-3 my-4">
+			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
+				<li class="nav-item"><a href="/"
+					class="nav-link px-2 text-muted"
+				>Inicio</a></li>
+				<li class="nav-item"><a href="#"
+					class="nav-link px-2 text-muted"
+				>Eventos</a></li>
+				<li class="nav-item"><a href="rewards"
+					class="nav-link px-2 text-muted"
+				>Premios</a></li>
+				<li class="nav-item"><a href="#"
+					class="nav-link px-2 text-muted"
+				>FAQs</a></li>
+				<li class="nav-item"><a href="#"
+					class="nav-link px-2 text-muted"
+				>Legales</a></li>
+			</ul>
+			<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
+		</footer>
+	</div>
 </body>
-
 </html>

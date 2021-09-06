@@ -7,9 +7,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Table(name = "fotos")
 public class Foto {
 
     @Id
@@ -40,14 +42,6 @@ public class Foto {
         this.mime = mime;
     }
 
-    public byte[] getContent() {
-        return getContenido();
-    }
-
-    public void setContent(byte[] contenido) {
-        this.setContent(contenido);
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -62,7 +56,7 @@ public class Foto {
     }
 
     public void setContenido(byte[] contenido) {
-        this.setContenido(contenido);
+        this.contenido = contenido;
     }
 
     

@@ -48,6 +48,7 @@ public class ErrorsController implements ErrorController {
             }
             
             default:
+            	httpErrorCode = 500;
                 errorMsg = "Ocurrio un error inesperado.";
         }
 

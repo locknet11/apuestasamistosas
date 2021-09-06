@@ -39,6 +39,7 @@ public class Proveedores {
     @NotEmpty
     private String telefono;
    
+    @NotEmpty
     private String responsable;
 
     public String getId() {

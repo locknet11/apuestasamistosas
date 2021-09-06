@@ -3,7 +3,6 @@ package com.apuestasamistosas.app.validations;
 import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
 import com.apuestasamistosas.app.repositories.UsuarioRepositorio;
-import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UsuarioValidacion {
 
-    Logger logger = LoggerFactory.getLogger(UsuarioServicio.class);
+    Logger logger = LoggerFactory.getLogger(UsuarioValidacion.class);
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -34,6 +33,7 @@ public class UsuarioValidacion {
 
 
         /*  Validamos que tanto nombre como apellido no sean cadenas vacias */
+        
         if (nombre == null || nombre.isEmpty()) {
             logger.error(ErrorUsuario.NO_NOMBRE);
             throw new ErrorUsuario(ErrorUsuario.NO_NOMBRE);
@@ -45,6 +45,7 @@ public class UsuarioValidacion {
         }
         
         /*  Validamos que el email no sea nulo */
+        
         if (email == null || email.isEmpty()){
             logger.error(ErrorUsuario.NO_EMAIL);
             throw new ErrorUsuario(ErrorUsuario.NO_EMAIL);
@@ -113,6 +114,7 @@ public class UsuarioValidacion {
                 throw new ErrorUsuario(ErrorUsuario.MAYOR_EDAD);
             }
         }
+        
 
     }
 
@@ -160,8 +162,8 @@ public class UsuarioValidacion {
             throw new ErrorUsuario(ErrorUsuario.NO_TEL);
         } else {
             try {
-                Long num = Long.parseLong(telefono);
-                if (num > 13) {
+                Integer numLength =telefono.length();
+                if (numLength > 13) {
                     logger.error(ErrorUsuario.DIGIT_TEL);
                     throw new ErrorUsuario(ErrorUsuario.DIGIT_TEL);
                 }

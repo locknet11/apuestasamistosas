@@ -5,16 +5,17 @@ import com.apuestasamistosas.app.entities.Proveedores;
 import com.apuestasamistosas.app.errors.ErrorPremio;
 import com.apuestasamistosas.app.errors.ErrorProveedores;
 import com.apuestasamistosas.app.repositories.ProveedoresRepositorio;
-import com.apuestasamistosas.app.services.ProveedoresServicio;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
-
+@Component
 public class PremioValidacion {
           
-    Logger logger = LoggerFactory.getLogger(ProveedoresServicio.class);
+    Logger logger = LoggerFactory.getLogger(PremioValidacion.class);
 
     @Autowired
     private ProveedoresRepositorio proveedorRepositorio;
@@ -24,7 +25,7 @@ public class PremioValidacion {
         puede ingresar proveedores inexistentes.
     */
     
-    public void validarDatos(String nombre, String nombreProveedor, Double precio) throws ErrorPremio{
+    public void validarDatos(String nombre, String nombreProveedor, Double precio, MultipartFile archivo) throws ErrorPremio{
         
         
         /*  Verificamos que el nombre y el nombre del proveedor no este vacio */
@@ -46,6 +47,11 @@ public class PremioValidacion {
                 logger.error(ErrorProveedores.NO_PROV);
                 throw new ErrorPremio(ErrorProveedores.NO_PROV);
             }
+        }
+        
+        if(archivo == null || archivo.isEmpty()){
+            logger.error(ErrorPremio.NULL_FOTO);
+            throw new ErrorPremio(ErrorPremio.NULL_FOTO);
         }
         
         /* Verificamos que el precio no sea negativo  */

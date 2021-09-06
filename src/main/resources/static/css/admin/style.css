@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400&display=swap');
+
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+	background-color: white;
+}
+
+.loadForm {
+	color: white; 
+	border : 1px solid;
+	border-color: #343743 !important;
+	padding: 1.5rem;
+	border-radius: 2%;
+	background-color: #272A31;
+	box-shadow: 0px 0px 15px black;
+	border: 1px solid;
+}
+
+.send-button {
+	width: 100%;
+}
+
+.error-msg {
+	color: red;
+}
+
+.success-msg {
+	color: green;
+	font-weight: bold;
+}
+
+.user-photo {
+	background-color: white;
+	height: 2.5rem;
+	width: 2.5rem;
+}
+
+.dropdown-toggle::after {
+	content: none;
+}

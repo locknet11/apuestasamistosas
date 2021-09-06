@@ -1,56 +1,7 @@
 
-/* @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap'); */
-
-
- 
- 
-body{
- 
- 
- background-image:url(../images/ladrillo6);
- /* background-size:contain;
- background-position: bottom; */
- 
- background-color: #e6e4e4;
- font-family: 'roboto', sans-serif;
-  
-} 
-
-#color-nav{
-
-  background-color:black!important;
- 
-   
-}
-
-
-.logo1{
-
-  width:70%;
-  height:70%;
-  border-radius: 100%;
-     
-}
-
 .dropdown-toggle::after {
   content: none;
 }
-
-
-.nav-item{
-
-
-font-size:0.938rem;
-text-decoration: none;
-text-transform: uppercase;
-letter-spacing: 0.2rem;
-color:white;
-margin-left:1.25rem;
-} 
-
-
-
-
 
 @media(max-width: 600px){
     .signup-box{
@@ -75,40 +26,32 @@ margin-left:1.25rem;
 
     height: auto;
     margin: auto;
-    margin-top: 3%;
-    background-color:black;
-    border-radius:0.5rem;
-    border:0.063rem solid;
-    border-color: white;
-    box-shadow: 0.625rem 0.625rem 0.625rem #016bd7;
-
-}
-
-.iniciar{
-
-font-size:0.8rem;
+    margin-top: 2%;
+    background-color:#272A31;
+    border-radius:8px;
+    border:1px solid;
+    border-color: #63A621;
+    box-shadow: 0rem 0rem 0.8rem #63A621;;
 
 }
 
 
 h1 {
 
-  font-style: 'roboto', sans-serif;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: white;
   text-align: center;
-  padding-top: 0.938rem;
-  margin-top: 0.625rem;
+  padding-top: 15px;
+  margin-top: 10px;
 
 
 }
 
 h4 {
 
-  font-style: 'roboto', sans-serif;
   text-align: center;
   color: white;
-  padding: 0.33rem;
+  padding: 5px;
 }
 
 form {
@@ -126,21 +69,21 @@ select::placeholder{
 form label {
 
   display: flex;
-  margin-top: 1.25rem;
-  font-size: 1.125rem;
+  margin-top: 20px;
+  font-size: 18px;
   color: white;
 }
 
 form input {
 
   width: 100%;
-  padding: 0.438rem;
+  padding: 7px;
   border:none;
-  border-bottom:0.063rem solid #fff;
+  border-bottom:1px solid #fff;
   
   outline: none;
   color:white;
-  background-color:black;
+  background-color:#272A31;
 }
 
 
@@ -149,31 +92,35 @@ form input {
 #ciudad {
 
   width: 100%;
-  padding: 0.438rem;
+  padding: 7px;
   border: none;
-  border: 0.063rem solid white;
-  border-radius: o.375rem;
+  border: 1px solid white;
+  border-radius: 6px;
   outline: none;
 
 } 
 
+.log-in{
+    font-size: 0.8rem;
+}
 
 
 input[type="submit"] {
 
   width: 100%;
 
-  margin-top:1.25rem;
+  margin-top: 20px;
   border: none;
-  background-color: #124559;
-  color: white;
-  font-size: 1.125rem;
+  background-color: #63A621;
+  color: black;
+  font-size: 18px;
 
 }
 
 input[type="submit"]:hover {
 
-  color: grey;
+  color: white;
+  font-weight: bold;
 }
 
 
@@ -181,8 +128,8 @@ input[type="submit"]:hover {
 p {
 
   text-align: center;
-  padding-top: 1.25rem;
-  font-size: 0.938rem;
+  padding-top: 20px;
+  font-size: 15px;
 
 }
 
@@ -190,8 +137,7 @@ p {
 
   text-align: center;
   color: white;
-  font-size: 0.75rem;
-  margin-top: -0.625rem;
+  font-size: 1rem;
 
 }
 
@@ -207,41 +153,4 @@ p {
 
   color: grey;
 
-}
-
-/* FOOTER  */
-
-.container {
-  max-width: 100%;
-  box-sizing: border-box; 
-  margin:0;
-  padding:0;
-  min-height: 100hv;
-  display:grid;
-  grid-template-rows:auto 1fr auto;
-  margin-top:1.5rem;
-
-}
-
-.site-footer{
-  
-
-  font-size:o.938rem;
-  color:white;
-  width: 100%;
-  flex-wrap: wrap;
-  background-color: black;
-  bottom: 0;
-  height: 2.5rem;
-
-  
-
-}  
-
-.copyright-text{
-  font-size: 0.6rem;
-  margin:0;
-  margin-top:1.25rem; 
-  text-align:center;
-  padding:1%;
 }

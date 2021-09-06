@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -70,10 +69,13 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setPassword(encoded_password);
         usuario.setEmail(email);
         usuario.setTelefono(telefono);
-        usuario.setCodConfirmacion(RandomGenerator.generate());
+        usuario.setCodConfirmacion(RandomGenerator.generateUUID());
         usuario.setConfirmado(false);
         usuario.setAdmin(false);
-        usuario.setFoto(foto);
+        if(foto != null){
+            usuario.setFoto(foto);
+        }
+        
 
         usuarioRepositorio.save(usuario);
 
@@ -98,7 +100,7 @@ public class UsuarioServicio implements UserDetailsService {
     public void modificarUsuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
             String localidad, String ciudad, String calle, String codigoPostal,
             String password, String passwordConfirmation, String telefono, MultipartFile archivo) throws ErrorUsuario, Exception {
-
+       
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
 
         uv.validarDatosModificar(nombre, apellido, password, passwordConfirmation, telefono, fechaNacimiento);
@@ -221,5 +223,14 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
+    
+    /*  Metodos de listado  */
+    
+    public long contarTodos(){
+        return usuarioRepositorio.count();
+    }
 
+    public Optional<Usuario> buscarPorId(String id){
+        return usuarioRepositorio.findById(id);
+    }
 }

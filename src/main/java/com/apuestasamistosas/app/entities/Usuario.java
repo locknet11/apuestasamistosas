@@ -1,7 +1,6 @@
 package com.apuestasamistosas.app.entities;
 
 import java.time.LocalDate;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -67,164 +66,166 @@ public class Usuario {
     @OneToOne
     private Foto foto;
 
-    public String getCodConfirmacion() {
-        return codConfirmacion;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setCodConfirmacion(String codConfirmacion) {
-        this.codConfirmacion = codConfirmacion;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public Boolean getAlta() {
+		return alta;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setAlta(Boolean alta) {
+		this.alta = alta;
+	}
 
-    public boolean getAlta() {
-        return alta;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setAlta(boolean alta) {
-        this.alta = alta;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public String getApellido() {
+		return apellido;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 
-    public String getApellido() {
-        return apellido;
-    }
+	public String getProvincia() {
+		return provincia;
+	}
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
 
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
-    }
+	public String getLocalidad() {
+		return localidad;
+	}
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getCiudad() {
+		return ciudad;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getCalle() {
+		return calle;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
 
-    public String getTelefono() {
-        return telefono;
-    }
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
 
-    public Integer getGanados() {
-        return ganados;
-    }
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
 
-    public void setGanados(Integer ganados) {
-        this.ganados = ganados;
-    }
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
 
-    public Integer getPerdidos() {
-        return perdidos;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPerdidos(Integer perdidos) {
-        this.perdidos = perdidos;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public Integer getEmpatados() {
-        return empatados;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmpatados(Integer empatados) {
-        this.empatados = empatados;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getProvincia() {
-        return provincia;
-    }
+	public String getTelefono() {
+		return telefono;
+	}
 
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 
-    public String getLocalidad() {
-        return localidad;
-    }
+	public Integer getGanados() {
+		return ganados;
+	}
 
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
+	public void setGanados(Integer ganados) {
+		this.ganados = ganados;
+	}
 
-    public String getCiudad() {
-        return ciudad;
-    }
+	public Integer getPerdidos() {
+		return perdidos;
+	}
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
+	public void setPerdidos(Integer perdidos) {
+		this.perdidos = perdidos;
+	}
 
-    public String getCalle() {
-        return calle;
-    }
+	public Integer getEmpatados() {
+		return empatados;
+	}
 
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
+	public void setEmpatados(Integer empatados) {
+		this.empatados = empatados;
+	}
 
-    public String getCodigoPostal() {
-        return codigoPostal;
-    }
+	public String getCodConfirmacion() {
+		return codConfirmacion;
+	}
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
-    }
+	public void setCodConfirmacion(String codConfirmacion) {
+		this.codConfirmacion = codConfirmacion;
+	}
 
-    public Boolean getConfirmado() {
-        return confirmado;
-    }
+	public Boolean getConfirmado() {
+		return confirmado;
+	}
 
-    public void setConfirmado(Boolean confirmado) {
-        this.confirmado = confirmado;
-    }
+	public void setConfirmado(Boolean confirmado) {
+		this.confirmado = confirmado;
+	}
 
-    public Boolean getAdmin() {
-        return admin;
-    }
+	public Boolean getAdmin() {
+		return admin;
+	}
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
 
-    public Foto getFoto() {
-        return foto;
-    }
+	public Foto getFoto() {
+		return foto;
+	}
 
-    public void setFoto(Foto foto) {
-        this.foto = foto;
-    }
+	public void setFoto(Foto foto) {
+		this.foto = foto;
+	}
 
+    
+    
 }
