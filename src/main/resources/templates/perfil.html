@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../static/images/logo1.png">
 
     <title>Perfil</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
-    </script>
+
+    <link rel="stylesheet" href="../static/css/perfil.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <link rel="stylesheet" href="../static/css/perfil.css">
+
 </head>
 
 <body>
@@ -52,12 +52,11 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-
                     <img class="user_photo" src="../static/images/usuario.png" alt="User">
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             <i class="fa fa-bars" aria-hidden="true"></i>
                         </a>
 
@@ -67,97 +66,52 @@
                             <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
 
                         </ul>
-                    </li>
-                </ul>
+
             </div>
         </div>
-        </ul>
-        </div>
-        </div>
     </nav>
-    </nav>
-
 
     <!-- PERFIL -->
 
     <div class="perfil-box m-auto">
 
 
-        <form class="perfil-check" action="perfilcheck" method="POST">
-
-            <p style="color: red; font-family: 'Source Sans Pro', serif; font-size: 17px;" th:if="${error != null}"
-                th:text="${error}">
-            </p>
-
-            <h1>Perfil</h1>
-
-            <div class="row m-0 m-auto justify-content-center">
-                <img class="perfil-photo" src="../static/images/usuario.png" alt="User">
-
-            </div>
-            <div class="p-3 justify-content-center mt-3">
-
-                <div class="row">
-                    <div class="col-md">
-                        <label>Nombre</label>
-                        <input type="text" name="nombre">
-                    </div>
-                    <div class="col-md">
-                        <label>Apellido</label>
-                        <input type="text" name="apellido">
-                    </div>
-                    
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md">
-                        <label>Fecha de nacimiento</label>
-                        <input type="date" name="fechaNacimiento">
-                    </div>
-                    <div class="col-md">
-                        <label>Provincia</label>
-                        <input type="text" name="provincia">
-                    </div>
-                    
-                </div>
-                <div class="row">
-  
-                    <div class="col-md">
-                        <label>Ciudad</label><br>
-                        <input type="text" name="ciudad">
-                    </div>
-                    <div class="col-md">
-                        <label>Dirección</label>
-                        <input type="text" name="direccion">
-                    </div>
 
 
-                </div>
+        <p style="color: red; font-family: 'Source Sans Pro', serif; font-size: 17px;" th:if="${error != null}"
+            th:text="${error}">
+        </p>
 
+        <h1>Perfil</h1>
 
-                <div class="row">
-                    <div class="col-md">
-                        <label>CP</label><br>
-                        <input type="text" name="codigoPostal">
-                    </div>
-                    <div class="col-md">
-                        <label>Teléfono</label>
-                        <input type="tel" name="telefono">
-                    </div>
-                    
-                </div>
+        <div class="photo-container">
+
+            <img class="img-responsive mx-auto d-block img-fluid" src="../static/images/usuario.png"
+                style="width:10rem; height:10rem; border-radius:100%; background-color:transparent" alt="User">
+
+        </div>
+        <input type="submit" value="Editar Perfil">
+
+        <div class="columnas">
+            <div class="div">
+
+                <p>APUESTAS ACTIVAS</p>
 
 
 
-                <input type="submit" value="Editar">
-
-                
 
             </div>
-             
 
-        </form>
+
+            <div class="div1">
+
+                <p>DINERO ACUMULADO</p>
+
+
+
+
+            </div>
+        </div>
 
     </div>
 
@@ -165,7 +119,6 @@
 
 
     <!--  INICIO FOOTER -->
-
 
     <footer class="site-footer">
         <div class="container">
@@ -177,9 +130,10 @@
         </div>
     </footer>
 
-
-
     <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
 
 </body>
 

@@ -8,7 +8,7 @@ body {
 
   background-image: url(../images/ladrillo6);
   /* background-size:contain;
-   background-position: bottom; */
+ background-position: bottom; */
 
   background-color: #e6e4e4;
   font-family: 'roboto', sans-serif;
@@ -68,44 +68,92 @@ body {
 
 /* PERFIL */
 
+
+
+
 h1 {
   color: white;
   margin-top: 0.8rem;
   text-align: center;
 }
 
+label {
+
+  color: white;
+  margin-top: 0.8rem;
+}
+
+.perfil-photo {
+
+  background-color: white;
+  height:2.5rem;
+  width:2.5rem;
+  border: solid 1.5px;
+  border-radius: 100%;
+  
+
+
+}
+
+
+.perfil-check {
+
+  text-align: justify;
+  display: inline-block;
+  height: auto;
+  margin-top: 2%;
+  background-color: black;
+  border-radius: 8px;
+  border: 1px solid;
+  border-color: white;
+  box-shadow: 10px 10px 10px #016bd7;
+
+
+
+}
+
+.perfil-box {
+
+  width: 50%;
+
+}
+
+label {
+
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+input {
+
+
+
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  color: white;
+  background-color: black;
+}
 
 input[type="submit"] {
 
-
-  width: 8%;
-  height: 2%;
-  margin-left: 46%;
-  margin-top: 0.5rem;
+  width: 20%;
+  height: 20%;
+  margin-left: 40%;
+  margin-top: 1.5em;
   border-radius: 5px;
   background-color: #124559;
   color: white;
-  font-size: 0.5rem;
+  font-size: 18px;
+
 
 }
 
 input[type="submit"]:hover {
 
   color: grey;
-}
-
-.columnas{
-
-  display:inline-block;
-  margin-top: 0.8rem;
-
-}
-
-p{
-
-  color:white;
-  font-size:0.8rem;
-
 }
 
 
