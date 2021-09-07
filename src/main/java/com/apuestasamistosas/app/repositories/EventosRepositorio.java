@@ -12,5 +12,8 @@ public interface EventosRepositorio extends JpaRepository<Eventos, String> {
     
     @Query("SELECT e FROM Eventos e ORDER BY e.fechaEvento ASC")
     public Optional<List<Eventos>> listAllByDates();
+    
+    @Query("SELECT e FROM Eventos e WHERE e.expirado = false ORDER BY e.fechaEvento ASC")
+    public Optional<List<Eventos>> listAllByDatesAndNoExpired();
 
 }

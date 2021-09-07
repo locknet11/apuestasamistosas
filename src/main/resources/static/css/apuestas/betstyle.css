@@ -1,0 +1,29 @@
+.img-box{
+	width: 100%;
+	height: auto;
+	border-radius: 0.5rem;
+}
+
+h4{
+	color: white;
+}
+
+.scrolleable{
+	height: 15rem;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding: 1.5rem;
+}
+
+.img-team{
+	width: auto;
+	height: 3rem;
+	display: block;
+	margin: auto;	
+}
+
+.each-bkg{
+	background-color: #272A31;
+	padding: 0.5rem;
+	border-radius: 1rem;
+}
