@@ -41,7 +41,7 @@ label {
 .perfil-photo {
 	width: 10rem;
 	height: 10rem;
-	box-shadow: 0rem 0rem 0.8rem #63A621;
+	box-shadow: 0rem 0rem 0.8rem #f2b705;
 }
 
 .perfil-check {
@@ -50,8 +50,8 @@ label {
 	background-color: #272A31;
 	border-radius: 1rem;
 	border: 1px solid;
-	border-color: #63A621;
-	box-shadow: 0rem 0rem 0.5rem #63A621;
+	border-color: #f2b705;
+	box-shadow: 0rem 0rem 0.5rem #f2b705;
 }
 
 label {
@@ -74,7 +74,7 @@ input[type="submit"] {
 	margin:0 auto;
 	margin-top: 1.5em;
 	border-radius: 0.3rem;
-	background-color: #63A621;
+	background-color: #f2b705;
 	color: black;
 	font-size: 1rem;
 	border: none;

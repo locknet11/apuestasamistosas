@@ -26,6 +26,8 @@ public class ErrorUsuario extends Exception {
     public static final String COD_CONFIRM = "El codigo de confirmacion es invalido.";
     public static final String NO_FOTO = "Este usuario no tiene foto.";
     public static final String MAX_SIZE = "El tamaño de la foto puede ser de hasta 5MB.";
+    public static final String ALREADY_ADMIN = "Este usuario ya es administrador.";
+    public static final String USUARIO_BAJA = "Este usuario no esta dado de alta.";
     
     /* IMPLEMENTACION A FUTURO: HABRIA QUE DIVIDIR LOS MENSAJES DE ERROR DE LOS
        MENSAJES INFORMATIVOS, EJ: SE LOGGEA USER X. 
