@@ -1,13 +1,15 @@
 package com.apuestasamistosas.app.services;
 
 import com.apuestasamistosas.app.entities.Apuesta;
-
+import com.apuestasamistosas.app.entities.Equipos;
 import com.apuestasamistosas.app.entities.Eventos;
 import com.apuestasamistosas.app.entities.Premio;
 import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.enums.EstadoApuesta;
+import com.apuestasamistosas.app.enums.ResultadoApuesta;
 import com.apuestasamistosas.app.errors.ErrorApuesta;
 import com.apuestasamistosas.app.repositories.ApuestaRepositorio;
+import com.apuestasamistosas.app.repositories.EquiposRepositorio;
 import com.apuestasamistosas.app.repositories.EventosRepositorio;
 import com.apuestasamistosas.app.repositories.PremioRepositorio;
 import com.apuestasamistosas.app.repositories.UsuarioRepositorio;
@@ -24,32 +26,46 @@ public class ApuestaServicio {
     @Autowired
     private ApuestaRepositorio apuestaRepositorio;
     @Autowired
-    private UsuarioRepositorio usuarioRespositorio;
+    private UsuarioRepositorio usuarioRepositorio;
     @Autowired
-    private EventosRepositorio eventosRespositorio;
+    private EventosRepositorio eventosRepositorio;
     @Autowired
-    private PremioRepositorio premioRespositorio;
+    private PremioRepositorio premioRepositorio;
+    @Autowired
+    private EquiposRepositorio equipoRepositorio;
 
     private ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
     private final LocalDateTime hoy = LocalDateTime.now(this.argentina);
 
-    public void crearApuesta(String idUsuario1, String idEvento, String idPremio) throws ErrorApuesta, Exception {
-        Apuesta apuesta = new Apuesta();
+    public void crearApuesta(String idUsuario1, String idEvento, String idPremio, String idEquipoUsuarioA) throws ErrorApuesta, Exception {
+        
+    	Apuesta apuesta = new Apuesta();
         apuesta.setEstado(EstadoApuesta.PENDIENTE);
         apuesta.setFechaApuesta(this.hoy);
-        Usuario usuarioA = usuarioRespositorio.findById(idUsuario1).get();
+        
+        Usuario usuarioA = usuarioRepositorio.findById(idUsuario1).get();
         apuesta.setUsuarioA(usuarioA);
-        Optional<Eventos> thisEvento = eventosRespositorio.findById(idEvento);
+        
+        Optional<Eventos> thisEvento = eventosRepositorio.findById(idEvento);
+        Optional<Equipos> thisEquipo = equipoRepositorio.findById(idEquipoUsuarioA);
+        
         if (thisEvento.isPresent()) {
+        	
             Eventos evento = thisEvento.get();
             apuesta.setEvento(evento);
-
+            apuesta.setEquipoElegidoPorUsuarioA(thisEquipo.get());
+            
+            if(thisEquipo.get().equals(evento.getEquipoA())) {
+            	apuesta.setEquipoElegidoPorUsuarioB(evento.getEquipoB());
+            }else {
+            	apuesta.setEquipoElegidoPorUsuarioB(evento.getEquipoA());
+            }
         } else {
             throw new ErrorApuesta(ErrorApuesta.NULL_evento);
 
         }
 
-        Optional<Premio> thisPremio = premioRespositorio.findById(idPremio);
+        Optional<Premio> thisPremio = premioRepositorio.findById(idPremio);
         if (thisPremio.isPresent()) {
             Premio premio = thisPremio.get();
             apuesta.setPremio(premio);
@@ -58,11 +74,12 @@ public class ApuestaServicio {
             throw new ErrorApuesta(ErrorApuesta.NULL_premio);
 
         }
+        apuesta.setResultadoApuesta(ResultadoApuesta.INDEFINIDO);
         apuestaRepositorio.save(apuesta);
     }
 
     public void confirmarApuesta(String idUsuario2, String idApuesta) throws ErrorApuesta, Exception {
-        Usuario usuarioB = usuarioRespositorio.findById(idUsuario2).get();
+        Usuario usuarioB = usuarioRepositorio.findById(idUsuario2).get();
         Optional<Apuesta> thisApuesta = apuestaRepositorio.findById(idApuesta);
         Integer plazoMaximo = 86400000;
 
