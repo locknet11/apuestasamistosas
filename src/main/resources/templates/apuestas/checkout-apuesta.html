@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="/images/favicon2.png" />
-<title>Crear apuesta</title>
+<title>Paga tu parte!</title>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
@@ -108,102 +108,8 @@
 			</div>
 		</div>
 	</nav>
-
-	<!-- LOGICA MAQUETADA DE APUESTA DESDE PREMIOS -->
-
-	<div class="mt-4 container" th:if="${premio != null}">
-		
-		<div class="row">
-			<div class="col-12 col-sm-12 col-md-12 col-lg-6">
-			<h2 class="text-warning mb-4">Estas apostando:</h2>
-				<div class="row mb-5">
-					<div class="mb-4 col-12 col-sm-4 col-md-4 col-lg-4">
-						<img class="img-fluid img-box"
-							th:src="${'/photos/rewards/?id=' + premio.id}"
-						/>
-					</div>
-
-					<div class="col-12 col-sm-8 col-md-8 col-lg-8">
-						<h4>
-							Premio: <span class="text-warning" th:text="${premio.nombre}"></span>
-						</h4>
-						<h4>
-							Proveedor: <span class="text-warning"
-								th:text="${premio.proveedor.nombre}"
-							></span>
-						</h4>
-						<h4>
-							Precio: <span class="text-warning"
-								th:text="${'$' + premio.precio}"
-							></span>
-						</h4>
-					</div>
-				</div>
-			</div>
-			
-			<!-- eventos -->
-			
-			<div class="col-12 col-sm-12 col-md-12 col-lg-6">
-				<h2 class="text-warning mb-4">Elegi tu evento y equipo:</h2>
-					<h6 class="text-white">Hace click en el equipo por el que quieres apostar</h6>
-				<div class="scrolleable">
-				
-					<div th:each="evento : ${listaEventos}" class="each-bkg row mb-4">
-						<div class="col-3"> 
-							<a th:href="@{/bets/beginBet/(idReward=${premio.id},idEvent=${evento.id},idTeam=${evento.equipoA.id})}">
-								<img class="img-team"
-								th:src="${'/photos/teams/?id=' + evento.equipoA.id}" alt=""
-							/>
-							</a>
-						</div>
-						<div class="text-center col-6">
-							<h5 class="text-warning align-self-center" th:text="${#temporals.format(evento.fechaEvento, 'dd/MM/yyyy HH:mm')}"></h5>
-						</div>
-						<div class="col-3">
-							<a th:href="@{/bets/beginBet/(idReward=${premio.id},idEvent=${evento.id},idTeam=${evento.equipoB.id})}">
-							<img class="img-team"
-								th:src="${'/photos/teams/?id=' + evento.equipoB.id}" alt=""
-							/>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-		</div>
-
-	</div>
-
-	<!-- LOGICA MAQUETADA DE APUESTA DESDE EVENTOS -->
-
-	<div></div>
-
-	<!--  INICIO FOOTER -->
-
-	<br><br /><br />
-	<div class="container">
-		<footer class="py-3 my-4">
-			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
-				<li class="nav-item"><a href="/"
-					class="nav-link px-2 text-muted"
-				>Inicio</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>Eventos</a></li>
-				<li class="nav-item"><a href="rewards"
-					class="nav-link px-2 text-muted"
-				>Premios</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>FAQs</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>Legales</a></li>
-			</ul>
-			<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
-		</footer>
-	</div>
-
 </body>
+<div class="text-center text-warning">
+	<h1>Paga wachin</h1>
+</div>
 </html>

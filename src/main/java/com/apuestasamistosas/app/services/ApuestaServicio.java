@@ -13,11 +13,14 @@ import com.apuestasamistosas.app.repositories.EquiposRepositorio;
 import com.apuestasamistosas.app.repositories.EventosRepositorio;
 import com.apuestasamistosas.app.repositories.PremioRepositorio;
 import com.apuestasamistosas.app.repositories.UsuarioRepositorio;
+import com.apuestasamistosas.app.validations.ApuestasValidacion;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,6 +36,9 @@ public class ApuestaServicio {
     private PremioRepositorio premioRepositorio;
     @Autowired
     private EquiposRepositorio equipoRepositorio;
+    
+    @Autowired
+    private ApuestasValidacion apuestaValidacion;
 
     private ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
     private final LocalDateTime hoy = LocalDateTime.now(this.argentina);
@@ -110,6 +116,16 @@ public class ApuestaServicio {
             throw new ErrorApuesta(ErrorApuesta.NULL_apuesta);
         }
 
+    }
+    
+    /*	Aqui se llaman a los metodos de validacion  */
+    
+    public void llamarPrimerValidacion(String idReward, String idEvent, String idTeam) throws ErrorApuesta {
+    	apuestaValidacion.validarPrimerEtapa(idReward, idEvent, idTeam);
+    }
+    
+    public void llamarSegundaValidacion(String idUser, Authentication auth) throws ErrorApuesta{
+    	apuestaValidacion.validarSegundaEtapa(idUser, auth);
     }
 
 }
