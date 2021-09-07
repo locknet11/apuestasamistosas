@@ -1,28 +1,38 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="/images/favicon2.png" />
-<title>Premios</title>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/images/favicon2.png">
+
+<title>Perfil</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+	crossorigin="anonymous"
+>
+	
+</script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous"
-/>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-	crossorigin="anonymous"
-></script>
-<link rel="stylesheet" href="/css/indexstyle.css" />
-<link rel="stylesheet" href="/css/premios.css" />
+>
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 >
+
+<link rel="stylesheet" href="/css/indexstyle.css" />
+<link rel="stylesheet" href="/css/editar-perfil.css">
 </head>
-<body>
+
+
+<body class="d-flex flex-column min-vh-100">
+
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary"
 		id="color-nav"
 	>
@@ -38,8 +48,8 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" aria-current="page"
-						href="/"
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/"
 					>Inicio</a></li>
 
 					<li class="nav-item"><a class="nav-link" href="/events"
@@ -49,7 +59,7 @@
 						tabindex="-1" aria-disabled="false"
 					>Ranking</a></li>
 
-					<li class="nav-item"><a class="nav-link active" href="/rewards"
+					<li class="nav-item"><a class="nav-link" href="/rewards"
 						tabindex="-1" aria-disabled="false"
 					>Premios</a></li>
 
@@ -74,12 +84,12 @@
 							></li>
 						</div>
 						<div th:if="${session.sesionUsuario.foto != null}">
-							
+
 							<a href="/user/dashboard" title="Dashboard">
-							<li class="nav-item"><img class="rounded-circle user-photo"
-								th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
-								th:alt="${session.sesionUsuario.nombre}"						
-							></li>
+								<li class="nav-item"><img class="rounded-circle user-photo"
+									th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
+									th:alt="${session.sesionUsuario.nombre}"
+								></li>
 							</a>
 						</div>
 						<li class="nav-item dropdown mt-1"><a
@@ -107,41 +117,106 @@
 		</div>
 	</nav>
 
-	<br>
-	<!-- CARDS -->
+	<!-- PERFIL -->
 
-	<h1 class="title text-center text-white">PREMIOS</h1>
-	
-	<div th:if="${error != null}">
-		<h1 class="text-white text-center" th:text="${error}"></h1>
-	</div>
+	<div class="perfil-box m-auto mt-4">
 
-	<div class="container">
-		<div class="row">
-			<div th:each="premio : ${premios}"
-				class="mt-3 card-group col-sm-12 col-md-3 col-lg-3"
-			>
-				<div class="d-flex flex-column  custom-card">
-					<div class="img-box">
-						<img th:if="${premio.foto != null}"
-							th:src="${'/photos/rewards/?id=' + premio.id}"
-							class="card-img-top" alt="foto"
-						>
-					</div>
-					<div class="mt-auto p-2 text-center">
-						<h5 th:text="${premio.nombre}">Descripcion</h5>
-						<h6 th:text="${premio.proveedor.nombre}">Proveedor</h6>
-						<h4 style="font-weight: bold;" th:text="${'$' + premio.precio}">$$$</h4>
-						<div class="">
-							<button class="btn btn-dark w-100">Apostar</button>
+
+		<form class="perfil-check" action="perfilcheck" method="POST">
+
+			<p
+				style="color: red; font-family: 'Source Sans Pro', serif; font-size: 17px;"
+				th:if="${error != null}" th:text="${error}"
+			></p>
+
+			<h1 class="mb-3">Tu perfil</h1>
+
+			<div th:if="${session.sesionUsuario != null}">
+
+				<div class="row gx-0 justify-content-center"
+					th:unless="${session.sesionUsuario.foto != null}"
+				>
+					<img class="img-fluid perfil-photo rounded-circle" src="/images/usuario.png"
+						th:alt="${session.sesionUsuario.nombre}"
+					>
+				</div>
+
+				<div class="row gx-0 justify-content-center"
+					th:if="${session.sesionUsuario.foto != null}"
+				>
+
+					 <img class="img-fluid perfil-photo rounded-circle"
+						th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
+						th:alt="${session.sesionUsuario.nombre}"
+					>
+
+				</div>
+
+				<div class="p-3 justify-content-center mt-3">
+					<div class="row">
+						<div class="col-md">
+							<label>Nombre</label> <input
+								th:value="${session.sesionUsuario.nombre}" type="text"
+								name="nombre"
+							>
+						</div>
+						<div class="col-md">
+							<label>Apellido</label> <input
+								th:value="${session.sesionUsuario.apellido}" type="text"
+								name="apellido"
+							>
 						</div>
 					</div>
+					<div class="row">
+
+						<div class="col-md">
+							<label>Fecha de nacimiento</label> <input
+								th:value="${session.sesionUsuario.fechaNacimiento}" type="date"
+								name="fechaNacimiento"
+							>
+						</div>
+						<div class="col-md">
+							<label>Provincia</label> <input
+								th:value="${session.sesionUsuario.provincia}" type="text"
+								name="provincia"
+							>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md">
+							<label>Ciudad</label><br> <input
+								th:value="${session.sesionUsuario.ciudad}" type="text"
+								name="ciudad"
+							>
+						</div>
+						<div class="col-md">
+							<label>Dirección</label> <input
+								th:value="${session.sesionUsuario.calle}" type="text"
+								name="direccion"
+							>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md">
+							<label>CP</label><br> <input
+								th:value="${session.sesionUsuario.codigoPostal}" type="text"
+								name="codigoPostal"
+							>
+						</div>
+						<div class="col-md">
+							<label>Teléfono</label> <input
+								th:value="${session.sesionUsuario.telefono}" type="tel"
+								name="telefono"
+							>
+						</div>
+					</div>
+					<input type="submit" value="Editar">
 				</div>
-			</div>
-			<br>
-		</div>
+		</form>
 	</div>
-	<br>
+	<br />
+
+	<!--  INICIO FOOTER -->
 
 
 	<div class="container">
@@ -166,5 +241,12 @@
 			<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
 		</footer>
 	</div>
+
+
+
+
+	<!-- JavaScript Bundle with Popper -->
+
 </body>
+
 </html>

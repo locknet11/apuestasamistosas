@@ -1,11 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Syncopate&display=swap');
-
-body{
- background-color: black !important;
- background:url(../images/ladrillo6) no-repeat center center fixed;
- font-family: 'Roboto Condensed', sans-serif;
-}
 
 .title{
     font-size: 2.5rem;
@@ -26,7 +18,7 @@ body{
 .custom-card{
     width: 100%;
     height: auto;
-    background-color:rgba(0,0,0,0.3);
+    background-color:rgba(0,0,0,0.5);
     border-top-left-radius: 3%;
     border-top-right-radius: 3%;
     transition: transform 0.5s;

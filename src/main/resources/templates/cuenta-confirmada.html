@@ -5,12 +5,159 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>Listo!</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>¡Has confirmado tu cuenta satisfactoriamente!</h1>
-    </body>
+<head>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="/images/favicon2.png" />
+<title>¡Cuenta Confirmada!</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous"
+/>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+	crossorigin="anonymous"
+></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+>
+
+<link rel="stylesheet" href="/css/indexstyle.css" />
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary"
+		id="color-nav"
+	>
+		<div class="container-fluid">
+			<a href="#"><img class="logo1" src="/images/logo1.png" alt="" /></a>
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="#"
+					>Inicio</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/events"
+						tabindex="-1" aria-disabled="false"
+					>Eventos</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						tabindex="-1" aria-disabled="false"
+					>Ranking</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/rewards"
+						tabindex="-1" aria-disabled="false"
+					>Premios</a></li>
+
+				</ul>
+				<div th:unless="${session.sesionUsuario != null}">
+					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="/user/login"
+							tabindex="-1" aria-disabled="false"
+						>Log In</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/signup"
+							tabindex="-1" aria-disabled="false"
+						>Sign Up</a></li>
+					</ul>
+				</div>
+
+				<div th:if="${session.sesionUsuario != null}">
+					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+						<div th:unless="${session.sesionUsuario.foto != null}">
+							<li class="nav-item"><img class="rounded-circle user-photo"
+								src="/images/usuario.png"
+								th:alt="${session.sesionUsuario.nombre}"
+							></li>
+						</div>
+						<div th:if="${session.sesionUsuario.foto != null}">
+
+							<a href="/user/dashboard" title="Dashboard">
+								<li class="nav-item"><img class="rounded-circle user-photo"
+									th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
+									th:alt="${session.sesionUsuario.nombre}"
+								></li>
+							</a>
+						</div>
+						<li class="nav-item dropdown mt-1"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"
+						> <i class="fa fa-bars" aria-hidden="true"></i>
+						</a>
+
+							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+								aria-labelledby="navbarDropdownMenuLink" role="menu"
+							>
+								<li><a class="dropdown-item" href="#">Perfil</a></li>
+								<li><a class="dropdown-item" href="/user/logout">Cerrar
+										Sesión</a></li>
+								<div th:if="${session.sesionUsuario.admin == true}">
+									<li><a class="dropdown-item" href="/admin/panel">Admin
+											Panel</a></li>
+								</div>
+							</ul></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</nav>
+
+
+	<h1 class="mt-4 text-center text-white">¡Has confirmado tu cuenta
+		satisfactoriamente!</h1>
+
+	<script>
+		var timer = 5;
+		var counter;
+
+		function startTimer() {
+			counter = setInterval(countDown, 1000);
+		}
+
+		function countDown() {
+			var display = document.getElementById("timer");
+			display.innerHTML = timer;
+
+			timer--;
+
+			if (timer < 0) {
+				clearInterval(counter);
+
+				window.location.href = "/user/login";
+			}
+		}
+
+		startTimer();
+	</script>
+
+	<h4 class="mt-4 text-center text-white">
+		Seras redirigido a la pagina de acceso en <span id="timer">5</span>
+		segundos...
+	</h4>
+	        <div class="container">
+            <footer class="py-3 my-4 fixed-bottom">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Eventos</a></li>
+                    <li class="nav-item"><a href="rewards" class="nav-link px-2 text-muted">Premios</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Legales</a></li>
+                </ul>
+                <p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
+            </footer>
+        </div>
+
+</body>
 </html>

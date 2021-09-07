@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Syncopate&display=swap');
+@import
+	url('https://fonts.googleapis.com/css2?family=Syncopate&display=swap');
 
 @media only screen and (max-width: 600px) {
 	.page-w {
@@ -31,29 +31,36 @@
 	}
 }
 
-body{
- background-color: black !important;
- background:url(../images/ladrillo6) no-repeat center center fixed;
- font-family: 'Roboto Condensed', sans-serif;
+.row-shadow {
+	box-shadow: 0rem 0rem 0.5rem black;
 }
 
-.title{
-    font-size: 2.5rem;
-    font-family: 'Syncopate', sans-serif;
+.row {
+	background-color: rgba(180, 180, 180, 0.7);
+	border-radius: 1rem;
+	padding: 0.4rem;
 }
 
-.img-size{
-    width: 4rem;
-    height: 5rem;;
+.title {
+	font-size: 2.5rem;
+	font-family: 'Syncopate', sans-serif;
 }
 
-.user-photo{
+.img-size {
+	width: 4rem;
+	height: 5rem;;
+}
 
-  background-color:white;
-  height: 2.5rem;
-  width: 2.5rem;
+.user-photo {
+	background-color: white;
+	height: 2.5rem;
+	width: 2.5rem;
+}
+
+.full-box {
+	box-shadow: 0rem 0rem 0.8rem black;
 }
 
 .dropdown-toggle::after {
-    content: none;
+	content: none;
 }

@@ -1,7 +1,12 @@
 
 package com.apuestasamistosas.app.controllers;
 
+import com.apuestasamistosas.app.entities.Premio;
+import com.apuestasamistosas.app.errors.ErrorPremio;
 import com.apuestasamistosas.app.services.PremioServicio;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,11 +33,15 @@ public class GeneralController {
     
     @GetMapping(value = "/rewards")
     public String rewards(ModelMap model){
-        if(premioServicio.listarTodos() != null){
+    	List<Premio> thisList = premioServicio.listarTodos();
+        if(!thisList.isEmpty()){
             model.addAttribute("premios", premioServicio.listarTodos());
+        }else {
+        	model.put("error", ErrorPremio.NO_REWARDS);
         }
         return "premios";
     }
+    
 
 }
 

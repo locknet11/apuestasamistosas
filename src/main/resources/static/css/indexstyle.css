@@ -1,26 +1,28 @@
 /* NAV BAR */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syncopate&display=swap');
 
+.error-msg{
+	font-family: 'Roboto Condensed', sans-serif;
+	font-weight: 500;
+	color: #F43400;
+	font-size: 1.2rem;
+}
 
 body{
- background-color: black !important;
- background:url(../images/ladrillo6) no-repeat center center fixed;
+ background-color: #343743 !important;
  font-family: 'Roboto Condensed', sans-serif;
 }
 
 #color-nav{
-
-    background-color:black!important
-    
+    background-color:#272A31 !important;
 }
 
 
 .logo1{
-
-    width:65%;
-    height:auto;
-    margin-left: 20%;
+	height: 3rem;
+	width: auto;
        
 } 
 
@@ -28,7 +30,8 @@ body{
 
 .nav-item{
 
-  font-size:15px;
+  font-size:1rem;
+  font-weight: 600;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -99,8 +102,6 @@ body{
 .container{
 
     width: 100%;
-
-
 }
 
 .site-footer{

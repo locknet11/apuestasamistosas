@@ -5,17 +5,17 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/images/logo1.png">
+        <link rel="icon" href="/images/favicon2.png">
         <title>Registrarse</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
+<link rel="stylesheet" href="/css/indexstyle.css" />
 <link rel="stylesheet" href="/css/signupstyle.css">
 
     </head>
 
-    <body>
+    <body class="d-flex flex-column min-vh-100">
 
                 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="color-nav">
             <div class="container-fluid">
@@ -89,7 +89,7 @@
                     <div class="col">
                         <div class="provincia select-container">
                             <label>Provincia</label>
-                            <select id="provincia" name="provincia" class="form-control form-control-select text-white bg-black" data-testid="shipping_country"
+                            <select id="provincia" name="provincia" class="form-control form-control-select text-white bg-secondary" data-testid="shipping_country"
                                     placeholder="Provincia" th:value="${provincia}">
                                 <option value="MDZ">Mendoza</option>
                                 <option value="SL">San Luis</option>
@@ -105,7 +105,7 @@
                     <div class="col">
                         <div class="ciudad select-container">
                             <label>Ciudad</label>
-                            <select id="ciudad" name="ciudad" class="form-control form-control-select text-white bg-black" data-testid="shipping_country"
+                            <select id="ciudad" name="ciudad" class="form-control form-control-select text-white bg-secondary" data-testid="shipping_country"
                                     placeholder="Ciudad" th:value="${ciudad}">
                                 <option value="LUJ">Luján de Cuyo</option>
                                 <option value="MA">Maipú</option>
@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <div class="form-group"> 
-                    <label>Foto Usuario</label> <input type="file" class="form-control text-white bg-black" name="archivo" th:value="${archivo}" accept=".jpg,.jpeg,.png">
+                    <label>Foto Usuario</label> <input type="file" class="form-control text-white bg-secondary" name="archivo" th:value="${archivo}" accept=".jpg,.jpeg,.png">
                 </div>
 
 
