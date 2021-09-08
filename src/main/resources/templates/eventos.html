@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="/images/logo1.png" />
+<link rel="icon" href="/images/favicon2.png" />
 <title>Eventos</title>
 
 <link
@@ -130,7 +130,7 @@
 							<h5 th:text="${evento.equipoA.nombre}"></h5>
 						</div>
 						<div th:if="${evento.expirado == false}" class="col m-1">
-							<button class="w-100 btn btn-dark">Apostar</button>
+							<button class="w-100 btn btn-success">Apostar</button>
 						</div>
 						<div th:if="${evento.expirado == true}" class="col m-1">
 							<button class="w-100 btn btn-dark" disabled>Expirado</button>
@@ -165,7 +165,7 @@
 							<h5 th:text="${evento.equipoB.nombre}"></h5>
 						</div>
 						<div th:if="${evento.expirado == false}" class="m-1 col">
-							<button class="w-100 btn btn-dark">Apostar</button>
+							<button class="w-100 btn btn-success">Apostar</button>
 						</div>
 						<div th:if="${evento.expirado == true}" class="col m-1">
 							<button class="w-100 btn btn-dark" disabled>Expirado</button>
@@ -176,7 +176,6 @@
 		</div>
 	</div>
 	<br>
-
 
 	<div class="container">
 		<footer class="py-3 my-4">

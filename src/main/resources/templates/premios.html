@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="/images/logo1.png" />
+<link rel="icon" href="/images/favicon2.png" />
 <title>Premios</title>
 
 <link
@@ -133,7 +133,7 @@
 						<h6 th:text="${premio.proveedor.nombre}">Proveedor</h6>
 						<h4 style="font-weight: bold;" th:text="${'$' + premio.precio}">$$$</h4>
 						<div class="">
-							<button class="btn btn-dark w-100">Apostar</button>
+							<a th:href="@{'/bets/fromRewards/'} + ${premio.id}"><button class="btn btn-success w-100">Apostar</button></a>
 						</div>
 					</div>
 				</div>

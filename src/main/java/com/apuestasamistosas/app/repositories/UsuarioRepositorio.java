@@ -1,6 +1,8 @@
 package com.apuestasamistosas.app.repositories;
 
 import com.apuestasamistosas.app.entities.Usuario;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +18,6 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String>{
     @Query("SELECT u FROM Usuario u WHERE u.codConfirmacion = :codConfirmacion")
     public Optional<Usuario> findByConfirmationId(@Param("codConfirmacion") String codConfirmacion);
 
+    @Query("SELECT u FROM Usuario u WHERE u.admin = true")
+    public Optional<List<Usuario>> findByAdminRole();
 }

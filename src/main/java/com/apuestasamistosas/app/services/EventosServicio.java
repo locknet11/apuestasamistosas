@@ -104,4 +104,18 @@ public class EventosServicio {
         }   
     }
     
+    public List<Eventos> eventosOrdenadosPorFechaYSinExpirar(){
+    	Optional<List<Eventos>> thisList = eventosRepositorio.listAllByDatesAndNoExpired();
+    	
+    	if(thisList.isPresent()){
+            return eventosRepositorio.listAllByDates().get();
+        }else {
+            return Collections.emptyList();
+        }   
+    }
+    
+    public Optional<Eventos> buscarPorId(String id){
+    	return eventosRepositorio.findById(id);
+    }
+    
 }

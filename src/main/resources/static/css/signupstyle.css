@@ -30,8 +30,8 @@
     background-color:#272A31;
     border-radius:8px;
     border:1px solid;
-    border-color: #63A621;
-    box-shadow: 0rem 0rem 0.8rem #63A621;;
+    border-color: #f2b705;
+    box-shadow: 0rem 0rem 0.8rem #f2b705;
 
 }
 
@@ -111,7 +111,7 @@ input[type="submit"] {
 
   margin-top: 20px;
   border: none;
-  background-color: #63A621;
+  background-color: #f2b705;
   color: black;
   font-size: 18px;
 

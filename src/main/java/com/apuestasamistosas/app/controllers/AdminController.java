@@ -1,9 +1,12 @@
 package com.apuestasamistosas.app.controllers;
 
+import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorEquipos;
 import com.apuestasamistosas.app.errors.ErrorEventos;
 import com.apuestasamistosas.app.errors.ErrorPremio;
 import com.apuestasamistosas.app.errors.ErrorProveedores;
+import com.apuestasamistosas.app.errors.ErrorUsuario;
+import com.apuestasamistosas.app.services.ApuestaServicio;
 import com.apuestasamistosas.app.services.EquiposServicio;
 import com.apuestasamistosas.app.services.EventosServicio;
 import com.apuestasamistosas.app.services.PremioServicio;
@@ -11,6 +14,8 @@ import com.apuestasamistosas.app.services.ProveedoresServicio;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,6 +47,9 @@ public class AdminController {
     @Autowired
     private UsuarioServicio usuarioServicio;
     
+    @Autowired
+    private ApuestaServicio apuestaServicio;
+    
     @GetMapping("/panel")
     public String panel(ModelMap model) {
         model.addAttribute("cantUsuarios", usuarioServicio.contarTodos());
@@ -49,6 +57,7 @@ public class AdminController {
         model.addAttribute("cantPremios", premioServicio.contarTodos());
         model.addAttribute("cantEquipos", equiposServicio.contarTodos());
         model.addAttribute("cantEventos", eventoServicio.contarTodos());
+        model.addAttribute("cantApuestas", apuestaServicio.contarTodos());
         return "admin/index";
     }
 
@@ -187,6 +196,41 @@ public class AdminController {
     }
     
 
+    /* 	AÑADIR ADMIN   */
+    
+    @GetMapping("/new-admin")
+    public String newAdmin(ModelMap model) {
+    	List<Usuario> adminUsers = usuarioServicio.listarAdmins();
+    	if(!adminUsers.isEmpty()) {
+    		model.addAttribute("admins", adminUsers);
+    		return "admin/nuevo-admin";
+    	}else {
+    		model.put("error", "Ha ocurrido un error");
+    		return "admin/nuevo-admin";
+    	}
+    	
+    }
+    
+	@PostMapping("/new-admin")
+	public String addNewAdmin(@RequestParam(name = "email", required = false) String email, ModelMap model) {
+		
+		List<Usuario> adminUsers = usuarioServicio.listarAdmins();
+		
+		if (email == null || email.isEmpty()) {
+			model.put("error", ErrorUsuario.NO_EMAIL);
+			return "admin/nuevo-admin";
+		}
+
+		try {
+			usuarioServicio.altaAdmin(email);
+			return "redirect:/admin/new-admin";
+		} catch (ErrorUsuario e) {
+			model.put("error", e.getMessage());
+			model.addAttribute("admins", adminUsers);
+			return "admin/nuevo-admin";
+		}
+
+	}
     
 }
 

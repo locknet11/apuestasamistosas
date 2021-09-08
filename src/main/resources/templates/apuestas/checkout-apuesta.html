@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="/images/favicon2.png" />
-<title th:if="${code != null}"
-	th:text="${'Error ' + code + ' - ' + message}"
-></title>
+<title>Paga tu parte!</title>
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -22,9 +20,10 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 >
-
 <link rel="stylesheet" href="/css/indexstyle.css" />
+<link rel="stylesheet" href="/css/apuestas/checkout.css" />
 </head>
+
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary"
 		id="color-nav"
@@ -109,29 +108,107 @@
 			</div>
 		</div>
 	</nav>
-	<h1 style="color: white; font-size: 5rem;" class="mt-5 text-center" th:if="${code != null}" th:text="${'Error ' + code}"></h1>
-	<h1 style="color: white; font-size: 3rem;" class="mt-5 text-center" th:if="${message != null}" th:text="${message}"></h1>
-	<div class="container">
-		<footer class="py-3 my-4">
-			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
-				<li class="nav-item"><a href="/"
-					class="nav-link px-2 text-muted"
-				>Inicio</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>Eventos</a></li>
-				<li class="nav-item"><a href="rewards"
-					class="nav-link px-2 text-muted"
-				>Premios</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>FAQs</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>Legales</a></li>
-			</ul>
-			<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
-		</footer>
+
+
+	<!-- CONTENIDO -->
+
+	<div class="mt-4 page-w m-auto pay-box ">
+
+		<form action="/bets/payBet" method="POST">
+			<h2 class="text-warning text-center">¡Paga tu parte!</h2>
+			<br />
+			<h4 class="text-warning">Tus condiciones...</h4>
+			<h4 class="text-warning">Apuesto:</h4>
+			<div class="mt-4 row">
+				<div class="row">
+					<div class="mb-4 col-4 col-sm-4 col-md-4 col-lg-4">
+						<img class="img-fluid img-box float-end"
+							th:src="${'/photos/rewards/?id=' + premio.id}"
+						/>
+
+					</div>
+					<div class="col-8 col-sm-8 col-md-8 col-lg-8">
+						<h6 class="text-white">
+							Premio: <span class="text-warning" th:text="${premio.nombre}"></span>
+						</h6>
+						<h6 class="text-white">
+							Proveedor: <span class="text-warning"
+								th:text="${premio.proveedor.nombre}"
+							></span>
+						</h6>
+						<h6 class="text-white">
+							Precio: <span class="text-warning"
+								th:text="${'$' + premio.precio}"
+							></span>
+						</h6>
+					</div>
+				</div>
+			</div>
+
+
+			<h4 class="mt-4 text-warning">
+				Que el día <span class="text-white"
+					th:text="${#temporals.format(evento.fechaEvento, 'dd/MM/yyyy')}"
+				></span> el partido lo gana:
+			</h4>
+
+			<div class="row mt-4">
+				<div class="row">
+					<div class="mb-3 col-4 col-sm-4 col-md-4 col-lg-4">
+						<img class="img-fluid img-box float-end"
+							th:src="${'/photos/teams/?id=' + equipo.id}"
+						/>
+
+					</div>
+					<div class="align-self-center col-8 col-sm-8 col-md-8 col-lg-8">
+						<h1>
+							<span class="text-white" th:text="${equipo.nombre}"></span>
+						</h1>
+					</div>
+				</div>
+			</div>
+			<br />
+			<input type="hidden" name="idReward" th:value="${premio.id}"/>
+			<input type="hidden" name="idEvent" th:value="${evento.id}"/>
+			<input type="hidden" name="idTeam" th:value="${equipo.id}"/>
+			<input type="hidden" name="idUser" th:value="${session.sesionUsuario.id}"/>
+			<button class="btn btn-warning w-100">PAGAR</button>
+		</form>
+
 	</div>
+
+        <br>
+        <div class="container">
+            <footer class="py-3 my-4">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Eventos</a></li>
+                    <li class="nav-item"><a href="rewards" class="nav-link px-2 text-muted">Premios</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Legales</a></li>
+                </ul>
+                <p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
+            </footer>
+        </div>
+
 </body>
+
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
