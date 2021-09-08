@@ -10,6 +10,7 @@ import com.apuestasamistosas.app.validations.PremioValidacion;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -114,7 +115,13 @@ public class PremioServicio {
     }
     
     public List<Premio> listarTodos(){
-        return premioRepositorio.findAll();
+        Optional<List<Premio>> thisList = premioRepositorio.listAllRewards();
+        
+        if(thisList.isPresent()) {
+        	return premioRepositorio.listAllRewards().get();
+        }else {
+        	return Collections.emptyList();
+        }
     }
     
     public Optional<Premio> buscarPorId(String id){

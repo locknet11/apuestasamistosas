@@ -2,6 +2,8 @@
 package com.apuestasamistosas.app.entities;
 
 import com.apuestasamistosas.app.enums.EstadoApuesta;
+import com.apuestasamistosas.app.enums.ResultadoApuesta;
+
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,11 +36,13 @@ public class Apuesta {
     @OneToOne
     private Eventos evento;
     
-    /*
-       si es true gana usuarioA si es false gana usuarioB, si es null es porque fue empate
-    */
+    @OneToOne
+    private Equipos equipoElegidoPorUsuarioA;
     
-    private Boolean usuarioGanador;
+    @OneToOne
+    private Equipos equipoElegidoPorUsuarioB;
+    
+    private ResultadoApuesta resultadoApuesta;
 
     public String getId() {
         return id;
@@ -56,7 +60,6 @@ public class Apuesta {
         this.estado = estado;
     }
 
-    
    
     public LocalDateTime getFechaApuesta() {
         return fechaApuesta;
@@ -82,15 +85,16 @@ public class Apuesta {
         this.evento = evento;
     }
 
-    public boolean isUsuarioGanador() {
-        return usuarioGanador;
-    }
 
-    public void setUsuarioGanador(boolean usuarioGanador) {
-        this.usuarioGanador = usuarioGanador;
-    }
+    public ResultadoApuesta getResultadoApuesta() {
+		return resultadoApuesta;
+	}
 
-    public Usuario getUsuarioA() {
+	public void setResultadoApuesta(ResultadoApuesta resultadoApuesta) {
+		this.resultadoApuesta = resultadoApuesta;
+	}
+
+	public Usuario getUsuarioA() {
         return usuarioA;
     }
 
@@ -105,6 +109,22 @@ public class Apuesta {
     public void setUsuarioB(Usuario usuarioB) {
         this.usuarioB = usuarioB;
     }
+
+	public Equipos getEquipoElegidoPorUsuarioA() {
+		return equipoElegidoPorUsuarioA;
+	}
+
+	public void setEquipoElegidoPorUsuarioA(Equipos equipoElegidoPorUsuarioA) {
+		this.equipoElegidoPorUsuarioA = equipoElegidoPorUsuarioA;
+	}
+
+	public Equipos getEquipoElegidoPorUsuarioB() {
+		return equipoElegidoPorUsuarioB;
+	}
+
+	public void setEquipoElegidoPorUsuarioB(Equipos equipoElegidoPorUsuarioB) {
+		this.equipoElegidoPorUsuarioB = equipoElegidoPorUsuarioB;
+	}
     
     
     

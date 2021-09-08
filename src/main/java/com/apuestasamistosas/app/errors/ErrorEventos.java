@@ -15,5 +15,5 @@ public class ErrorEventos extends Exception{
     public static final String NO_TEAM = "Este equipo no existe";
     public static final String WRONG_DATE = "El evento debe cargarse al menos con 48hs de anticipación.";
     public static final String NO_EVENTS = "No hay eventos para mostrar";
-    
+    public static final String NO_EXISTS = "Este evento no existe.";
 }

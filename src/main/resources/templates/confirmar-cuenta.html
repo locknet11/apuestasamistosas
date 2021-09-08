@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>Confirma tu cuenta</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/images/logo1.png">
+        <link rel="icon" href="/images/favicon2.png">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
         </script>
@@ -41,7 +41,7 @@ and open the template in the editor.
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Eventos</a>
+                            <a class="nav-link" href="/events" tabindex="-1" aria-disabled="false">Eventos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a>
@@ -70,7 +70,7 @@ and open the template in the editor.
 
                     <h1>Confirma tu cuenta</h1>
                     <h3>Hemos enviado un e-mail a:</h3>
-                    <h4 style="color: green;" th:if="${email != null}" th:text="${email}"></h4>
+                    <h4 class="text-warning" th:if="${email != null}" th:text="${email}"></h4>
                     <br>
                     <h3>Sigue los pasos para activar tu cuenta.</h3>
                     <br>

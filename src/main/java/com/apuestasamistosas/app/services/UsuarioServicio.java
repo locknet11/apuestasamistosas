@@ -8,6 +8,7 @@ import com.apuestasamistosas.app.utilities.RandomGenerator;
 import com.apuestasamistosas.app.validations.UsuarioValidacion;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
@@ -179,6 +180,30 @@ public class UsuarioServicio implements UserDetailsService {
             throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
         }
     }
+    
+    /* Metodo para setear el atributo admin como verdadero */
+    
+    @Transactional
+    public void altaAdmin(String email) throws ErrorUsuario{
+    	Optional<Usuario> thisUser = usuarioRepositorio.findByEmail(email);
+    	
+    	if(thisUser.isPresent()) {
+    		Usuario usuario = thisUser.get();
+    		
+    		if(usuario.getAdmin() == true) {
+    			throw new ErrorUsuario(ErrorUsuario.ALREADY_ADMIN);
+    		}
+    		
+    		if(usuario.getConfirmado() == false) {
+    			throw new ErrorUsuario(ErrorUsuario.NO_ACTIVO);
+    		}
+    		
+    		usuario.setAdmin(true);
+    		usuarioRepositorio.save(usuario);
+    	}else {
+    		throw new ErrorUsuario(ErrorUsuario.NO_EXISTE);
+    	}
+    }
 
     /*  Metodo de login del usuario, si el usuario no existe o esta dado de baja va retornar null */
 
@@ -232,5 +257,15 @@ public class UsuarioServicio implements UserDetailsService {
 
     public Optional<Usuario> buscarPorId(String id){
         return usuarioRepositorio.findById(id);
+    }
+    
+    public List<Usuario> listarAdmins(){
+    	Optional<List<Usuario>> thisList = usuarioRepositorio.findByAdminRole();
+    	
+    	if(thisList.isPresent()) {
+    		return thisList.get();
+    	}else {
+    		return Collections.emptyList();
+    	}
     }
 }
