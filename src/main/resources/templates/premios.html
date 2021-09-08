@@ -133,7 +133,7 @@
 						<h6 th:text="${premio.proveedor.nombre}">Proveedor</h6>
 						<h4 style="font-weight: bold;" th:text="${'$' + premio.precio}">$$$</h4>
 						<div class="">
-							<a th:href="@{'/bets/fromRewards/'} + ${premio.id}"><button class="btn btn-warning w-100">Apostar</button></a>
+							<a th:href="@{'/bets/fromRewards/'} + ${premio.id}"><button class="btn btn-success w-100">Apostar</button></a>
 						</div>
 					</div>
 				</div>

@@ -130,7 +130,7 @@
 							<h5 th:text="${evento.equipoA.nombre}"></h5>
 						</div>
 						<div th:if="${evento.expirado == false}" class="col m-1">
-							<button class="w-100 btn btn-dark">Apostar</button>
+							<button class="w-100 btn btn-success">Apostar</button>
 						</div>
 						<div th:if="${evento.expirado == true}" class="col m-1">
 							<button class="w-100 btn btn-dark" disabled>Expirado</button>
@@ -165,7 +165,7 @@
 							<h5 th:text="${evento.equipoB.nombre}"></h5>
 						</div>
 						<div th:if="${evento.expirado == false}" class="m-1 col">
-							<button class="w-100 btn btn-dark">Apostar</button>
+							<button class="w-100 btn btn-success">Apostar</button>
 						</div>
 						<div th:if="${evento.expirado == true}" class="col m-1">
 							<button class="w-100 btn btn-dark" disabled>Expirado</button>

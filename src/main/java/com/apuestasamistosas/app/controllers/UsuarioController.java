@@ -176,8 +176,9 @@ public class UsuarioController {
     
     /* PERFIL USUARIO */
     
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @GetMapping("/edit-profile")
-    public String profile() {
+    public String editProfile() {
     	return "editar-perfil";
     }
 
