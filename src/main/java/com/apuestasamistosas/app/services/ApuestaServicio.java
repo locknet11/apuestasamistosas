@@ -7,9 +7,6 @@ import com.apuestasamistosas.app.entities.Premio;
 import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.enums.EstadoApuesta;
 import com.apuestasamistosas.app.errors.ErrorApuesta;
-import static com.apuestasamistosas.app.errors.ErrorApuesta.NULL_apuesta;
-import static com.apuestasamistosas.app.errors.ErrorApuesta.NULL_evento;
-import static com.apuestasamistosas.app.errors.ErrorApuesta.NULL_premio;
 import com.apuestasamistosas.app.repositories.ApuestaRepositorio;
 import com.apuestasamistosas.app.repositories.EventosRepositorio;
 import com.apuestasamistosas.app.repositories.PremioRepositorio;
@@ -48,7 +45,7 @@ public class ApuestaServicio {
             apuesta.setEvento(evento);
 
         } else {
-            throw new ErrorApuesta(NULL_evento);
+            throw new ErrorApuesta(ErrorApuesta.NULL_evento);
 
         }
 
@@ -58,7 +55,7 @@ public class ApuestaServicio {
             apuesta.setPremio(premio);
 
         } else {
-            throw new ErrorApuesta(NULL_premio);
+            throw new ErrorApuesta(ErrorApuesta.NULL_premio);
 
         }
         apuestaRepositorio.save(apuesta);
@@ -93,7 +90,7 @@ public class ApuestaServicio {
             apuestaRepositorio.save(apuesta);
 
         } else {
-            throw new ErrorApuesta(NULL_apuesta);
+            throw new ErrorApuesta(ErrorApuesta.NULL_apuesta);
         }
 
     }
