@@ -181,5 +181,13 @@ public class UsuarioController {
     public String editProfile() {
     	return "editar-perfil";
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/profile")
+    public String profile() {
+    	return "perfil";
+    }
+    
+    
 
 }

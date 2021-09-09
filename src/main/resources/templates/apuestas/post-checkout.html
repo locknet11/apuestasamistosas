@@ -106,20 +106,31 @@
 					<div class="text-center">
 						<img class="mt-5 img-fluid img-file" src="/images/successCheck.png" alt="success" />
 					</div>
-					<h1 class="h1-color mt-5 text-center" th:text="${message}"></h1>
+					<h1 class="h1-color-success mt-5 text-center" th:text="${message}"></h1>
 					<div class="page-w m-auto input-group mb-3 mt-4">
 						<input type="text" class="form-control bg-dark text-white btn-outline-secondary"
-							 aria-describedby="basic-addon2" readonly value="https://google.com" id="betShareLink"
+							aria-describedby="basic-addon2" readonly
+							th:value="${'http://localhost:8080/bets/join/' + idBet}" id="betShareLink"
 						>
 						<div class="input-group-append">
-							<button onclick="copyToClipboard()" class="btn btn-warning" type="button" id="copyButton">Copiar enlace</button>
+							<button onclick="copyToClipboard()" class="btn btn-warning" type="button" id="copyButton">Copiar
+								enlace</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div></div>
+		<div th:if="${error != null}">
+			<div class="row">
+				<div class="col">
+					<div class="text-center">
+						<img class="mt-5 img-fluid img-file" src="/images/errorCheckout.png" alt="error" />
+					</div>
+					<h1 class="h1-color-error mt-5 text-center" th:text="${error}"></h1>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<br>
@@ -138,14 +149,13 @@
 
 </body>
 <script>
+	function copyToClipboard() {
+		var copyText = document.getElementById("betShareLink");
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+		navigator.clipboard.writeText(copyText.value);
+		document.querySelector('#copyButton').innerHTML = "¡Copiado!";
 
-function copyToClipboard() {
-	  var copyText = document.getElementById("betShareLink");
-	  copyText.select();
-	  copyText.setSelectionRange(0, 99999);
-	  navigator.clipboard.writeText(copyText.value);
-	  document.querySelector('#copyButton').innerHTML = "¡Copiado!";
-	  
-	} 
+	}
 </script>
 </html>

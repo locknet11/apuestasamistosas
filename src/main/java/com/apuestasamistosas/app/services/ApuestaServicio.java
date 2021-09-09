@@ -40,14 +40,13 @@ public class ApuestaServicio {
     @Autowired
     private ApuestasValidacion apuestaValidacion;
 
-    private ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
-    private final LocalDateTime hoy = LocalDateTime.now(this.argentina);
-
-    public void crearApuesta(String idUsuario1, String idEvento, String idPremio, String idEquipoUsuarioA) throws ErrorApuesta {
+    public Apuesta crearApuesta(String idUsuario1, String idEvento, String idPremio, String idEquipoUsuarioA) throws ErrorApuesta {
+        ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
+        LocalDateTime hoy = LocalDateTime.now(argentina);
         
     	Apuesta apuesta = new Apuesta();
         apuesta.setEstado(EstadoApuesta.PENDIENTE);
-        apuesta.setFechaApuesta(this.hoy);
+        
         
         Usuario usuarioA = usuarioRepositorio.findById(idUsuario1).get();
         apuesta.setUsuarioA(usuarioA);
@@ -80,19 +79,23 @@ public class ApuestaServicio {
             throw new ErrorApuesta(ErrorApuesta.NULL_premio);
 
         }
+        apuesta.setFechaApuesta(hoy);
         apuesta.setResultadoApuesta(ResultadoApuesta.INDEFINIDO);
-        apuestaRepositorio.save(apuesta);
+        Apuesta apuestaReturn = apuestaRepositorio.save(apuesta);
+        return apuestaReturn;
     }
 
     public void confirmarApuesta(String idUsuario2, String idApuesta) throws ErrorApuesta, Exception {
-        Usuario usuarioB = usuarioRepositorio.findById(idUsuario2).get();
+        ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
+        LocalDateTime hoy = LocalDateTime.now(argentina);
+    	Usuario usuarioB = usuarioRepositorio.findById(idUsuario2).get();
         Optional<Apuesta> thisApuesta = apuestaRepositorio.findById(idApuesta);
         Integer plazoMaximo = 86400000;
 
         if (thisApuesta.isPresent()) {
             Apuesta apuesta = thisApuesta.get();
             if (apuesta.getEstado() == EstadoApuesta.PENDIENTE) {
-                Long distanciaEntreFechas = this.hoy.until(apuesta.getFechaApuesta(), ChronoUnit.MILLIS);
+                Long distanciaEntreFechas = hoy.until(apuesta.getFechaApuesta(), ChronoUnit.MILLIS);
                 if (distanciaEntreFechas < plazoMaximo) {
                     apuesta.setUsuarioB(usuarioB);
                     apuesta.setEstado(EstadoApuesta.CONFIRMADA);
@@ -122,6 +125,10 @@ public class ApuestaServicio {
     
     public long contarTodos() {
     	return apuestaRepositorio.count();
+    }
+    
+    public Optional<Apuesta> buscarPorId(String id){
+    	return apuestaRepositorio.findById(id);
     }
     
     /*	Aqui se llaman a los metodos de validacion  */

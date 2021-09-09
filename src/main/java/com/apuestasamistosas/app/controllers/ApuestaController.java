@@ -2,8 +2,9 @@
 package com.apuestasamistosas.app.controllers;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.apuestasamistosas.app.entities.Apuesta;
 import com.apuestasamistosas.app.entities.Equipos;
 import com.apuestasamistosas.app.entities.Eventos;
 import com.apuestasamistosas.app.entities.Premio;
@@ -50,12 +54,15 @@ public class ApuestaController {
         return "apuestas/index";
     }
     
+    /* Crear apuesta desde la vista premios */
+    
 	@GetMapping("/fromRewards/{id}")
 	public String betFromRewards(@PathVariable String id, ModelMap model) throws ErrorApuesta {
 		Optional<Premio> thisPremio = premioServicio.buscarPorId(id);
 
 		if (thisPremio.isPresent()) {
 			Premio premio = thisPremio.get();
+			model.addAttribute("source", "rewards");
 			model.addAttribute("premio", premio);
 			model.addAttribute("listaEventos", eventoServicio.eventosOrdenadosPorFechaYSinExpirar());
 			return "apuestas/crear-apuesta";
@@ -64,6 +71,38 @@ public class ApuestaController {
 		}
 
 	}
+	
+	/*	Crear apuesta desde la vista eventos */
+	
+	@GetMapping("/fromEvents")
+	public String betFromEvents(
+			@RequestParam(name = "idEvent", required = false) String idEvent,
+			@RequestParam(name = "idTeam", required = false) String idTeam,
+			ModelMap model) throws ErrorApuesta, ResponseStatusException{
+		
+		Optional<Eventos> thisEvento = eventoServicio.buscarPorId(idEvent);
+		Optional<Equipos> thisEquipo = equipoServicio.buscarPorId(idTeam);
+		
+		if(idEvent == null || idTeam == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+		if(thisEvento.isPresent() && thisEquipo.isPresent()) {
+			Equipos equipo = thisEquipo.get();
+			Eventos evento = thisEvento.get();
+			model.addAttribute("evento", evento);
+			model.addAttribute("equipo", equipo);
+			model.addAttribute("source", "events");
+			model.addAttribute("premios", premioServicio.listarTodos());
+			return "apuestas/crear-apuesta";
+		}else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
+	
+	/* Paso intermedio que define la condiciones de la apuesta */
 	
 	@GetMapping("/beginBet")
 	public String createBet(
@@ -90,22 +129,45 @@ public class ApuestaController {
 		}
 	}
 	
+	/* Paso final el proceso de creacion de la apuesta */
+	
 	@PostMapping("/payBet")
 	public String checkoutBet(
 			@RequestParam(name = "idReward", required = false) String idReward,
 			@RequestParam(name = "idEvent", required = false) String idEvent,
 			@RequestParam(name = "idTeam", required = false) String idTeam,
 			@RequestParam(name = "idUser", required = false) String idUser,
-			ModelMap model) throws ErrorApuesta {
+			ModelMap model, RedirectAttributes redirectAttrs) throws ErrorApuesta {
 		
 		 try {
-			 apuestaServicio.crearApuesta(idUser, idEvent, idReward, idTeam);
-			 model.addAttribute("message", "¡Apuesta creada exitosamente!");
-			 return "apuestas/post-checkout";
+			 Apuesta apuesta = apuestaServicio.crearApuesta(idUser, idEvent, idReward, idTeam);
+			 redirectAttrs.addAttribute("id", apuesta.getId());
+			 return "redirect:/bets/postCheckout/{id}";
 		 }catch(ErrorApuesta e) {
-			 model.addAttribute("error", e.getMessage());
-			 return "apuestas/post-checkout";
+			 return "redirect:/bets/postCheckout/error";
 		 }
+	}
+	
+	/*	En este punto se devuelve una vista dandole al usuario un link para compartir en
+	 * 	caso de que la apuesta se haya creado exitosamente, caso contrario, devuelve vista de error
+	 *  */
+	
+	@GetMapping(value = {"/postCheckout/error", "/postCheckout/{id}"})
+	public String postCheckout(@PathVariable(name = "id", required = false) String id, ModelMap model) throws ResponseStatusException{
+		
+			if(id != null) {
+				Optional<Apuesta> thisApuesta = apuestaServicio.buscarPorId(id);
+				if(thisApuesta.isPresent()) {
+					model.addAttribute("message", "¡Apuesta creada exitosamente!");
+					model.addAttribute("idBet", id);
+					return "apuestas/post-checkout";
+				}else {
+					throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+				}
+			}else {
+				model.addAttribute("error", "Se ha producido un error al crear la apuesta");
+				return "apuestas/post-checkout";
+			}
 	}
 	
 	

@@ -1,24 +1,7 @@
-
-
-/* PERFIL */
-
 h1{
   color: white;
   margin-top: 1rem;
   text-align: center;
-}
-
-
-button[type="button"] {
-
-  
-  color: #fff;
-  
-}
-
-input[type="submit"]:hover {
-
-  color: grey;
 }
 
 

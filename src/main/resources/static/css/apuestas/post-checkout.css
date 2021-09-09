@@ -33,6 +33,10 @@
 	height: 10rem;
 }
 
-.h1-color {
+.h1-color-success {
 	color: #00B050;
+}
+
+.h1-color-error {
+	color: #DC3545;
 }

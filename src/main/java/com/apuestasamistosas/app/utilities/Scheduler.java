@@ -28,9 +28,6 @@ public class Scheduler{
     @Autowired
     private ApuestaServicio apuestaServicio;
     
-    private final ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
-    private final LocalDateTime hoy = LocalDateTime.now(this.argentina);
-    
     /*  En esta clase se van a definir todos los metodos relacionados con la planificacion
         de tareas. Por ejemplo, el metodo supervisorEvento estara controlando cada 1 minuto
         que la fecha de los eventos no se pasen de la fecha limite para apostar, cuando esta fecha 
@@ -40,6 +37,9 @@ public class Scheduler{
     @Scheduled(cron = "0 * * * * ?", zone = "America/Argentina/Buenos_Aires")
     public void supervisorEvento() throws ErrorEventos {
 
+    	ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
+        LocalDateTime hoy = LocalDateTime.now(argentina);
+        
         List<Eventos> thisList = eventoServicio.eventosOrdenadosPorFecha();
 
         if (thisList == null || thisList.isEmpty()) {
@@ -49,7 +49,7 @@ public class Scheduler{
             Integer plazoMaximo = 86400000;
             
             for (Eventos evento : thisList) {
-                Long distanciaEntreFechas = this.hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
+                Long distanciaEntreFechas = hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
                 if (distanciaEntreFechas <= plazoMaximo && evento.isExpirado() == false) {
                     eventoServicio.expirarEvento(evento);
                     logger.info("Se expiro el evento con ID \'" + evento.getId() + "\'");
@@ -67,6 +67,8 @@ public class Scheduler{
     
     @Scheduled(cron = "0 * * * * ?", zone = "America/Argentina/Buenos_Aires")
     public void supervisorEstados() throws ErrorEventos {
+    	ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
+        LocalDateTime hoy = LocalDateTime.now(argentina);
 
         List<Eventos> thisList = eventoServicio.eventosOrdenadosPorFecha();
 
@@ -74,7 +76,7 @@ public class Scheduler{
             logger.warn(ErrorScheduler.NULL_EVENTS);
         } else {
             for (Eventos evento : thisList) {
-                Long distanciaHoraria = this.hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
+                Long distanciaHoraria = hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
                 
                 if(distanciaHoraria <= 0 && distanciaHoraria >= 60000){
                     eventoServicio.actualizarEstado(evento, EstadoEvento.EN_CURSO);
