@@ -42,6 +42,12 @@ public class GeneralController {
         return "premios";
     }
     
+    @GetMapping("/betsy")
+    public String fdfd(ModelMap model) {
+    	model.addAttribute("message", "Apuesta creada exitosamente");
+    	return "apuestas/post-checkout";
+    }
+    
 
 }
 

@@ -1,0 +1,41 @@
+@media only screen and (max-width: 600px) {
+	.page-w {
+		width: 95%;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.page-w {
+		width: 95%;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.page-w {
+		width: 65%;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.page-w {
+		width: 50%;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.page-w {
+		width: 50%;
+	}
+}
+
+.pay-box{
+	background-color: #272A31;
+	padding: 1.5rem;
+	border-radius: 1rem;
+}
+
+.img-box{
+	width: 7rem;
+	height: auto;
+	border-radius: 0.5rem;
+}

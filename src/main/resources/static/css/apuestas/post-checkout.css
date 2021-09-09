@@ -1,0 +1,38 @@
+@media only screen and (max-width: 600px) {
+	.page-w {
+		width: 95%;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.page-w {
+		width: 95%;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.page-w {
+		width: 65%;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.page-w {
+		width: 50%;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.page-w {
+		width: 50%;
+	}
+}
+
+
+.img-file {
+	height: 10rem;
+}
+
+.h1-color {
+	color: #00B050;
+}

@@ -114,4 +114,8 @@ public class EventosServicio {
         }   
     }
     
+    public Optional<Eventos> buscarPorId(String id){
+    	return eventosRepositorio.findById(id);
+    }
+    
 }

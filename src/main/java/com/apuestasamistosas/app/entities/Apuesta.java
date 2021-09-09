@@ -6,6 +6,8 @@ import com.apuestasamistosas.app.enums.ResultadoApuesta;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -21,6 +23,7 @@ public class Apuesta {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
+    @Enumerated(EnumType.STRING)
     private EstadoApuesta estado;
     @OneToOne
     private Usuario usuarioA;
@@ -42,6 +45,7 @@ public class Apuesta {
     @OneToOne
     private Equipos equipoElegidoPorUsuarioB;
     
+    @Enumerated(EnumType.STRING)
     private ResultadoApuesta resultadoApuesta;
 
     public String getId() {

@@ -43,7 +43,7 @@ public class ApuestaServicio {
     private ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
     private final LocalDateTime hoy = LocalDateTime.now(this.argentina);
 
-    public void crearApuesta(String idUsuario1, String idEvento, String idPremio, String idEquipoUsuarioA) throws ErrorApuesta, Exception {
+    public void crearApuesta(String idUsuario1, String idEvento, String idPremio, String idEquipoUsuarioA) throws ErrorApuesta {
         
     	Apuesta apuesta = new Apuesta();
         apuesta.setEstado(EstadoApuesta.PENDIENTE);
@@ -116,6 +116,12 @@ public class ApuestaServicio {
             throw new ErrorApuesta(ErrorApuesta.NULL_apuesta);
         }
 
+    }
+    
+    /*	Metodos de listado */
+    
+    public long contarTodos() {
+    	return apuestaRepositorio.count();
     }
     
     /*	Aqui se llaman a los metodos de validacion  */
