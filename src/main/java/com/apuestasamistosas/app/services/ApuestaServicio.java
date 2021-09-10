@@ -36,7 +36,7 @@ public class ApuestaServicio {
     private PremioRepositorio premioRepositorio;
     @Autowired
     private EquiposRepositorio equipoRepositorio;
-    
+
     @Autowired
     private ApuestasValidacion apuestaValidacion;
 
@@ -44,27 +44,27 @@ public class ApuestaServicio {
     private final LocalDateTime hoy = LocalDateTime.now(this.argentina);
 
     public void crearApuesta(String idUsuario1, String idEvento, String idPremio, String idEquipoUsuarioA) throws ErrorApuesta, Exception {
-        
-    	Apuesta apuesta = new Apuesta();
+
+        Apuesta apuesta = new Apuesta();
         apuesta.setEstado(EstadoApuesta.PENDIENTE);
         apuesta.setFechaApuesta(this.hoy);
-        
+
         Usuario usuarioA = usuarioRepositorio.findById(idUsuario1).get();
         apuesta.setUsuarioA(usuarioA);
-        
+
         Optional<Eventos> thisEvento = eventosRepositorio.findById(idEvento);
         Optional<Equipos> thisEquipo = equipoRepositorio.findById(idEquipoUsuarioA);
-        
+
         if (thisEvento.isPresent()) {
-        	
+
             Eventos evento = thisEvento.get();
             apuesta.setEvento(evento);
             apuesta.setEquipoElegidoPorUsuarioA(thisEquipo.get());
-            
-            if(thisEquipo.get().equals(evento.getEquipoA())) {
-            	apuesta.setEquipoElegidoPorUsuarioB(evento.getEquipoB());
-            }else {
-            	apuesta.setEquipoElegidoPorUsuarioB(evento.getEquipoA());
+
+            if (thisEquipo.get().equals(evento.getEquipoA())) {
+                apuesta.setEquipoElegidoPorUsuarioB(evento.getEquipoB());
+            } else {
+                apuesta.setEquipoElegidoPorUsuarioB(evento.getEquipoA());
             }
         } else {
             throw new ErrorApuesta(ErrorApuesta.NULL_evento);
@@ -101,15 +101,15 @@ public class ApuestaServicio {
                     throw new ErrorApuesta(ErrorApuesta.EXPIRADA_APUESTA);
                 }
 
-            }else if(apuesta.getEstado() == EstadoApuesta.CONFIRMADA){
-                 throw new ErrorApuesta(ErrorApuesta.CONFIRMADA_APUESTA);
-                
-            }else if (apuesta.getEstado() == EstadoApuesta.RECHAZADA){
+            } else if (apuesta.getEstado() == EstadoApuesta.CONFIRMADA) {
+                throw new ErrorApuesta(ErrorApuesta.CONFIRMADA_APUESTA);
+
+            } else if (apuesta.getEstado() == EstadoApuesta.RECHAZADA) {
                 throw new ErrorApuesta(ErrorApuesta.RECHAZADA_APUESTA);
-            }else if (apuesta.getEstado() == EstadoApuesta.EXPIRADA){
-               throw new ErrorApuesta(ErrorApuesta.EXPIRADA_APUESTA); 
+            } else if (apuesta.getEstado() == EstadoApuesta.EXPIRADA) {
+                throw new ErrorApuesta(ErrorApuesta.EXPIRADA_APUESTA);
             }
-                
+
             apuestaRepositorio.save(apuesta);
 
         } else {
@@ -117,15 +117,48 @@ public class ApuestaServicio {
         }
 
     }
-    
-    /*	Aqui se llaman a los metodos de validacion  */
-    
-    public void llamarPrimerValidacion(String idReward, String idEvent, String idTeam) throws ErrorApuesta {
-    	apuestaValidacion.validarPrimerEtapa(idReward, idEvent, idTeam);
+
+    public void rechazarApuesta(String idUsuario2, String idApuesta) throws ErrorApuesta, Exception {
+        Usuario usuarioB = usuarioRepositorio.findById(idUsuario2).get();
+        Optional<Apuesta> thisApuesta = apuestaRepositorio.findById(idApuesta);
+        Integer plazoMaximo = 86400000;
+
+        if (thisApuesta.isPresent()) {
+            Apuesta apuesta = thisApuesta.get();
+            if (apuesta.getEstado() == EstadoApuesta.PENDIENTE) {
+                Long distanciaEntreFechas = this.hoy.until(apuesta.getFechaApuesta(), ChronoUnit.MILLIS);
+                if (distanciaEntreFechas < plazoMaximo) {
+                    apuesta.setUsuarioB(usuarioB);
+                    apuesta.setEstado(EstadoApuesta.RECHAZADA);
+                } else {
+                    apuesta.setEstado(EstadoApuesta.EXPIRADA);
+                    throw new ErrorApuesta(ErrorApuesta.EXPIRADA_APUESTA);
+                }
+
+            } else if (apuesta.getEstado() == EstadoApuesta.CONFIRMADA) {
+                throw new ErrorApuesta(ErrorApuesta.CONFIRMADA_APUESTA);
+
+            } else if (apuesta.getEstado() == EstadoApuesta.RECHAZADA) {
+                throw new ErrorApuesta(ErrorApuesta.RECHAZADA_APUESTA);
+            } else if (apuesta.getEstado() == EstadoApuesta.EXPIRADA) {
+                throw new ErrorApuesta(ErrorApuesta.EXPIRADA_APUESTA);
+            }
+
+            apuestaRepositorio.save(apuesta);
+
+        } else {
+            throw new ErrorApuesta(ErrorApuesta.NULL_apuesta);
+        }
+
     }
-    
-    public void llamarSegundaValidacion(String idUser, Authentication auth) throws ErrorApuesta{
-    	apuestaValidacion.validarSegundaEtapa(idUser, auth);
+
+    /*	Aqui se llaman a los metodos de validacion  */
+    public void llamarPrimerValidacion(String idReward, String idEvent, String idTeam) throws ErrorApuesta {
+        apuestaValidacion.validarPrimerEtapa(idReward, idEvent, idTeam);
+    }
+
+    public void llamarSegundaValidacion(String idUser, Authentication auth) throws ErrorApuesta {
+        apuestaValidacion.validarSegundaEtapa(idUser, auth);
     }
 
 }
