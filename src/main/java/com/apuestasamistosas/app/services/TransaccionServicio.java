@@ -14,12 +14,13 @@ public class TransaccionServicio {
 
     @Autowired
     private TransaccionRepositorio transaccionRepositorio;
-    private ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
-    private final LocalDateTime hoy = LocalDateTime.now(this.argentina);
 
     @Transactional
     public void crearTransaccion(Double saldo, String idObject) {
+        ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
+        LocalDateTime hoy = LocalDateTime.now(argentina);
         Optional<Transaccion> respuesta = transaccionRepositorio.findById(idObject);
+
         if (respuesta.isPresent()) {
 
             Transaccion transaccion = new Transaccion();
@@ -34,7 +35,7 @@ public class TransaccionServicio {
             Transaccion transaccion = new Transaccion();
             transaccion.setSaldo(saldo);
             transaccion.setIdObject(idObject);
-            transaccion.setFechaTransaccion(this.hoy);
+            transaccion.setFechaTransaccion(hoy);
             transaccionRepositorio.save(transaccion);
 
         }
