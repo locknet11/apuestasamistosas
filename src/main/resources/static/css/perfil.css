@@ -8,6 +8,16 @@ h1{
   text-align: center;
 }
 
+h8{
+  color: white;
+  
+}
+
+.scrolleable{
+
+  margin-top:0.8rem;
+}
+
 
 button[type="button"] {
 
