@@ -6,6 +6,7 @@ import com.apuestasamistosas.app.errors.ErrorEventos;
 import com.apuestasamistosas.app.errors.ErrorPremio;
 import com.apuestasamistosas.app.errors.ErrorProveedores;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
+import com.apuestasamistosas.app.services.ApuestaServicio;
 import com.apuestasamistosas.app.services.EquiposServicio;
 import com.apuestasamistosas.app.services.EventosServicio;
 import com.apuestasamistosas.app.services.PremioServicio;
@@ -46,6 +47,9 @@ public class AdminController {
     @Autowired
     private UsuarioServicio usuarioServicio;
     
+    @Autowired
+    private ApuestaServicio apuestaServicio;
+    
     @GetMapping("/panel")
     public String panel(ModelMap model) {
         model.addAttribute("cantUsuarios", usuarioServicio.contarTodos());
@@ -53,6 +57,7 @@ public class AdminController {
         model.addAttribute("cantPremios", premioServicio.contarTodos());
         model.addAttribute("cantEquipos", equiposServicio.contarTodos());
         model.addAttribute("cantEventos", eventoServicio.contarTodos());
+        model.addAttribute("cantApuestas", apuestaServicio.contarTodos());
         return "admin/index";
     }
 

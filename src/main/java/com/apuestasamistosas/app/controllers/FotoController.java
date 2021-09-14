@@ -51,7 +51,6 @@ public class FotoController {
     
     /*  SECCION USUARIO  */
     
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @GetMapping("/users")
     public ResponseEntity<byte[]> userPhoto(@RequestParam String id) throws ErrorUsuario {
         Optional<Usuario> usuario = usuarioServicio.buscarPorId(id);

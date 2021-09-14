@@ -1,3 +1,4 @@
+
 package com.apuestasamistosas.app.entities;
 
 import java.time.LocalDate;
@@ -9,9 +10,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@DynamicUpdate
 @Table(name = "usuarios")
 public class Usuario {
 

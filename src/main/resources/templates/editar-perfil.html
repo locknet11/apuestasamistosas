@@ -7,16 +7,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/images/favicon2.png">
 
-<title>Perfil</title>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+<title>Bet & Buy | Editar perfil</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
 	crossorigin="anonymous"
 >
 	
 </script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous"
@@ -31,46 +31,40 @@
 </head>
 
 
+
 <body class="d-flex flex-column min-vh-100">
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary"
-		id="color-nav"
-	>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="color-nav">
 		<div class="container-fluid">
 			<a href="/"><img class="logo1" src="/images/logo1.png" alt="" /></a>
 
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation"
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				aria-expanded="false" aria-label="Toggle navigation"
 			>
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/"
-					>Inicio</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Inicio</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="/events"
-						tabindex="-1" aria-disabled="false"
+					<li class="nav-item"><a class="nav-link" href="/events" tabindex="-1"
+						aria-disabled="false"
 					>Eventos</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"
-						tabindex="-1" aria-disabled="false"
-					>Ranking</a></li>
+					<li class="nav-item"><a class="nav-link" href="/ranking" tabindex="-1" aria-disabled="false">Ranking</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="/rewards"
-						tabindex="-1" aria-disabled="false"
+					<li class="nav-item"><a class="nav-link" href="/rewards" tabindex="-1"
+						aria-disabled="false"
 					>Premios</a></li>
 
 				</ul>
 				<div th:unless="${session.sesionUsuario != null}">
 					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" href="/user/login"
-							tabindex="-1" aria-disabled="false"
+						<li class="nav-item"><a class="nav-link" href="/user/login" tabindex="-1"
+							aria-disabled="false"
 						>Log In</a></li>
-						<li class="nav-item"><a class="nav-link" href="/user/signup"
-							tabindex="-1" aria-disabled="false"
+						<li class="nav-item"><a class="nav-link" href="/user/signup" tabindex="-1"
+							aria-disabled="false"
 						>Sign Up</a></li>
 					</ul>
 				</div>
@@ -78,24 +72,22 @@
 				<div th:if="${session.sesionUsuario != null}">
 					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
 						<div th:unless="${session.sesionUsuario.foto != null}">
-							<li class="nav-item"><img class="rounded-circle user-photo"
-								src="/images/usuario.png"
-								th:alt="${session.sesionUsuario.nombre}"
-							></li>
+							<a href="/user/profile" title="Profile"><li class="nav-item"><img
+									class="rounded-circle user-photo" src="/images/usuario.png"
+									th:alt="${session.sesionUsuario.nombre}"
+								></li></a>
 						</div>
 						<div th:if="${session.sesionUsuario.foto != null}">
 
-							<a href="/user/dashboard" title="Dashboard">
+							<a href="/user/profile" title="profile">
 								<li class="nav-item"><img class="rounded-circle user-photo"
 									th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
 									th:alt="${session.sesionUsuario.nombre}"
 								></li>
 							</a>
 						</div>
-						<li class="nav-item dropdown mt-1"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"
+						<li class="nav-item dropdown mt-1"><a class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
 						> <i class="fa fa-bars" aria-hidden="true"></i>
 						</a>
 
@@ -103,11 +95,9 @@
 								aria-labelledby="navbarDropdownMenuLink" role="menu"
 							>
 								<li><a class="dropdown-item" href="/user/profile">Perfil</a></li>
-								<li><a class="dropdown-item" href="/user/logout">Cerrar
-										Sesión</a></li>
+								<li><a class="dropdown-item" href="/user/logout">Cerrar Sesión</a></li>
 								<div th:if="${session.sesionUsuario.admin == true}">
-									<li><a class="dropdown-item" href="/admin/panel">Admin
-											Panel</a></li>
+									<li><a class="dropdown-item" href="/admin/panel">Admin Panel</a></li>
 								</div>
 							</ul></li>
 					</ul>
@@ -119,33 +109,34 @@
 
 	<!-- PERFIL -->
 
+
 	<div class="perfil-box m-auto mt-4">
 
 
-		<form class="perfil-check" action="perfilcheck" method="POST">
+		<form class="perfil-check" action="edit-profile" method="POST" enctype="multipart/form-data">
 
-			<p
-				style="color: red; font-family: 'Source Sans Pro', serif; font-size: 17px;"
-				th:if="${error != null}" th:text="${error}"
+			<p style="color: red; font-family: 'Roboto Condensed', serif; font-size: 1.2rem;"
+				th:if="${error != null}" th:text="${error}" class="text-center mt-3"
 			></p>
+
+			<p style="color: #4169E1; font-family: 'Roboto Condensed', serif; font-size: 1.2rem;"
+				th:if="${message != null}" th:text="${message}" class="text-center mt-3"
+			></p>
+
 
 			<h1 class="mb-3">Tu perfil</h1>
 
 			<div th:if="${session.sesionUsuario != null}">
 
-				<div class="row gx-0 justify-content-center"
-					th:unless="${session.sesionUsuario.foto != null}"
-				>
+				<div class="row gx-0 justify-content-center" th:unless="${session.sesionUsuario.foto != null}">
 					<img class="img-fluid perfil-photo rounded-circle" src="/images/usuario.png"
 						th:alt="${session.sesionUsuario.nombre}"
 					>
 				</div>
 
-				<div class="row gx-0 justify-content-center"
-					th:if="${session.sesionUsuario.foto != null}"
-				>
+				<div class="row gx-0 justify-content-center" th:if="${session.sesionUsuario.foto != null}">
 
-					 <img class="img-fluid perfil-photo rounded-circle"
+					<img class="img-fluid perfil-photo rounded-circle"
 						th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
 						th:alt="${session.sesionUsuario.nombre}"
 					>
@@ -155,14 +146,12 @@
 				<div class="p-3 justify-content-center mt-3">
 					<div class="row">
 						<div class="col-md">
-							<label>Nombre</label> <input
-								th:value="${session.sesionUsuario.nombre}" type="text"
+							<label>Nombre</label> <input th:value="${session.sesionUsuario.nombre}" type="text"
 								name="nombre"
 							>
 						</div>
 						<div class="col-md">
-							<label>Apellido</label> <input
-								th:value="${session.sesionUsuario.apellido}" type="text"
+							<label>Apellido</label> <input th:value="${session.sesionUsuario.apellido}" type="text"
 								name="apellido"
 							>
 						</div>
@@ -170,47 +159,62 @@
 					<div class="row">
 
 						<div class="col-md">
-							<label>Fecha de nacimiento</label> <input
-								th:value="${session.sesionUsuario.fechaNacimiento}" type="date"
-								name="fechaNacimiento"
+							<label>Fecha de nacimiento</label> <input th:value="${session.sesionUsuario.fechaNacimiento}"
+								type="date" name="fechaNacimiento"
 							>
 						</div>
+						<div class="col">
+							<div class="provincia select-container">
+								<label>Provincia</label> <select id="select-provincias" name="provincia"
+									onfocus="selectProv()" onchange="selectDep()"
+									class="form-control form-control-select text-white bg-dark" data-testid="shipping_country"
+									placeholder="Provincia" th:value="${session.sesionUsuario.provincia}"
+								>
+									<option th:text="${session.sesionUsuario.provincia}"></option>
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="ciudad select-container">
+								<label>Ciudad</label> <select id="select-departamentos" name="ciudad"
+									class="form-control form-control-select text-white bg-dark" data-testid="shipping_country"
+									placeholder="Ciudad"
+								>
+									<option th:text="${session.sesionUsuario.ciudad}"></option>
+								</select>
+
+							</div>
+						</div>
 						<div class="col-md">
-							<label>Provincia</label> <input
-								th:value="${session.sesionUsuario.provincia}" type="text"
-								name="provincia"
+							<label>Dirección</label> <input th:value="${session.sesionUsuario.calle}" type="text"
+								name="calle"
 							>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md">
-							<label>Ciudad</label><br> <input
-								th:value="${session.sesionUsuario.ciudad}" type="text"
-								name="ciudad"
+							<label>CP</label><br> <input th:value="${session.sesionUsuario.codigoPostal}"
+								type="text" name="codigoPostal"
 							>
 						</div>
 						<div class="col-md">
-							<label>Dirección</label> <input
-								th:value="${session.sesionUsuario.calle}" type="text"
-								name="direccion"
-							>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md">
-							<label>CP</label><br> <input
-								th:value="${session.sesionUsuario.codigoPostal}" type="text"
-								name="codigoPostal"
-							>
-						</div>
-						<div class="col-md">
-							<label>Teléfono</label> <input
-								th:value="${session.sesionUsuario.telefono}" type="tel"
+							<label>Teléfono</label> <input th:value="${session.sesionUsuario.telefono}" type="tel"
 								name="telefono"
 							>
 						</div>
 					</div>
-					<input type="submit" value="Editar">
+					<div class="form-group">
+						<label>Foto Usuario</label> <input type="file" class="form-control text-white bg-dark"
+							name="archivo" th:value="${archivo}" accept=".jpg,.jpeg,.png"
+						>
+					</div>
+
+					<input type="hidden" name="id" th:value="${session.sesionUsuario.id}" /> <input type="submit"
+						value="Editar"
+					>
 				</div>
 		</form>
 	</div>
@@ -222,31 +226,92 @@
 	<div class="container">
 		<footer class="py-3 my-4">
 			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
-				<li class="nav-item"><a href="/"
-					class="nav-link px-2 text-muted"
-				>Inicio</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>Eventos</a></li>
-				<li class="nav-item"><a href="rewards"
-					class="nav-link px-2 text-muted"
-				>Premios</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>FAQs</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link px-2 text-muted"
-				>Legales</a></li>
+				<li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
+				<li class="nav-item"><a href="/events" class="nav-link px-2 text-muted">Eventos</a></li>
+				<li class="nav-item"><a href="/rewards" class="nav-link px-2 text-muted">Premios</a></li>
+				<li class="nav-item"><a href="/faqs" class="nav-link px-2 text-muted">FAQs</a></li>
+				<li class="nav-item"><a href="/legal" class="nav-link px-2 text-muted">Legales</a></li>
 			</ul>
 			<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
 		</footer>
 	</div>
 
+	<script>
+	
+	function selectProv(){
+	    var dropdown_prov = document.getElementById("select-provincias");
+	    dropdown_prov.length = 0;
+	    let defaultOption = document.createElement('option');
+	    defaultOption.text = 'Selecciona tu provincia';
+
+	    dropdown_prov.add(defaultOption);
+	    dropdown_prov.selectedIndex = -1;
+	    const url_provincias =
+	      "https://apis.datos.gob.ar/georef/api/provincias?orden=nombre&max=500";
+
+	    fetch(url_provincias)
+	      .then(function (response) {
+	        if (response.status !== 200) {
+	          console.warn(
+	            "Looks like there was a problem. Status Code: " + response.status
+	          );
+	          return;
+	        }
+	        response.json().then(function (data) {
+	          let option;
+	          for (let i = 0; i < data["provincias"].length; i++) {
+	            option = document.createElement("option");
+	            option.text = data["provincias"][i]["nombre"];
+	            option.value = data["provincias"][i]["nombre"];
+	            option.id = data["provincias"][i]["id"];
+	            dropdown_prov.add(option);
+	          }
+	        });
+	      })
+	      .catch(function (err) {
+	        console.error("Fetch Error -", err);
+	      });
+
+	}
+	
+    function selectDep() {
+      var dropdown_dep = document.getElementById("select-departamentos");
+      dropdown_dep.length = 0;
+      var provinciaElegida = document.getElementById("select-provincias").value;
+      var url_departamentos =
+        "https://apis.datos.gob.ar/georef/api/departamentos?orden=nombre&max=600&provincia=" +
+        provinciaElegida;
+
+      fetch(url_departamentos)
+        .then(function (response) {
+          if (response.status !== 200) {
+            console.warn(
+              "Looks like there was a problem. Status Code: " + response.status
+            );
+            return;
+          }
+
+          response.json().then(function (data) {
+            let option;
+            for (let i = 0; i < data["total"]; i++) {
+              option = document.createElement("option");
+              option.text = data["departamentos"][i]["nombre"];
+              option.value = data["departamentos"][i]["nombre"];
+              dropdown_dep.add(option);
+            }
+          });
+        })
+        .catch(function (err) {
+          console.error("Fetch Error -", err);
+        });
+    }
+  </script>
 
 
 
 	<!-- JavaScript Bundle with Popper -->
 
 </body>
+
 
 </html>

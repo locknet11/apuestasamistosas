@@ -127,5 +127,15 @@ public class PremioServicio {
     public Optional<Premio> buscarPorId(String id){
         return premioRepositorio.findById(id);
     }
+    
+    public List<Premio> listarPorRanking(){
+    	Optional<List<Premio>> thisList = premioRepositorio.listByRankingDesc();
+    	
+    	if(thisList.isPresent()) {
+    		return thisList.get();
+    	}else {
+    		return Collections.emptyList();
+    	}
+    }
 
 }

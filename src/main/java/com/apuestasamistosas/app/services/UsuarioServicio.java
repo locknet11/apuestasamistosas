@@ -99,34 +99,36 @@ public class UsuarioServicio implements UserDetailsService {
     /*  Metodo de modificacion del usuario */
     @Transactional
     public void modificarUsuario(String id, String nombre, String apellido, LocalDate fechaNacimiento, String provincia,
-            String localidad, String ciudad, String calle, String codigoPostal,
-            String password, String passwordConfirmation, String telefono, MultipartFile archivo) throws ErrorUsuario, Exception {
+           String ciudad, String calle, String codigoPostal, String telefono, MultipartFile archivo) throws ErrorUsuario, Exception {
        
         Optional<Usuario> thisUser = usuarioRepositorio.findById(id);
 
-        uv.validarDatosModificar(nombre, apellido, password, passwordConfirmation, telefono, fechaNacimiento);
+        uv.validarDatosModificar(nombre, apellido, telefono, fechaNacimiento);
 
         if (thisUser.isPresent()) {
-            String encoded_password = new BCryptPasswordEncoder().encode(password);
             Usuario usuario = thisUser.get();
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setAlta(true);
             usuario.setFechaNacimiento(fechaNacimiento);
             usuario.setProvincia(provincia);
-            usuario.setLocalidad(localidad);
             usuario.setCiudad(ciudad);
             usuario.setCalle(calle);
             usuario.setCodigoPostal(codigoPostal);
-            usuario.setPassword(encoded_password);
             usuario.setTelefono(telefono);
-            String idFoto=null;
-            if (usuario.getFoto()!=null) {
-                idFoto=usuario.getFoto().getId();
-            }
-            Foto foto = fotoServicio.actualizar(idFoto,archivo);
-            usuario.setFoto(foto);
+            
+            if(archivo != null) {
+                if (usuario.getFoto() != null) {
+                    String idFoto = usuario.getFoto().getId();
+                    Foto foto = fotoServicio.actualizar(idFoto, archivo);
+                    usuario.setFoto(foto);
 
+                }else {
+                	Foto foto = fotoServicio.guardar(archivo);
+                    usuario.setFoto(foto);
+                }
+            }
+            
             usuarioRepositorio.save(usuario);
 
         } else {
@@ -259,8 +261,22 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.findById(id);
     }
     
+    public Optional<Usuario> buscarPorEmail(String email){
+    	return usuarioRepositorio.findByEmail(email);
+    }
+    
     public List<Usuario> listarAdmins(){
     	Optional<List<Usuario>> thisList = usuarioRepositorio.findByAdminRole();
+    	
+    	if(thisList.isPresent()) {
+    		return thisList.get();
+    	}else {
+    		return Collections.emptyList();
+    	}
+    }
+    
+    public List<Usuario> listarPorGanados(){
+    	Optional<List<Usuario>> thisList = usuarioRepositorio.listByWin();
     	
     	if(thisList.isPresent()) {
     		return thisList.get();

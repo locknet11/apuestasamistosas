@@ -12,4 +12,7 @@ public interface PremioRepositorio extends JpaRepository<Premio, String> {
 
 	@Query("SELECT p FROM Premio p")
 	public Optional<List<Premio>> listAllRewards();
+	
+	@Query("SELECT p FROM Premio p ORDER BY p.ranking DESC")
+	public Optional<List<Premio>> listByRankingDesc();
 }

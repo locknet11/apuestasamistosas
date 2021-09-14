@@ -82,9 +82,9 @@ public class EventosServicio {
     /*  Metodo para establecer el resultado de un evento  */
     
     @Transactional
-    public void establecerResultado(Eventos evento){
+    public Eventos establecerResultado(Eventos evento){
         evento.setResultado(RandomGenerator.resultadoAleatorio());
-        eventosRepositorio.save(evento);
+        return eventosRepositorio.save(evento);
     }
     
     
@@ -112,6 +112,10 @@ public class EventosServicio {
         }else {
             return Collections.emptyList();
         }   
+    }
+    
+    public Optional<Eventos> buscarPorId(String id){
+    	return eventosRepositorio.findById(id);
     }
     
 }

@@ -27,7 +27,7 @@ public class ErrorsController implements ErrorController {
        
         switch (httpErrorCode) {
             case 400: {
-                errorMsg = "El recurso solicitado no existe.";
+                errorMsg = "Solicitud inválida.";
                 break;
             }
             case 403: {
