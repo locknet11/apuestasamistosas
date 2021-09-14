@@ -50,7 +50,7 @@ public class UsuarioController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(auth instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/user/dashboard";
+            return "redirect:/user/profile";
         }
         return "signup";
     }
@@ -134,7 +134,7 @@ public class UsuarioController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         
         if(!(auth instanceof AnonymousAuthenticationToken)){
-            return "redirect:/user/dashboard";
+            return "redirect:/user/profile";
         }
         
         return "login";

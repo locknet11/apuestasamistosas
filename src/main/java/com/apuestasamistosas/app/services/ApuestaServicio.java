@@ -9,6 +9,7 @@ import com.apuestasamistosas.app.enums.EstadoApuesta;
 import com.apuestasamistosas.app.enums.ResultadoApuesta;
 import com.apuestasamistosas.app.enums.ResultadoEvento;
 import com.apuestasamistosas.app.errors.ErrorApuesta;
+import com.apuestasamistosas.app.errors.ErrorTransaccion;
 import com.apuestasamistosas.app.repositories.ApuestaRepositorio;
 import com.apuestasamistosas.app.repositories.EquiposRepositorio;
 import com.apuestasamistosas.app.repositories.EventosRepositorio;
@@ -27,6 +28,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -43,13 +45,16 @@ public class ApuestaServicio {
     @Autowired
     private EquiposRepositorio equipoRepositorio;
     
+	@Autowired
+	private TransaccionServicio transaccionServicio;
+    
     @Autowired
     private MailServicio mailServicio;
     
     @Autowired
     private ApuestasValidacion apuestaValidacion;
 
-    public Apuesta crearApuesta(String idUsuario1, String idEvento, String idPremio, String idEquipoUsuarioA) throws ErrorApuesta {
+    public Apuesta crearApuesta(String idUsuario1, String idEvento, String idPremio, String idEquipoUsuarioA, Boolean paymentMethod) throws ErrorApuesta, ErrorTransaccion {
         ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
         LocalDateTime hoy = LocalDateTime.now(argentina);
         
@@ -83,7 +88,7 @@ public class ApuestaServicio {
         if (thisPremio.isPresent()) {
             Premio premio = thisPremio.get();
             apuesta.setPremio(premio);
-
+            premio.setRanking(premio.getRanking() + 1);
         } else {
             throw new ErrorApuesta(ErrorApuesta.NULL_premio);
 
@@ -91,10 +96,12 @@ public class ApuestaServicio {
         apuesta.setFechaApuesta(hoy);
         apuesta.setResultadoApuesta(ResultadoApuesta.INDEFINIDO);
         Apuesta apuestaReturn = apuestaRepositorio.save(apuesta);
+        transaccionServicio.crearTransaccion(apuestaReturn, paymentMethod);
         return apuestaReturn;
     }
 
-    public void confirmarApuesta(String idUsuario2, String idApuesta) throws ErrorApuesta {
+    @Transactional
+    public void confirmarApuesta(String idUsuario2, String idApuesta, Boolean paymentMethod) throws ErrorApuesta, ErrorTransaccion {
         ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
         LocalDateTime hoy = LocalDateTime.now(argentina);
     	Usuario usuarioB = usuarioRepositorio.findById(idUsuario2).get();
@@ -123,6 +130,7 @@ public class ApuestaServicio {
             }
                 
             Apuesta mailApuesta = apuestaRepositorio.save(apuesta);
+            transaccionServicio.crearTransaccion(mailApuesta, paymentMethod);
             mailServicio.betConfirmationToUserA(mailApuesta);
             mailServicio.betConfirmationToUserB(mailApuesta);
 
@@ -132,7 +140,8 @@ public class ApuestaServicio {
 
     }
     
-    public void rechazarApuesta(String idUsuario2, String idApuesta) throws ErrorApuesta {
+    @Transactional
+    public void rechazarApuesta(String idUsuario2, String idApuesta) throws ErrorApuesta, ErrorTransaccion {
         ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
         LocalDateTime hoy = LocalDateTime.now(argentina);
     	Usuario usuarioB = usuarioRepositorio.findById(idUsuario2).get();
@@ -161,6 +170,7 @@ public class ApuestaServicio {
             }
                 
             Apuesta apuestaReturn = apuestaRepositorio.save(apuesta);
+            transaccionServicio.crearTransaccion(apuestaReturn, true);
             mailServicio.betRejectToUserA(apuestaReturn);
 
         } else {
@@ -169,7 +179,8 @@ public class ApuestaServicio {
 
     }
     
-    public void informarResultados(Eventos evento) {
+    @Transactional
+    public void informarResultados(Eventos evento) throws ErrorTransaccion {
     	
     	List<Apuesta> thisList = buscarPorEventoFinalizado(evento.getId());
     	
@@ -212,6 +223,7 @@ public class ApuestaServicio {
 				usuarioRepositorio.save(usuarioB);
 				apuesta.setEstado(EstadoApuesta.CONCLUIDA);
 				Apuesta apuestaReturn = apuestaRepositorio.save(apuesta);
+				transaccionServicio.crearTransaccion(apuestaReturn, true);
 				mailServicio.betResultToUserA(apuestaReturn);
 				mailServicio.betResultToUserB(apuestaReturn);
 				

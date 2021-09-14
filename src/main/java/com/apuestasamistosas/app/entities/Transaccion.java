@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,8 +22,27 @@ public class Transaccion {
 	    private String id;
 	    private Double saldo;
 	    private String idObject;
+	    @OneToOne
+	    private Apuesta apuesta;
+	    private Double precio;
 	    
-	    @NotNull
+	    public Apuesta getApuesta() {
+			return apuesta;
+		}
+
+		public void setApuesta(Apuesta apuesta) {
+			this.apuesta = apuesta;
+		}
+
+		public Double getPrecio() {
+			return precio;
+		}
+
+		public void setPrecio(Double precio) {
+			this.precio = precio;
+		}
+
+		@NotNull
 	    private LocalDateTime fechaTransaccion;
 
 	    public LocalDateTime getFechaTransaccion() {

@@ -22,10 +22,12 @@ import com.apuestasamistosas.app.entities.Eventos;
 import com.apuestasamistosas.app.entities.Premio;
 import com.apuestasamistosas.app.enums.EstadoApuesta;
 import com.apuestasamistosas.app.errors.ErrorApuesta;
+import com.apuestasamistosas.app.errors.ErrorTransaccion;
 import com.apuestasamistosas.app.services.ApuestaServicio;
 import com.apuestasamistosas.app.services.EquiposServicio;
 import com.apuestasamistosas.app.services.EventosServicio;
 import com.apuestasamistosas.app.services.PremioServicio;
+import com.apuestasamistosas.app.services.TransaccionServicio;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +48,7 @@ public class ApuestaController {
 	
 	@Autowired 
 	private EquiposServicio equipoServicio;
+	
     
     @GetMapping
     public String index(){
@@ -130,23 +133,49 @@ public class ApuestaController {
 	
 	/* Paso final el proceso de creacion de la apuesta */
 	
-	@PostMapping("/payBet")
-	public String checkoutBet(
-			@RequestParam(name = "idReward", required = false) String idReward,
+	@GetMapping("/payBet")
+	public String checkoutBet(@RequestParam(name = "idReward", required = false) String idReward,
 			@RequestParam(name = "idEvent", required = false) String idEvent,
 			@RequestParam(name = "idTeam", required = false) String idTeam,
 			@RequestParam(name = "idUser", required = false) String idUser,
-			ModelMap model, RedirectAttributes redirectAttrs) throws ErrorApuesta {
-		
-		 try {
-			 Apuesta apuesta = apuestaServicio.crearApuesta(idUser, idEvent, idReward, idTeam);
-			 redirectAttrs.addAttribute("id", apuesta.getId());
-			 return "redirect:/bets/postCheckout/{id}";
-		 }catch(ErrorApuesta e) {
-			 return "redirect:/bets/postCheckout/error";
-		 }
+			@RequestParam(name = "paymentMethod", required = false) String payment, ModelMap model,
+			RedirectAttributes redirectAttrs) throws ErrorApuesta, ErrorTransaccion {
+
+		Optional<Premio> thisPremio = premioServicio.buscarPorId(idReward);
+		Optional<Eventos> thisEvento = eventoServicio.buscarPorId(idEvent);
+		Optional<Equipos> thisEquipo = equipoServicio.buscarPorId(idTeam);
+		try {
+
+			Boolean paymentMethod;
+
+			if (payment.equals("betbuy")) {
+				paymentMethod = false;
+			} else if (payment.equals("mercadopago")) {
+				paymentMethod = true;
+			} else {
+				paymentMethod = true;
+			}
+
+			Apuesta apuesta = apuestaServicio.crearApuesta(idUser, idEvent, idReward, idTeam, paymentMethod);
+			redirectAttrs.addAttribute("id", apuesta.getId());
+			return "redirect:/bets/postCheckout/{id}";
+		} catch (ErrorApuesta e) {
+			model.addAttribute("premio", thisPremio.get());
+			model.addAttribute("evento", thisEvento.get());
+			model.addAttribute("equipo", thisEquipo.get());
+			model.put("error", e.getMessage());
+			model.addAttribute("source", "beginBet");
+			return "apuestas/checkout-apuesta";
+		} catch (ErrorTransaccion ex) {
+			model.addAttribute("premio", thisPremio.get());
+			model.addAttribute("evento", thisEvento.get());
+			model.addAttribute("equipo", thisEquipo.get());
+			model.put("error", ex.getMessage());
+			model.addAttribute("source", "beginBet");
+			return "apuestas/checkout-apuesta";
+		}
 	}
-	
+
 	/*	En este punto se devuelve una vista dandole al usuario un link para compartir en
 	 * 	caso de que la apuesta se haya creado exitosamente, caso contrario, devuelve vista de error
 	 *  */
@@ -248,9 +277,24 @@ public class ApuestaController {
 	
 	/* Metodo de confirmacion de la apuesta */
 	
-	@PostMapping(value = {"/confirm"})
+	@GetMapping(value = {"/confirm"})
 	public String confirm(@RequestParam(name = "idBet", required = false) String idBet,
-			@RequestParam(name = "idUserB", required = false) String idUserB, ModelMap model) throws ErrorApuesta, ResponseStatusException {
+			@RequestParam(name = "idUserB", required = false) String idUserB,
+			@RequestParam(name = "paymentMethod", required = false) String payment,
+			ModelMap model) throws ErrorApuesta, ResponseStatusException, ErrorTransaccion {
+		
+		Optional<Apuesta> thisApuesta = apuestaServicio.buscarPorId(idBet);
+		
+		
+		Boolean paymentMethod;
+
+		if (payment.equals("betbuy")) {
+			paymentMethod = false;
+		} else if (payment.equals("mercadopago")) {
+			paymentMethod = true;
+		} else {
+			paymentMethod = true;
+		}
 		
 		if(idBet == null || idBet.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -261,12 +305,17 @@ public class ApuestaController {
 		}
 		
 		try {
-			apuestaServicio.confirmarApuesta(idUserB, idBet);
+			apuestaServicio.confirmarApuesta(idUserB, idBet, paymentMethod);
 			model.addAttribute("estado", "success");
 			return "apuestas/apuesta-post";
 		}catch(ErrorApuesta e) {
 			model.addAttribute("estado", "error");
 			return "apuestas/apuesta-post";
+		}catch(ErrorTransaccion ex) {
+			model.addAttribute("source", "confirmCheckout");
+			model.addAttribute("apuesta", thisApuesta.get());
+			model.put("error", ex.getMessage());
+			return "apuestas/checkout-apuesta";
 		}
 	}
 	
@@ -274,7 +323,7 @@ public class ApuestaController {
 	
 	@PostMapping(value = {"/reject"})
 	public String reject(@RequestParam(name = "idBet", required = false) String idBet,
-			@RequestParam(name = "idUserB", required = false) String idUserB, ModelMap model) throws ErrorApuesta, ResponseStatusException {
+			@RequestParam(name = "idUserB", required = false) String idUserB, ModelMap model) throws ErrorApuesta, ResponseStatusException, ErrorTransaccion {
 		
 		if(idBet == null || idBet.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

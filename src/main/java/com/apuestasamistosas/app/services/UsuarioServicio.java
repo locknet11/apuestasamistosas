@@ -274,4 +274,14 @@ public class UsuarioServicio implements UserDetailsService {
     		return Collections.emptyList();
     	}
     }
+    
+    public List<Usuario> listarPorGanados(){
+    	Optional<List<Usuario>> thisList = usuarioRepositorio.listByWin();
+    	
+    	if(thisList.isPresent()) {
+    		return thisList.get();
+    	}else {
+    		return Collections.emptyList();
+    	}
+    }
 }

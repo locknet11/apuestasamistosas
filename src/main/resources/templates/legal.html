@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="/images/favicon2.png" />
+<title>Bet & Buy | Legales</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous"
+/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+	crossorigin="anonymous"
+></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+>
+
+<link rel="stylesheet" href="/css/indexstyle.css" />
+</head>
+
+<body>
+
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="color-nav">
+		<div class="container-fluid">
+			<a href="/"><img class="logo1" src="/images/logo1.png" alt="" /></a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				aria-expanded="false" aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Inicio</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/events" tabindex="-1"
+						aria-disabled="false"
+					>Eventos</a></li>
+					<li class="nav-item"><a class="nav-link" href="/ranking" tabindex="-1"
+						aria-disabled="false"
+					>Ranking</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/rewards" tabindex="-1"
+						aria-disabled="false"
+					>Premios</a></li>
+
+				</ul>
+				<div th:unless="${session.sesionUsuario != null}">
+					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="/user/login" tabindex="-1"
+							aria-disabled="false"
+						>Log In</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/signup" tabindex="-1"
+							aria-disabled="false"
+						>Sign Up</a></li>
+					</ul>
+				</div>
+
+				<div th:if="${session.sesionUsuario != null}">
+					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+						<div th:unless="${session.sesionUsuario.foto != null}">
+							<a href="/user/profile" title="Profile"><li class="nav-item"><img
+									class="rounded-circle user-photo" src="/images/usuario.png"
+									th:alt="${session.sesionUsuario.nombre}"
+								></li></a>
+						</div>
+						<div th:if="${session.sesionUsuario.foto != null}">
+
+							<a href="/user/profile" title="profile">
+								<li class="nav-item"><img class="rounded-circle user-photo"
+									th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
+									th:alt="${session.sesionUsuario.nombre}"
+								></li>
+							</a>
+						</div>
+						<li class="nav-item dropdown mt-1"><a class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+						> <i class="fa fa-bars" aria-hidden="true"></i>
+						</a>
+
+							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+								aria-labelledby="navbarDropdownMenuLink" role="menu"
+							>
+								<li><a class="dropdown-item" href="/user/profile">Perfil</a></li>
+								<li><a class="dropdown-item" href="/user/logout">Cerrar Sesión</a></li>
+								<div th:if="${session.sesionUsuario.admin == true}">
+									<li><a class="dropdown-item" href="/admin/panel">Admin Panel</a></li>
+								</div>
+							</ul></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</nav>
+	<!--  INICIO FOOTER -->
+
+	<div class="mt-5 container text-white">
+		<h1>Términos y condiciones</h1>
+		<p>
+			Estos términos y condiciones ("Acuerdo") establecen los términos y condiciones generales de su
+			uso del <a target="_blank" rel="nofollow" href="http://betbuy.ddns.net"> sitio web
+				betbuy.ddns.net </a> ("Sitio web" o "Servicio") y cualquiera de sus productos y servicios
+			relacionados (colectivamente, "Servicios"). Este Acuerdo es legalmente vinculante entre usted
+			("Usuario", "usted" o "su") y este operador del sitio web ("Operador", "nosotros", "nos" o
+			"nuestro"). Si está celebrando este acuerdo en nombre de una empresa u otra entidad legal,
+			declara que tiene la autoridad para vincular a dicha entidad a este acuerdo, en cuyo caso los
+			términos "Usuario", "usted" o "su" se referirán a dicha entidad. Si no tiene dicha autoridad, o
+			si no está de acuerdo con los términos de este acuerdo, no debe aceptar este acuerdo y no puede
+			acceder ni utilizar el sitio web y los servicios. Al acceder y utilizar el sitio web y los
+			servicios, usted reconoce que ha leído, comprendido y acepta regirse por los términos de este
+			acuerdo. Usted reconoce que este Acuerdo es un contrato entre usted y el Operador, aunque es
+			electrónico y no está firmado físicamente por usted, y rige su uso del Sitio web y los Servicios.
+			Esta política de términos y condiciones se creó con la ayuda del <a target="_blank"
+				href="https://www.websitepolicies.com/terms-and-conditions-generator"
+			> generador de términos y condiciones </a>.
+		</p>
+		<h2>Cuentas y membresía</h2>
+		<p>Debe tener al menos 18 años para utilizar el sitio web y los servicios. Al utilizar el
+			sitio web y los servicios y al aceptar este acuerdo, usted garantiza y declara que tiene al menos
+			18 años de edad. Si crea una cuenta en el sitio web, usted es responsable de mantener la
+			seguridad de su cuenta y es totalmente responsable de todas las actividades que ocurran en la
+			cuenta y de cualquier otra acción que se tome en relación con ella. Podemos monitorear y revisar
+			las cuentas nuevas antes de que pueda iniciar sesión y comenzar a usar los Servicios.
+			Proporcionar información de contacto falsa de cualquier tipo puede resultar en la cancelación de
+			su cuenta. Debe notificarnos inmediatamente de cualquier uso no autorizado de su cuenta o
+			cualquier otra violación de seguridad. No seremos responsables de ningún acto u omisión por su
+			parte, incluidos los daños de cualquier tipo incurridos como resultado de dichos actos u
+			omisiones. Podemos suspender, deshabilitar o eliminar su cuenta (o cualquier parte de la misma)
+			si determinamos que ha violado alguna disposición de este Acuerdo o que su conducta o contenido
+			tenderían a dañar nuestra reputación y buena voluntad. Si eliminamos su cuenta por los motivos
+			anteriores, no podrá volver a registrarse en nuestros Servicios. Es posible que bloqueemos su
+			dirección de correo electrónico y su dirección de protocolo de Internet para evitar un mayor
+			registro.</p>
+
+		<h2>Vínculos a otros recursos</h2>
+		<p>Aunque el sitio web y los servicios pueden vincularse a otros recursos (como sitios web,
+			aplicaciones móviles, etc.), no estamos implicando, directa o indirectamente, ninguna aprobación,
+			asociación, patrocinio, respaldo o afiliación con ningún recurso vinculado, a menos que se
+			indique específicamente en este documento. No somos responsables de examinar o evaluar, y no
+			garantizamos las ofertas de ninguna empresa o individuo ni el contenido de sus recursos. No
+			asumimos ninguna responsabilidad por las acciones, productos, servicios y contenido de otros
+			terceros. Debe revisar cuidadosamente las declaraciones legales y otras condiciones de uso de
+			cualquier recurso al que acceda a través de un enlace en el sitio web. Su vinculación a cualquier
+			otro recurso fuera del sitio es bajo su propio riesgo.</p>
+		<h2>Usos prohibidos</h2>
+		<p>Además de otros términos establecidos en el Acuerdo, se le prohíbe utilizar el Sitio web y
+			los Servicios o el Contenido: (a) para cualquier propósito ilegal; (b) solicitar a otros que
+			realicen o participen en actos ilícitos; (c) violar cualquier reglamento, regla, ley u ordenanza
+			local internacional, federal, provincial o estatal; (d) infringir o violar nuestros derechos de
+			propiedad intelectual o los derechos de propiedad intelectual de terceros; (e) acosar, abusar,
+			insultar, dañar, difamar, calumniar, menospreciar, intimidar o discriminar por motivos de género,
+			orientación sexual, religión, etnia, raza, edad, nacionalidad o discapacidad; (f) enviar
+			información falsa o engañosa; (g) cargar o transmitir virus o cualquier otro tipo de código
+			malintencionado que se utilizará o se podrá utilizar de cualquier forma que afecte la
+			funcionalidad o el funcionamiento del sitio web y los servicios, los productos y servicios de
+			terceros o Internet; (h) enviar spam, phishing, pharm, pretext, spider, crawl o scrape; (i) para
+			cualquier propósito obsceno o inmoral; o (j) interferir o eludir las características de seguridad
+			del sitio web y los servicios, productos y servicios de terceros o Internet. Nos reservamos el
+			derecho de terminar su uso del sitio web y los servicios por violar cualquiera de los usos
+			prohibidos.</p>
+		<h2>Derechos de propiedad intelectual</h2>
+		<p>"Derechos de propiedad intelectual" significa todos los derechos presentes y futuros
+			conferidos por estatuto, derecho consuetudinario o equidad en o en relación con los derechos de
+			autor y derechos relacionados, marcas comerciales, diseños, patentes, invenciones, buena voluntad
+			y el derecho a demandar por imitación , derechos sobre invenciones, derechos de uso y todos los
+			demás derechos de propiedad intelectual, en cada caso registrados o no registrados e incluyendo
+			todas las aplicaciones y derechos para solicitar y ser concedidos, derechos para reclamar
+			prioridad sobre dichos derechos y todos los derechos similares o equivalentes. o formas de
+			protección y cualquier otro resultado de la actividad intelectual que subsista o subsistirá ahora
+			o en el futuro en cualquier parte del mundo. Este Acuerdo no le transfiere ninguna propiedad
+			intelectual propiedad del Operador o de terceros, y todos los derechos, títulos e intereses sobre
+			dicha propiedad permanecerán (como entre las partes) únicamente con el Operador. Todas las marcas
+			comerciales, marcas de servicio, gráficos y logotipos utilizados en relación con el sitio web y
+			los servicios son marcas comerciales o marcas comerciales registradas del Operador o sus
+			licenciantes. Otras marcas comerciales, marcas de servicio, gráficos y logotipos utilizados en
+			relación con el sitio web y los servicios pueden ser marcas comerciales de terceros. Su uso del
+			sitio web y los servicios no le otorga ningún derecho o licencia para reproducir o utilizar de
+			otro modo las marcas comerciales del Operador o de terceros.</p>
+		<h2>Limitación de responsabilidad</h2>
+		<p>En la máxima medida permitida por la ley aplicable, en ningún caso el Operador, sus
+			afiliados, directores, funcionarios, empleados, agentes, proveedores o otorgantes de licencias
+			serán responsables ante cualquier persona por cualquier cobertura indirecta, incidental,
+			especial, punitiva o daños consecuentes (incluidos, entre otros, daños por lucro cesante,
+			ingresos, ventas, buena voluntad, uso de contenido, impacto en el negocio, interrupción del
+			negocio, pérdida de ahorros anticipados, pérdida de oportunidad de negocio) cualquiera que sea su
+			causa, bajo cualquier teoría de responsabilidad, incluyendo , sin limitación, contrato, agravio,
+			garantía, incumplimiento del deber legal, negligencia o de otro tipo, incluso si la parte
+			responsable ha sido informada sobre la posibilidad de tales daños o podría haber previsto tales
+			daños. En la medida máxima permitida por la ley aplicable, la responsabilidad total del Operador
+			y sus afiliados, funcionarios, empleados, agentes, proveedores y otorgantes de licencias en
+			relación con los servicios se limitará a un monto mayor de un dólar o cualquier monto realmente
+			pagado en efectivo por usted al Operador durante el período de un mes anterior al primer evento o
+			suceso que dio lugar a dicha responsabilidad. Las limitaciones y exclusiones también se aplican
+			si este recurso no lo compensa completamente por las pérdidas o no cumple con su propósito
+			esencial.</p>
+		<h2>Indemnización</h2>
+		<p>Usted acepta indemnizar y eximir al Operador y sus afiliados, directores, funcionarios,
+			empleados, agentes, proveedores y otorgantes de licencias de y contra cualquier responsabilidad,
+			pérdida, daño o costo, incluidos los honorarios razonables de abogados, incurridos en relación
+			con o que surjan de alegaciones, reclamos, acciones, disputas o demandas de terceros contra
+			cualquiera de ellos como resultado o en relación con su Contenido, su uso del sitio web y los
+			Servicios o cualquier mala conducta intencional de su parte.</p>
+		<h2>Divisibilidad</h2>
+		<p>Todos los derechos y restricciones contenidos en este Acuerdo pueden ejercerse y serán
+			aplicables y vinculantes solo en la medida en que no violen ninguna ley aplicable y estén
+			destinados a limitarse en la medida necesaria para que no den lugar a este Acuerdo. ilegal,
+			inválido o inaplicable. Si alguna disposición o parte de cualquier disposición de este Acuerdo se
+			considera ilegal, inválida o inaplicable por un tribunal de jurisdicción competente, es la
+			intención de las partes que las disposiciones restantes o partes de las mismas constituyan su
+			acuerdo con respecto a la objeto del presente, y todas las disposiciones restantes o partes de
+			las mismas permanecerán en pleno vigor y efecto.</p>
+		<h2>Resolución de disputas</h2>
+		<p>La formación, interpretación y ejecución de este Acuerdo y cualquier disputa que surja de
+			él se regirá por las leyes sustantivas y procesales de Argentina sin tener en cuenta sus reglas
+			sobre conflictos o elección de ley y, en la medida en que sea aplicable, la leyes de Argentina.
+			La jurisdicción exclusiva y el lugar para las acciones relacionadas con el objeto del presente
+			serán los tribunales ubicados en Argentina, y usted se somete a la jurisdicción personal de
+			dichos tribunales. Por la presente, usted renuncia a cualquier derecho a un juicio con jurado en
+			cualquier procedimiento que surja de o esté relacionado con este Acuerdo. La Convención de las
+			Naciones Unidas sobre los Contratos de Compraventa Internacional de Mercaderías no se aplica a
+			este Acuerdo.</p>
+		<h2>Cambios y modificaciones</h2>
+		<p>Nos reservamos el derecho de modificar este Acuerdo o sus términos relacionados con el
+			Sitio web y los Servicios en cualquier momento a nuestra discreción. Cuando lo hagamos, le
+			enviaremos un correo electrónico para notificarle. También podemos notificarle de otras formas a
+			nuestra discreción, como a través de la información de contacto que ha proporcionado.</p>
+		<p>Una versión actualizada de este Acuerdo entrará en vigencia inmediatamente después de la
+			publicación del Acuerdo revisado, a menos que se especifique lo contrario. Su uso continuado del
+			sitio web y los servicios después de la fecha de vigencia del Acuerdo revisado (o cualquier otro
+			acto especificado en ese momento) constituirá su consentimiento a esos cambios.</p>
+		<h2>Aceptación de estos términos</h2>
+		<p>Usted reconoce que ha leído este Acuerdo y acepta todos sus términos y condiciones. Al
+			acceder y utilizar el sitio web y los servicios, acepta regirse por este acuerdo. Si no acepta
+			cumplir con los términos de este Acuerdo, no está autorizado para acceder o utilizar el sitio web
+			y los servicios.</p>
+		<h2>Comuníquese con nosotros</h2>
+		<p>Si tiene alguna pregunta, inquietud o queja con respecto a este Acuerdo, le recomendamos
+			que se comunique con nosotros utilizando los detalles a continuación:</p>
+		<p>E-mail: <a class="text-warning" href="mailto:soporte.betbuy@gmail.com">soporte.betbuy@gmail.com</a></p>
+		<p>Este documento se actualizó por última vez el 14 de septiembre de 2021</p>
+	</div>
+
+	<br>
+	<div class="container">
+		<footer class="py-3 my-4">
+			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
+				<li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
+				<li class="nav-item"><a href="/events" class="nav-link px-2 text-muted">Eventos</a></li>
+				<li class="nav-item"><a href="/rewards" class="nav-link px-2 text-muted">Premios</a></li>
+				<li class="nav-item"><a href="/faqs" class="nav-link px-2 text-muted">FAQs</a></li>
+				<li class="nav-item"><a href="/legal" class="nav-link px-2 text-muted">Legales</a></li>
+			</ul>
+			<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
+		</footer>
+	</div>
+
+</body>
+</html>
