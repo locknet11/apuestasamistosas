@@ -4,6 +4,12 @@
 	border-radius: 0.5rem;
 }
 
+.img-reward{
+	width: auto;
+	height: 5rem;
+	border-radius: 0.5rem;
+}
+
 h4{
 	color: white;
 }
@@ -21,6 +27,13 @@ h4{
 	display: block;
 	margin: auto;	
 }
+
+.img-team-box{
+	width: auto;
+	height: 7rem;
+	border-radius: 0.5rem;
+}
+
 
 .each-bkg{
 	background-color: #272A31;

@@ -22,7 +22,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="color-nav">
             <div class="container-fluid">
-                <a href="#"><img class="logo1" src="/images/logo1.png" alt="" /></a>
+                <a href="/"><img class="logo1" src="/images/logo1.png" alt="" /></a>
 
                 <button
                     class="navbar-toggler"
@@ -76,14 +76,14 @@
                     <div th:if="${session.sesionUsuario != null}">
                         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                             <div th:unless="${session.sesionUsuario.foto != null}">
-                                <li class="nav-item">
+                                <a href="/user/dashboard" title="Dashboard"><li class="nav-item">
                                     <img class="rounded-circle user-photo" src="/images/usuario.png" th:alt="${session.sesionUsuario.nombre}">
-                                </li>
+                                </li></a>
                             </div>
                             <div th:if="${session.sesionUsuario.foto != null}">
-                                <li class="nav-item">
+                                <a href="/user/dashboard" title="Dashboard"><li class="nav-item">
                                     <img class="rounded-circle user-photo" th:src="${'/photos/users/?id=' + session.sesionUsuario.id}" th:alt="${session.sesionUsuario.nombre}">
-                                </li>
+                                </li></a>
                             </div>
                             <li class="nav-item dropdown mt-1">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"

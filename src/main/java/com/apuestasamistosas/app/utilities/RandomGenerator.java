@@ -23,7 +23,7 @@ public final class RandomGenerator {
     */
     
     public static ResultadoEvento resultadoAleatorio(){
-        Integer aleatorio = (int)(Math.random() * 3) + 1;
+        Integer aleatorio = (int)(Math.random() * 3);
         switch(aleatorio){
             case 0:
                 return ResultadoEvento.EQUIPO_A;

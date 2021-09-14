@@ -1,8 +1,13 @@
 package com.apuestasamistosas.app.controllers;
 
+import com.apuestasamistosas.app.entities.Usuario;
 import com.apuestasamistosas.app.errors.ErrorUsuario;
+import com.apuestasamistosas.app.repositories.ApuestaRepositorio;
+import com.apuestasamistosas.app.services.ApuestaServicio;
 import com.apuestasamistosas.app.services.UsuarioServicio;
 import java.time.LocalDate;
+import java.util.Optional;
+
 import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,6 +30,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    
+    @Autowired
+    private ApuestaServicio apuestaServicio;
 
     @GetMapping
     public String index() {
@@ -181,5 +189,54 @@ public class UsuarioController {
     public String editProfile() {
     	return "editar-perfil";
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @PostMapping("/edit-profile")
+    public String editProfilePost(
+    		@RequestParam(name = "id", required = false) String id,
+    		@RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "apellido", required = false) String apellido,
+            @RequestParam(name = "fechaNacimiento", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
+            @RequestParam(name = "provincia", required = false) String provincia,
+            @RequestParam(name = "ciudad", required = false) String ciudad,
+            @RequestParam(name = "calle", required = false) String calle,
+            @RequestParam(name = "codigoPostal", required = false) String codigoPostal,
+            @RequestParam(name = "telefono", required = false) String telefono,
+            @RequestParam(name = "archivo", required = false) MultipartFile archivo,
+            ModelMap model
+    		) throws ErrorUsuario, Exception{
+    	try {
+    		if(archivo != null && archivo.getSize() >= 5000000){
+                throw new ErrorUsuario(ErrorUsuario.MAX_SIZE);
+            }
+    		usuarioServicio.modificarUsuario(id, nombre, apellido, fechaNacimiento, provincia, ciudad, calle, codigoPostal, telefono, archivo);
+    		model.put("message", "Para ver los cambios, cerra sesión y volve a loguearte.");
+    		return "editar-perfil";
+    	}catch(ErrorUsuario e) {
+    		model.put("error", e.getMessage());
+    		return "editar-perfil";
+    	}
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/profile")
+    public String profile(ModelMap model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Usuario> thisUser = usuarioServicio.buscarPorEmail(auth.getName());
+        if(thisUser.isPresent()) {
+        	Usuario usuario = thisUser.get();
+        	if (!apuestaServicio.listarApuestasConfirmadas(usuario.getId()).isEmpty()) {
+				model.addAttribute("listaApuestasConfirmadas", apuestaServicio.listarApuestasConfirmadas(usuario.getId()));
+			}
+        	
+        	if (!apuestaServicio.listarApuestasPendientes(usuario.getId()).isEmpty()) {
+				model.addAttribute("listaApuestasPendientes", apuestaServicio.listarApuestasPendientes(usuario.getId()));
+			}
+        	
+        }
+    	return "perfil";
+    }
+    
+    
 
 }

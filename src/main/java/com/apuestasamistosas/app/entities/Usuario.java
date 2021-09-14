@@ -1,3 +1,4 @@
+
 package com.apuestasamistosas.app.entities;
 
 import java.time.LocalDate;

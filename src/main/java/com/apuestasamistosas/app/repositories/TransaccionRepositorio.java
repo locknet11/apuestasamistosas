@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransaccionRepositorio extends JpaRepository<Transaccion, String> {
     
-    @Query("SELECT p FROM Transaccion p WHERE p.saldo = :saldo")
-    public Optional<Transaccion> findByName(@Param("saldo") String nombre);
+	@Query("SELECT p FROM Transaccion p WHERE p.saldo = :saldo")
+    public Optional<Transaccion> findByName(@Param("saldo") String saldo);
+    
+	@Query(value="SELECT p.saldo FROM Transaccion p WHERE p.idObject=:idObject ORDER BY fechaTransaccion DESC LIMIT 1",nativeQuery=true)
+    public Double saldoActual(@Param("idObject") String idObject);
 }

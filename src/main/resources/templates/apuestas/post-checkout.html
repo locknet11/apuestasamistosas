@@ -43,7 +43,7 @@
 					<li class="nav-item"><a class="nav-link" href="/events" tabindex="-1"
 						aria-disabled="false"
 					>Eventos</a></li>
-					<li class="nav-item"><a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a></li>
+					<li class="nav-item"><a class="nav-link" href="/ranking" tabindex="-1" aria-disabled="false">Ranking</a></li>
 
 					<li class="nav-item"><a class="nav-link" href="/rewards" tabindex="-1"
 						aria-disabled="false"
@@ -64,9 +64,9 @@
 				<div th:if="${session.sesionUsuario != null}">
 					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
 						<div th:unless="${session.sesionUsuario.foto != null}">
-							<li class="nav-item"><img class="rounded-circle user-photo" src="/images/usuario.png"
+							<a href="/user/dashboard" title="Dashboard"><li class="nav-item"><img class="rounded-circle user-photo" src="/images/usuario.png"
 								th:alt="${session.sesionUsuario.nombre}"
-							></li>
+							></li></a>
 						</div>
 						<div th:if="${session.sesionUsuario.foto != null}">
 
@@ -106,46 +106,58 @@
 					<div class="text-center">
 						<img class="mt-5 img-fluid img-file" src="/images/successCheck.png" alt="success" />
 					</div>
-					<h1 class="h1-color mt-5 text-center" th:text="${message}"></h1>
+					
+					<h1 class="h1-color-success mt-5 text-center" th:text="${message}"></h1>
+					<h5 class="text-white text-center">Comparti el enlace con quien quieras apostar</h5>
 					<div class="page-w m-auto input-group mb-3 mt-4">
 						<input type="text" class="form-control bg-dark text-white btn-outline-secondary"
-							 aria-describedby="basic-addon2" readonly value="https://google.com" id="betShareLink"
+							aria-describedby="basic-addon2" readonly
+							th:value="${'http://localhost:8080/bets/join/' + idBet}" id="betShareLink"
 						>
 						<div class="input-group-append">
-							<button onclick="copyToClipboard()" class="btn btn-warning" type="button" id="copyButton">Copiar enlace</button>
+							<button onclick="copyToClipboard()" class="btn btn-warning" type="button" id="copyButton">Copiar
+								enlace</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div></div>
+		<div th:if="${error != null}">
+			<div class="row">
+				<div class="col">
+					<div class="text-center">
+						<img class="mt-5 img-fluid img-file" src="/images/errorCheckout.png" alt="error" />
+					</div>
+					<h1 class="h1-color-error mt-5 text-center" th:text="${error}"></h1>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<br>
-	<div class="container">
-		<footer class="py-3 my-4">
-			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
-				<li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Eventos</a></li>
-				<li class="nav-item"><a href="rewards" class="nav-link px-2 text-muted">Premios</a></li>
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Legales</a></li>
-			</ul>
-			<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
-		</footer>
-	</div>
+        <div class="container">
+            <footer class="py-3 my-4">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
+                    <li class="nav-item"><a href="/events" class="nav-link px-2 text-muted">Eventos</a></li>
+                    <li class="nav-item"><a href="/rewards" class="nav-link px-2 text-muted">Premios</a></li>
+                    <li class="nav-item"><a href="/faqs" class="nav-link px-2 text-muted">FAQs</a></li>
+                    <li class="nav-item"><a href="/legal" class="nav-link px-2 text-muted">Legales</a></li>
+                </ul>
+                <p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
+            </footer>
+        </div>
 
 </body>
 <script>
+	function copyToClipboard() {
+		var copyText = document.getElementById("betShareLink");
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+		navigator.clipboard.writeText(copyText.value);
+		document.querySelector('#copyButton').innerHTML = "¡Copiado!";
 
-function copyToClipboard() {
-	  var copyText = document.getElementById("betShareLink");
-	  copyText.select();
-	  copyText.setSelectionRange(0, 99999);
-	  navigator.clipboard.writeText(copyText.value);
-	  document.querySelector('#copyButton').innerHTML = "¡Copiado!";
-	  
-	} 
+	}
 </script>
 </html>
