@@ -27,7 +27,7 @@ public class MailServicio {
     public void accountConfirmation(Usuario usuario){
         
         SimpleMailMessage mail = new SimpleMailMessage();
-        String url = "http://localhost:8080/user/confirm/" + usuario.getCodConfirmacion();
+        String url = "http://betbuy.ddns.net/user/confirm/" + usuario.getCodConfirmacion();
         String body = "Hola, " + usuario.getNombre() + "\nClickea el siguiente enlace para activar tu cuenta:" + "\n\n" + url;
         String subject = "Confirma tu cuenta";
         
@@ -44,7 +44,7 @@ public class MailServicio {
 	public void betConfirmationToUserA(Apuesta apuesta) {
 
 		SimpleMailMessage mail = new SimpleMailMessage();
-		String url = "http://localhost:8080/bets/summary/" + apuesta.getId();
+		String url = "http://betbuy.ddns.net/bets/summary/" + apuesta.getId();
 		String body = "Hola, " + apuesta.getUsuarioA().getNombre() + "\n" + "Tu amigo "
 				+ apuesta.getUsuarioB().getNombre() + " acepto tu apuesta."
 				+ "\n\n Podes revisar la condiciones en el siguiente enlace: \n" + url;
@@ -62,10 +62,10 @@ public class MailServicio {
 	public void betConfirmationToUserB(Apuesta apuesta) {
 
 		SimpleMailMessage mail = new SimpleMailMessage();
-		String url = "http://localhost:8080/bets/summary/" + apuesta.getId();
+		String url = "http://betbuy.ddns.net/bets/summary/" + apuesta.getId();
 		String body = "Hola, " + apuesta.getUsuarioB().getNombre() + "\n" + "Aceptaste la apuesta de " + apuesta.getUsuarioA().getNombre() + "!"
 				+ "\n\n Podes revisar la condiciones en el siguiente enlace: \n" + url;
-		String subject = "¡Aceptaste la apuesta de " + apuesta.getUsuarioA().getNombre();
+		String subject = "¡Aceptaste la apuesta de " + apuesta.getUsuarioA().getNombre() + "!";
 		String toReceipt = apuesta.getUsuarioB().getEmail();
 
 		mail.setFrom("soporte.betbuy@gmail.com");

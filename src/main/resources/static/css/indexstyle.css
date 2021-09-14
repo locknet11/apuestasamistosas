@@ -15,6 +15,120 @@ body{
  font-family: 'Roboto Condensed', sans-serif;
 }
 
+.grid-layout{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+        "banner banner"
+        "slider slider"
+        "container-small container-small";
+  grid-gap: 10px;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+.banner img{
+  width: 80%;
+  margin-top: 3%;
+}
+.banner{
+  
+  grid-area: banner;
+  grid-column: 1/3;
+}
+.col{
+  text-align: center;
+  width: auto;
+  height: auto;
+  
+}
+.container-small{
+  display: block;
+  margin: auto;
+  text-align: center;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  width: 80%;
+  grid-area: container-small;
+}
+.banner-small-1 img{
+  width: 100%;
+  height: 100%;
+}
+.banner-small-2 img{
+  width: 100%;
+  height: 100%;
+}
+
+.slider{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  text-align: center;
+  width: auto;
+  height: auto;
+  grid-area: slider;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-auto-flow: column;
+  overflow: hidden;
+  width: 80%;
+  text-align: center;
+  grid-gap: 8px;
+}
+  
+  
+
+}
+
+
+.col img{
+  width: 100%;
+  height: 100%;
+}
+
+
+.item{
+  background-color:red;
+  width: 200px;
+  height: 200px;
+  border: 1px solid white;
+
+}
+.sldier__btn{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  font-weight: bold;
+  font-family: monospace;
+  text-align: center;
+  cursor: pointer;
+  background-color: unset;
+  border: unset;
+  border-radius: unset;
+  padding: 0;
+  border-radius: 50%;
+
+  
+}
+.sldier__btn:hover{
+  font-size: 45px;
+}
+
+.slider__btn--right{
+  right: 0;
+
+}
+.slider__btn--left{
+  left: 0;
+}
+
 #color-nav{
     background-color:#272A31 !important;
 }
@@ -45,7 +159,9 @@ body{
   height: 2.5rem;
   width: 2.5rem;
 }
-
+#ban{
+  width: 80%;
+}
 .dropdown-toggle::after {
     content: none;
 }
@@ -148,6 +264,14 @@ body{
     .site-footer .copyright-text,.site-footer .social-icons{
       text-align: center;
   }
+
+  .item{
+    background-color:white;
+    width: 100px;
+    height: 100px;
+    border: 1px solid white;
+
+  }
   }
   .social-icons{
     padding-left:0;
@@ -158,6 +282,8 @@ body{
     display:inline-block;
     margin-bottom:4px;
   } 
+  
+  
   
   
   

@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="/images/favicon2.png" />
-<title>Bet & Buy | Paga tu parte!</title>
+<title>Bet & Buy | Ranking</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -18,11 +18,14 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 >
+
 <link rel="stylesheet" href="/css/indexstyle.css" />
-<link rel="stylesheet" href="/css/apuestas/checkout.css" />
+
 </head>
 
 <body>
+
+
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="color-nav">
 		<div class="container-fluid">
 			<a href="/"><img class="logo1" src="/images/logo1.png" alt="" /></a>
@@ -40,7 +43,7 @@
 					<li class="nav-item"><a class="nav-link" href="/events" tabindex="-1"
 						aria-disabled="false"
 					>Eventos</a></li>
-					<li class="nav-item"><a class="nav-link" href="/ranking" tabindex="-1"
+					<li class="nav-item"><a class="nav-link active" href="/ranking" tabindex="-1"
 						aria-disabled="false"
 					>Ranking</a></li>
 
@@ -63,14 +66,14 @@
 				<div th:if="${session.sesionUsuario != null}">
 					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
 						<div th:unless="${session.sesionUsuario.foto != null}">
-							<a href="/user/profile" title="profile"><li class="nav-item"><img
+							<a href="/user/profile" title="Profile"><li class="nav-item"><img
 									class="rounded-circle user-photo" src="/images/usuario.png"
 									th:alt="${session.sesionUsuario.nombre}"
 								></li></a>
 						</div>
 						<div th:if="${session.sesionUsuario.foto != null}">
 
-							<a href="/user/profile" title="profile">
+							<a href="/user/profile" title="Profile">
 								<li class="nav-item"><img class="rounded-circle user-photo"
 									th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
 									th:alt="${session.sesionUsuario.nombre}"
@@ -98,139 +101,78 @@
 		</div>
 	</nav>
 
+	<!-- BODY -->
+	
+	<!-- style -->
+	
+	<style>
+		.img-box{
+			height: 7rem;
+			width: 7rem;
+		}
+		.img-user{
+			height: 4.5rem;
+			width: 4.5rem;
+		}
+	</style>
 
-	<!-- CONTENIDO -->
-
-	<div class="mt-4 page-w m-auto pay-box ">
-
-		<div th:if="${source == 'beginBet'}">
-			<h2 class="text-warning text-center">¡Paga tu parte!</h2>
-			<br />
-			<h4 class="text-warning">Tus condiciones...</h4>
-			<h4 class="text-warning">Apuesto:</h4>
-			<div class="mt-4 row">
-				<div class="row">
-					<div class="mb-4 col-4 col-sm-4 col-md-4 col-lg-4">
-						<img class="img-fluid img-box float-end" th:src="${'/photos/rewards/?id=' + premio.id}" />
-
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+				<h3 class="text-center text-white">
+					<i class="text-warning fa fa-gift" aria-hidden="true"></i> ¡Premios mas elegidos!
+				</h3>
+				<br />
+				<div th:if="${premios != null}" th:each="premio : ${premios}" class="p-2 row mb-2">
+					<div class=" mb-1 col-12 col-sm-4 col-md-4 col-lg-4 mb-3">
+						<img class="img-fluid rounded-circle img-box" th:src="${'/photos/rewards/?id=' + premio.id}" />
 					</div>
-					<div class="col-8 col-sm-8 col-md-8 col-lg-8">
-						<h6 class="text-white">
+
+					<div class="align-self-center col-12 col-sm-8 col-md-8 col-lg-8">
+						<h5 class="text-white">
 							Premio: <span class="text-warning" th:text="${premio.nombre}"></span>
-						</h6>
-						<h6 class="text-white">
+						</h5>
+						<h5 class="text-white">
 							Proveedor: <span class="text-warning" th:text="${premio.proveedor.nombre}"></span>
-						</h6>
-						<h6 class="text-white">
+						</h5>
+						<h5 class="text-white">
 							Precio: <span class="text-warning" th:text="${'$' + premio.precio}"></span>
-						</h6>
+						</h5>
 					</div>
 				</div>
 			</div>
 
-
-			<h4 class="mt-4 text-warning">
-				Que el día <span class="text-white"
-					th:text="${#temporals.format(evento.fechaEvento, 'dd/MM/yyyy')}"
-				></span> el partido lo gana:
-			</h4>
-
-			<div class="row mt-4">
-				<div class="row">
-					<div class="mb-3 col-4 col-sm-4 col-md-4 col-lg-4">
-						<img class="img-fluid img-box float-end" th:src="${'/photos/teams/?id=' + equipo.id}" />
-
+			<div class="text-center col-12 col-sm-12 col-md-6 col-lg-6">
+				<h3 class="text-white">
+					<i class="text-warning fa fa-trophy" aria-hidden="true"></i> TOP 10 Bet<span
+						class="text-warning"
+					>Buy</span>
+				</h3>
+				<br />
+				<div th:if="${usuarios != null}" th:each="usuario : ${usuarios}" class="justify-content-center row mb-4">
+					<div class="col-sm-4 col-lg-2 col-4 text-center">
+						<div th:unless="${usuario.foto != null}">
+							<img class="rounded-circle  img-user" src="/images/usuario.png" th:alt="${usuario.nombre}">
+						</div>
+						<div th:if="${usuario.foto != null}">
+							<img class=" rounded-circle img-user" th:src="${'/photos/users/?id=' + usuario.id}"
+								alt="userA"
+							/>
+						</div>
 					</div>
-					<div class="align-self-center col-8 col-sm-8 col-md-8 col-lg-8">
-						<h1>
-							<span class="text-white" th:text="${equipo.nombre}"></span>
-						</h1>
+					<div class="col-sm-4 col-lg-2 col-4 text-center">
+						<h4 class="text-warning" th:text="${usuario.nombre}"></h4>
+						<h6 class="text-white" th:text="${usuario.provincia}"></h6>
+					</div>
+					<div class="align-self-center col-sm-4 col-lg-5 col-4 text-center">
+						<h4 style="color: limegreen" th:text="'+' + ${usuario.ganados} + ' apuestas ganadas!'"></span></h4>
 					</div>
 				</div>
 			</div>
-			<br />
-			<div class="row">
-				<div class="col">
-					<a
-						th:href="@{/bets/payBet/(idReward=${premio.id}, idEvent=${evento.id}, idTeam=${equipo.id}, idUser=${session.sesionUsuario.id}, paymentMethod=${'betbuy'})}"
-					><button class="btn btn-warning w-100">PAGAR CON BETBUY</button></a>
-				</div>
-				<div class="col">
-					<a
-						th:href="@{/bets/payBet/(idReward=${premio.id}, idEvent=${evento.id}, idTeam=${equipo.id}, idUser=${session.sesionUsuario.id}, paymentMethod=${'mercadopago'})}"
-					><button class="btn btn-primary w-100">PAGAR CON MERCADOPAGO</button></a>
-				</div>
-			</div>
-			<h5 class="text-danger text-center mt-2" th:if="${error != null}" th:text="${error}"></h5>
 		</div>
-
-
-
-		<div th:if="${source == 'confirmCheckout'}">
-			<h2 class="text-warning text-center">¡Paga tu parte!</h2>
-			<br />
-			<h4 class="text-warning">Te deben:</h4>
-			<div class="mt-4 row">
-				<div class="row">
-					<div class="mb-4 col-4 col-sm-4 col-md-4 col-lg-4">
-						<img class="img-fluid img-box float-end"
-							th:src="${'/photos/rewards/?id=' + apuesta.premio.id}"
-						/>
-
-					</div>
-					<div class="col-8 col-sm-8 col-md-8 col-lg-8">
-						<h6 class="text-white">
-							Premio: <span class="text-warning" th:text="${apuesta.premio.nombre}"></span>
-						</h6>
-						<h6 class="text-white">
-							Proveedor: <span class="text-warning" th:text="${apuesta.premio.proveedor.nombre}"></span>
-						</h6>
-						<h6 class="text-white">
-							Precio: <span class="text-warning" th:text="${'$' + apuesta.premio.precio}"></span>
-						</h6>
-					</div>
-				</div>
-			</div>
-
-
-			<h4 class="mt-4 text-warning">
-				Si el día <span class="text-white"
-					th:text="${#temporals.format(apuesta.evento.fechaEvento, 'dd/MM/yyyy')}"
-				></span> el partido lo gana:
-			</h4>
-
-			<div class="row mt-4">
-				<div class="row">
-					<div class="mb-3 col-4 col-sm-4 col-md-4 col-lg-4">
-						<img class="img-fluid img-box float-end"
-							th:src="${'/photos/teams/?id=' + apuesta.equipoElegidoPorUsuarioB.id}"
-						/>
-
-					</div>
-					<div class="align-self-center col-8 col-sm-8 col-md-8 col-lg-8">
-						<h1>
-							<span class="text-white" th:text="${apuesta.equipoElegidoPorUsuarioB.nombre}"></span>
-						</h1>
-					</div>
-				</div>
-			</div>
-			<br />
-				<div class="row">
-					<div class="col">
-						<a
-							th:href="@{/bets/confirm/(idBet=${apuesta.id}, idUserB=${session.sesionUsuario.id}, paymentMethod=${'betbuy'})}"
-						><button class="btn btn-warning w-100">PAGAR CON BETBUY</button></a>
-					</div>
-					<div class="col">
-						<a
-							th:href="@{/bets/confirm/(idBet=${apuesta.id}, idUserB=${session.sesionUsuario.id}, paymentMethod=${'mercadopago'})}"
-						><button class="btn btn-primary w-100">PAGAR CON MERCADOPAGO</button></a>
-					</div>
-				</div>
-			<h5 class="text-danger text-center mt-2" th:if="${error != null}" th:text="${error}"></h5>
-		</div>
-
 	</div>
+
+	<!--  INICIO FOOTER -->
 
 	<br>
 	<div class="container">

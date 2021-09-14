@@ -30,7 +30,7 @@ public class Premio {
     @NotNull
     private Double precio;
    
-    private Integer ranking;
+    private Integer ranking = 0;
   
     @ManyToOne
     private Proveedores proveedor;

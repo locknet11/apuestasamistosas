@@ -4,10 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="/images/favicon2.png" />
-<title th:if="${estadoApuesta == 'pendiente'}" th:text="${'¡Te han hecho una apuesta!'}"></title>
-<title th:if="${estadoApuesta == 'expirada'}" th:text="${'Esta apuesta ya ha expirado'}"></title>
-<title th:if="${estadoApuesta == 'confirmada'}" th:text="${'Esta apuesta ya esta confirmada'}"></title>
-<title th:if="${estadoApuesta == 'rechazada'}" th:text="${'Esta apuesta ya esta rechazada'}"></title>
+<title th:if="${estadoApuesta == 'pendiente'}" th:text="${'Bet & Buy | ¡Te han hecho una apuesta!'}"></title>
+<title th:if="${estadoApuesta == 'expirada'}" th:text="${'Bet & Buy | Esta apuesta ya ha expirado'}"></title>
+<title th:if="${estadoApuesta == 'confirmada'}" th:text="${'Bet & Buy | Esta apuesta ya esta confirmada'}"></title>
+<title th:if="${estadoApuesta == 'rechazada'}" th:text="${'Bet & Buy | Esta apuesta ya esta rechazada'}"></title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -64,13 +64,13 @@
 				<div th:if="${session.sesionUsuario != null}">
 					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
 						<div th:unless="${session.sesionUsuario.foto != null}">
-							<a href="/user/dashboard" title="Dashboard"><li class="nav-item"><img class="rounded-circle user-photo" src="/images/usuario.png"
+							<a href="/user/profile" title="profile"><li class="nav-item"><img class="rounded-circle user-photo" src="/images/usuario.png"
 								th:alt="${session.sesionUsuario.nombre}"
 							></li></a>
 						</div>
 						<div th:if="${session.sesionUsuario.foto != null}">
 
-							<a href="/user/dashboard" title="Dashboard">
+							<a href="/user/profile" title="profile">
 								<li class="nav-item"><img class="rounded-circle user-photo"
 									th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
 									th:alt="${session.sesionUsuario.nombre}"

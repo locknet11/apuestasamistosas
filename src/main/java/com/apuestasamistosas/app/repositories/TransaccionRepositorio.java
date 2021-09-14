@@ -13,6 +13,9 @@ public interface TransaccionRepositorio extends JpaRepository<Transaccion, Strin
 	@Query("SELECT p FROM Transaccion p WHERE p.saldo = :saldo")
     public Optional<Transaccion> findByName(@Param("saldo") String saldo);
     
-	@Query(value="SELECT p.saldo FROM Transaccion p WHERE p.idObject=:idObject ORDER BY fechaTransaccion DESC LIMIT 1",nativeQuery=true)
+	@Query(value="SELECT p.saldo FROM transacciones p WHERE p.idObject=:idObject ORDER BY fechaTransaccion DESC LIMIT 1",nativeQuery=true)
     public Double saldoActual(@Param("idObject") String idObject);
+	
+	@Query("SELECT p FROM Transaccion p WHERE p.id = :id")
+	public Optional<Transaccion> findId(@Param("id") String id);
 }

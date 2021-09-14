@@ -5,6 +5,7 @@ import com.apuestasamistosas.app.entities.Eventos;
 import com.apuestasamistosas.app.enums.EstadoEvento;
 import com.apuestasamistosas.app.errors.ErrorEventos;
 import com.apuestasamistosas.app.errors.ErrorScheduler;
+import com.apuestasamistosas.app.errors.ErrorTransaccion;
 import com.apuestasamistosas.app.services.ApuestaServicio;
 import com.apuestasamistosas.app.services.EventosServicio;
 import java.time.LocalDateTime;
@@ -68,7 +69,7 @@ public class Scheduler{
     */
     
     @Scheduled(cron = "0 * * * * ?", zone = "America/Argentina/Buenos_Aires")
-    public void supervisorEstados() throws ErrorEventos {
+    public void supervisorEstados() throws ErrorEventos, ErrorTransaccion {
     	ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
         LocalDateTime hoy = LocalDateTime.now(argentina);
 

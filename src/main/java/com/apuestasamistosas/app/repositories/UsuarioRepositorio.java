@@ -20,4 +20,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String>{
 
     @Query("SELECT u FROM Usuario u WHERE u.admin = true")
     public Optional<List<Usuario>> findByAdminRole();
+    
+    @Query(value = "SELECT * FROM usuarios u ORDER BY u.ganados DESC LIMIT 10", nativeQuery=true)
+    public Optional<List<Usuario>> listByWin();
 }
