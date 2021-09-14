@@ -40,7 +40,9 @@
 					<li class="nav-item"><a class="nav-link" href="/events" tabindex="-1"
 						aria-disabled="false"
 					>Eventos</a></li>
-					<li class="nav-item"><a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a></li>
+					<li class="nav-item"><a class="nav-link" href="/ranking" tabindex="-1"
+						aria-disabled="false"
+					>Ranking</a></li>
 
 					<li class="nav-item"><a class="nav-link" href="/rewards" tabindex="-1"
 						aria-disabled="false"
@@ -61,9 +63,10 @@
 				<div th:if="${session.sesionUsuario != null}">
 					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
 						<div th:unless="${session.sesionUsuario.foto != null}">
-							<li class="nav-item"><img class="rounded-circle user-photo" src="/images/usuario.png"
-								th:alt="${session.sesionUsuario.nombre}"
-							></li>
+							<a href="/user/dashboard" title="Dashboard"><li class="nav-item"><img
+									class="rounded-circle user-photo" src="/images/usuario.png"
+									th:alt="${session.sesionUsuario.nombre}"
+								></li></a>
 						</div>
 						<div th:if="${session.sesionUsuario.foto != null}">
 
@@ -129,22 +132,35 @@
 				<div class="scrolleable">
 
 					<div th:each="evento : ${listaEventos}" class="each-bkg row mb-4">
-						<div class="col-3">
+						<div th:if="${evento.expirado == false}" class="col-3 ">
 							<a
 								th:href="@{/bets/beginBet/(idReward=${premio.id},idEvent=${evento.id},idTeam=${evento.equipoA.id})}"
-							> <img class="img-team" th:src="${'/photos/teams/?id=' + evento.equipoA.id}" alt="" />
+							> <img class=" img-team" th:src="${'/photos/teams/?id=' + evento.equipoA.id}" alt="" />
 							</a>
+						</div>
+						<div th:if="${evento.expirado == true}" class="col-3">
+							<img style="-webkit-filter: grayscale(100%); filter: grayscale(100%);" class="img-team"
+								th:src="${'/photos/teams/?id=' + evento.equipoA.id}" alt=""
+							/>
+
 						</div>
 						<div class="text-center col-6">
 							<h5 class="text-warning align-self-center"
 								th:text="${#temporals.format(evento.fechaEvento, 'dd/MM/yyyy HH:mm')}"
 							></h5>
+							<h6 th:if="${evento.expirado == true}" class="text-danger">Expirado</h6>
 						</div>
-						<div class="col-3">
+						<div th:if="${evento.expirado == false}" class="col-3">
 							<a
 								th:href="@{/bets/beginBet/(idReward=${premio.id},idEvent=${evento.id},idTeam=${evento.equipoB.id})}"
 							> <img class="img-team" th:src="${'/photos/teams/?id=' + evento.equipoB.id}" alt="" />
 							</a>
+						</div>
+						<div th:if="${evento.expirado == true}" class="col-3">
+							<img style="-webkit-filter: grayscale(100%); filter: grayscale(100%);" class="img-team"
+								th:src="${'/photos/teams/?id=' + evento.equipoB.id}" alt=""
+							/>
+
 						</div>
 					</div>
 				</div>
@@ -190,20 +206,23 @@
 				<div class="scrolleable">
 
 					<div th:each="premio : ${premios}" class="each-bkg row mb-4">
-						<div class="align-self-center col-3">
-							<a> <img class="img-reward" th:src="${'/photos/rewards/?id=' + premio.id}" alt="" />
+						<div class=" text-center col-4 col-sm-4">
+							<a> <img class="img-reward img-fluid" th:src="${'/photos/rewards/?id=' + premio.id}"
+								alt=""
+							/>
 							</a>
 						</div>
-						<div class="text-center col-6">
-							<h5 class="text-white align-self-center"
-								th:text="${premio.nombre}"
-							></h5>
-							<h5 ><span class="text-warning" th:text="${'$' + premio.precio}"></span></h5>
+						<div class="text-center align-self-center col-4 col-sm-4">
+							<h5 class="text-white" th:text="${premio.nombre}"></h5>
+							<h5>
+								<span class="text-warning" th:text="${'$' + premio.precio}"></span>
+							</h5>
 						</div>
-						<div class="align-self-center col-3">
+						<div class="align-self-center col-4 col-sm-4">
 							<a
 								th:href="@{/bets/beginBet/(idReward=${premio.id},idEvent=${evento.id},idTeam=${equipo.id})}"
-							> <button class="btn btn-success w-100">Elegir</button>
+							>
+								<button class="btn btn-success w-100">Elegir</button>
 							</a>
 						</div>
 					</div>
@@ -223,10 +242,10 @@
 		<footer class="py-3 my-4">
 			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
 				<li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Eventos</a></li>
-				<li class="nav-item"><a href="rewards" class="nav-link px-2 text-muted">Premios</a></li>
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Legales</a></li>
+				<li class="nav-item"><a href="/events" class="nav-link px-2 text-muted">Eventos</a></li>
+				<li class="nav-item"><a href="/rewards" class="nav-link px-2 text-muted">Premios</a></li>
+				<li class="nav-item"><a href="/faqs" class="nav-link px-2 text-muted">FAQs</a></li>
+				<li class="nav-item"><a href="/legal" class="nav-link px-2 text-muted">Legales</a></li>
 			</ul>
 			<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
 		</footer>

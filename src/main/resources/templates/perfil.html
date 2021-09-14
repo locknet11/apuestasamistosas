@@ -50,7 +50,7 @@
 					<li class="nav-item"><a class="nav-link" href="/events" tabindex="-1"
 						aria-disabled="false"
 					>Eventos</a></li>
-					<li class="nav-item"><a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Ranking</a>
+					<li class="nav-item"><a class="nav-link" href="/ranking" tabindex="-1" aria-disabled="false">Ranking</a>
 					</li>
 
 					<li class="nav-item"><a class="nav-link" href="/rewards" tabindex="-1"
@@ -63,9 +63,10 @@
 				<div th:if="${session.sesionUsuario != null}">
 					<ul class="navbar-nav ml-auto mb-2 mb-lg-0">
 						<div th:unless="${session.sesionUsuario.foto != null}">
-							<li class="nav-item"><img class="rounded-circle user-photo" src="/images/usuario.png"
-								th:alt="${session.sesionUsuario.nombre}"
-							></li>
+							<a href="/user/dashboard" title="Dashboard"><li class="nav-item"><img
+									class="rounded-circle user-photo" src="/images/usuario.png"
+									th:alt="${session.sesionUsuario.nombre}"
+								></li></a>
 						</div>
 						<div th:if="${session.sesionUsuario.foto != null}">
 
@@ -116,17 +117,18 @@
 		</div>
 		<div th:if="${session.sesionUsuario.foto != null}" class="photo-container">
 
-			<img class="img-responsive mx-auto d-block img-fluid" th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
+			<img class="img-responsive mx-auto d-block img-fluid"
+				th:src="${'/photos/users/?id=' + session.sesionUsuario.id}"
 				style="width: 10rem; height: 10rem; border-radius: 100%" alt="User"
 			>
 
 		</div>
 		<div
-			class="m-2 text-center align-item-center d-grid gap-3 d-md-block justify-content-center width-auto "
+			class="m-2 mt-4 text-center align-item-center d-grid gap-3 d-md-block justify-content-center width-auto "
 		>
 			<a href="/user/edit-profile"><button class="btn btn-warning justify-content-center"
-				type="button"
-			>Editar</button></a>
+					type="button"
+				>Editar perfil</button></a>
 
 		</div>
 		<br>
@@ -134,20 +136,9 @@
 
 		<div class="container-fluid">
 			<div class="row">
-
-				<div class="d-flex flex-column mx-auto custom-card text-center card text-white bg-secondary mb-3"
-					style="max-width: 25rem;"
-				>
-					<div class="card-header text-align-center">APUESTAS ACTIVAS</div>
-					<div class="card-body">
-						<h5 class="card-title">No hay apuestas activas</h5>
-						<p class="card-text"></p>
-					</div>
-				</div>
-
-				<div class="d-flex flex-column mx-auto custom-card text-center card text-white bg-secondary mb-3"
-					style="max-width: 25rem;"
-				>
+				<div
+					class="d-flex flex-column mx-auto custom-card text-center card text-white bg-secondary mb-3"
+					style="max-width: 25rem;">
 					<div class="card-header text-align-center">DINERO DISPONIBLE</div>
 					<div class="card-body">
 						<h5 class="card-title">$</h5>
@@ -155,26 +146,95 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="mt-4 col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+					<h4 class="text-center text-warning">APUESTAS CONFIRMADAS</h4>
+					<div th:if="${listaApuestasConfirmadas != null}" class="scrolleable">
+
+						<div th:each="apuesta : ${listaApuestasConfirmadas}"
+							class="justify-content-center each-bkg row mb-4"
+						>
+							<div class="col-3 col-sm-3 col-lg-2 align-self-center">
+								<div th:if="${session.sesionUsuario.id == apuesta.usuarioA.id}">
+									<img th:if="${apuesta.usuarioB.foto != null}" class="rounded-circle img-fluid img-reward"
+										; th:src="${'/photos/users/?id=' + apuesta.usuarioB.id}" alt=""
+									/> <img th:if="${apuesta.usuarioB.foto == null}"
+										class="rounded-circle img-fluid img-reward" src="/images/usuario.png" alt=""
+									/>
+								</div>
+
+								<div th:if="${session.sesionUsuario.id == apuesta.usuarioB.id}">
+									<img th:if="${apuesta.usuarioA.foto != null}" class="rounded-circle img-fluid img-reward"
+										; th:src="${'/photos/users/?id=' + apuesta.usuarioA.id}" alt=""
+									/> <img th:if="${apuesta.usuarioA.foto == null}"
+										class="rounded-circle img-fluid img-reward" src="/images/usuario.png" alt=""
+									/>
+
+								</div>
+							</div>
+							<div class="text-center col-5 col-sm-5 col-lg-5 align-self-center">
+								<h5 class="text-warning " th:text="${apuesta.premio.nombre}"></h5>
+							</div>
+							<div class="col-4 col-sm-4 col-lg-3 align-self-center">
+								<a th:href="@{'/bets/summary/'} + ${apuesta.id}"><button class="w-100 btn btn-success">Ver</button></a>
+							</div>
+						</div>
+					</div>
+					<div th:if="${listaApuestasConfirmadas == null}">
+						<h2 class="mt-3 text-danger text-center">No hay apuestas para mostrar</h2>
+					</div>
+				</div>
+
+
+				<div class="mt-4 col-12 col-sm-12 col-md-6 col-lg-6">
+					<h4 class="text-center text-warning">APUESTAS PENDIENTES</h4>
+					<div th:if="${listaApuestasPendientes != null}" class="scrolleable">
+
+						<div th:each="apuesta : ${listaApuestasPendientes}"
+							class="justify-content-center each-bkg row mb-4"
+						>
+							<div class="col-3 col-sm-3 col-lg-2 align-self-center">
+								<div>
+									<img class=" img-fluid img-reward" ; th:src="${'/photos/rewards/?id=' + apuesta.premio.id}"
+										alt=""
+									/>
+								</div>
+							</div>
+							<div class="text-center col-5 col-sm-5 col-lg-5 align-self-center">
+								<h5 class="text-warning " th:text="${apuesta.premio.nombre}"></h5>
+							</div>
+							<div class="col-4 col-sm-4 col-lg-3 align-self-center">
+								<a th:href="@{'/bets/summary/'} + ${apuesta.id}"><button class="w-100 btn btn-success">Ver</button></a>
+							</div>
+						</div>
+					</div>
+					<div th:if="${listaApuestasPendientes == null}">
+						<h2 class="mt-3 text-danger text-center">No hay apuestas para mostrar</h2>
+					</div>
+				</div>
+			</div>
 		</div>
 
+	</div>
 
 
-		<!--  INICIO FOOTER -->
+	<!--  INICIO FOOTER -->
 
 
-		<br>
-		<div class="container">
-			<footer class="py-3 my-4">
-				<ul class="nav justify-content-center border-bottom pb-3 mb-3">
-					<li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
-					<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Eventos</a></li>
-					<li class="nav-item"><a href="rewards" class="nav-link px-2 text-muted">Premios</a></li>
-					<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-					<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Legales</a></li>
-				</ul>
-				<p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
-			</footer>
-		</div>
+	<br>
+        <div class="container">
+            <footer class="py-3 my-4">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Inicio</a></li>
+                    <li class="nav-item"><a href="/events" class="nav-link px-2 text-muted">Eventos</a></li>
+                    <li class="nav-item"><a href="/rewards" class="nav-link px-2 text-muted">Premios</a></li>
+                    <li class="nav-item"><a href="/faqs" class="nav-link px-2 text-muted">FAQs</a></li>
+                    <li class="nav-item"><a href="/legal" class="nav-link px-2 text-muted">Legales</a></li>
+                </ul>
+                <p class="text-center text-muted">&copy; 2021 Bet&Buy, Inc</p>
+            </footer>
+        </div>
 </body>
 
 </html>

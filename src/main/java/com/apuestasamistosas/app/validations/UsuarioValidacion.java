@@ -120,8 +120,7 @@ public class UsuarioValidacion {
 
     /* Validar datos al modificar */
     
-       public void validarDatosModificar(String nombre, String apellido, String password,
-            String passwordConfirmation, String telefono,
+       public void validarDatosModificar(String nombre, String apellido, String telefono,
             LocalDate fechaNacimiento) throws ErrorUsuario {
 
 
@@ -134,26 +133,6 @@ public class UsuarioValidacion {
         if (apellido == null || apellido.isEmpty()) {
             logger.error(ErrorUsuario.NO_APELLIDO);
             throw new ErrorUsuario(ErrorUsuario.NO_APELLIDO);
-        }
-        
-        
-        if(password == null || password.isEmpty() || passwordConfirmation == null || passwordConfirmation.isEmpty()){
-            logger.error(ErrorUsuario.NO_CLAVE);
-            throw new ErrorUsuario(ErrorUsuario.NO_CLAVE);
-        }else{
-            /* Validamos que las contraseñas ingresadas sean iguales */
-            
-            if (!password.equals(passwordConfirmation)) {
-                logger.error(ErrorUsuario.DIST_CLAVE);
-                throw new ErrorUsuario(ErrorUsuario.DIST_CLAVE);
-            }
-
-            /* Validamos que la contraseña tenga al menos 8 caracteres. */
-            
-            if (password.length() < 8) {
-                logger.error(ErrorUsuario.LONG_CLAVE);
-                throw new ErrorUsuario(ErrorUsuario.LONG_CLAVE);
-            }
         }
 
         /* Validamos que el telefono solo tenga numeros (maximo 13 digitos) y no este vacio */

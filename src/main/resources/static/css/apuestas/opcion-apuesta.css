@@ -1,0 +1,68 @@
+@media only screen and (max-width: 600px) {
+	.page-w {
+		width: 95%;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.page-w {
+		width: 95%;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.page-w {
+		width: 65%;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.page-w {
+		width: 50%;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.page-w {
+		width: 50%;
+	}
+}
+
+.img-box{
+	width: auto;
+	height: 4rem;
+}
+
+.img-reward{
+	width: auto;
+	height: 8rem;
+	border-radius: 0.3rem;
+}
+
+.bet-box{
+	background-color: #272A31;
+	border-radius: 0.5rem;
+	border-color: black;
+	box-shadow: 0rem 0rem 0.8rem black;
+}
+
+
+.img-file {
+	height: 10rem;
+}
+
+.h1-color-expired{
+	color: white;
+}
+
+.h1-color-success {
+	color: #00B050;
+}
+
+.h1-color-error {
+	color: #DC3545;
+}
+
+.h1-color-confirmed {
+	color: #324F85;
+}

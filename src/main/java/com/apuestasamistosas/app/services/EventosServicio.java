@@ -82,9 +82,9 @@ public class EventosServicio {
     /*  Metodo para establecer el resultado de un evento  */
     
     @Transactional
-    public void establecerResultado(Eventos evento){
+    public Eventos establecerResultado(Eventos evento){
         evento.setResultado(RandomGenerator.resultadoAleatorio());
-        eventosRepositorio.save(evento);
+        return eventosRepositorio.save(evento);
     }
     
     

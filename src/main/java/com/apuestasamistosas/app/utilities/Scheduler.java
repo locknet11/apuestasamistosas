@@ -63,6 +63,8 @@ public class Scheduler{
     /*  El metodo a continuacion cambia los estados del evento y establece un resultado aleatorio 
         El tiempo maximo usado es de 90 minutos que es la duracion estandar de un partido de futbol.
         Estos valores son relativos y esta implementacion es provisoria.
+        Tambien llama al metodo informarResultados de ApuestaServicio para setear los resultados de
+        las apuestas.
     */
     
     @Scheduled(cron = "0 * * * * ?", zone = "America/Argentina/Buenos_Aires")
@@ -78,16 +80,16 @@ public class Scheduler{
             for (Eventos evento : thisList) {
                 Long distanciaHoraria = hoy.until(evento.getFechaEvento(), ChronoUnit.MILLIS);
                 
-                if(distanciaHoraria <= 0 && distanciaHoraria >= 60000){
+                if(evento.getEstado() == EstadoEvento.CONFIRMADO && distanciaHoraria <= 0){
                     eventoServicio.actualizarEstado(evento, EstadoEvento.EN_CURSO);
                     logger.info("Se actualizo a EN_CURSO el evento con ID \'" + evento.getId() + "\'");
                     
-                }else if (distanciaHoraria <= -5400000 && evento.getEstado() != EstadoEvento.FINALIZADO){
+                }else if (distanciaHoraria <= -5400000 && evento.getEstado() == EstadoEvento.EN_CURSO){
                     
                     eventoServicio.actualizarEstado(evento, EstadoEvento.FINALIZADO);
                     logger.info("Se actualizo a FINALIZADO el evento con ID \'" + evento.getId() + "\'");
                     
-                    eventoServicio.establecerResultado(evento);
+                    apuestaServicio.informarResultados(eventoServicio.establecerResultado(evento));
                     logger.info("Resultado del evento: " + evento.getResultado());
                 }
             }
