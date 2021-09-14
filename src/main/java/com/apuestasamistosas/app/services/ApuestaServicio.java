@@ -177,26 +177,39 @@ public class ApuestaServicio {
     		
     		for (Apuesta apuesta : thisList) {
     			
+    			Usuario usuarioA = apuesta.getUsuarioA();
+    			Usuario usuarioB = apuesta.getUsuarioB();
+    			
 				if(evento.getResultado() == ResultadoEvento.EMPATE) {
-					log.info("Apuesta con ID '" + apuesta.getId() + "' termino en empate.");
 					apuesta.setResultadoApuesta(ResultadoApuesta.EMPATE);
-					
+					usuarioA.setEmpatados(usuarioA.getEmpatados() + 1);
+					usuarioB.setEmpatados(usuarioB.getEmpatados() + 1);
 				}else if(evento.getResultado() == ResultadoEvento.EQUIPO_A) {
 					
 					if(apuesta.getEquipoElegidoPorUsuarioA().equals(evento.getEquipoA())) {
 						apuesta.setResultadoApuesta(ResultadoApuesta.USUARIO_A);
+						usuarioA.setGanados(usuarioA.getGanados() + 1);
+						usuarioB.setPerdidos(usuarioB.getPerdidos() + 1);
 					}else {
 						apuesta.setResultadoApuesta(ResultadoApuesta.USUARIO_B);
+						usuarioB.setGanados(usuarioB.getGanados() + 1);
+						usuarioA.setPerdidos(usuarioA.getPerdidos() + 1);
 					}
 				}else if(evento.getResultado() == ResultadoEvento.EQUIPO_B) {
 					
 					if(apuesta.getEquipoElegidoPorUsuarioA().equals(evento.getEquipoB())) {
 						apuesta.setResultadoApuesta(ResultadoApuesta.USUARIO_A);
+						usuarioA.setGanados(usuarioA.getGanados() + 1);
+						usuarioB.setPerdidos(usuarioB.getPerdidos() + 1);
 					}else {
 						apuesta.setResultadoApuesta(ResultadoApuesta.USUARIO_B);
+						usuarioB.setGanados(usuarioB.getGanados() + 1);
+						usuarioA.setPerdidos(usuarioA.getPerdidos() + 1);
 					}
 				}
 			
+				usuarioRepositorio.save(usuarioA);
+				usuarioRepositorio.save(usuarioB);
 				apuesta.setEstado(EstadoApuesta.CONCLUIDA);
 				Apuesta apuestaReturn = apuestaRepositorio.save(apuesta);
 				mailServicio.betResultToUserA(apuestaReturn);

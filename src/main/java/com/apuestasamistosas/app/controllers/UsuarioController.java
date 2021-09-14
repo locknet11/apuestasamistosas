@@ -151,24 +151,7 @@ public class UsuarioController {
         	return "redirect:/error";
         }
     }
-    
-    /*  Metodo que autoriza unicamente a los usuarios registrados y logueados a acceder al dashboard */
-    
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
-    @GetMapping("/dashboard")
-    public String dashboard(){
-        
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        
-        if((auth instanceof AnonymousAuthenticationToken)){
-            return "redirect:/user/login";
-        }else{
-            return "dashboard";
-        }
-        
-    }
-    
-    
+
     /* Metodo que recibe el email desde la vista y en caso de encontrar el usuario reenvia el correo*/
     
     @PostMapping("/resendEmail")
