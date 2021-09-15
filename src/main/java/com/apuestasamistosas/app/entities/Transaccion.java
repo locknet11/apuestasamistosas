@@ -3,6 +3,7 @@ package com.apuestasamistosas.app.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Transaccion {
 	    private String id;
 	    private Double saldo;
 	    private String idObject;
-	    @OneToOne
+	    @OneToOne(cascade = CascadeType.ALL)
 	    private Apuesta apuesta;
 	    private Double precio;
 	    

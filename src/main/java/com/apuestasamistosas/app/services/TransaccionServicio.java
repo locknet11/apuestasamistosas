@@ -38,7 +38,13 @@ public class TransaccionServicio {
 		switch (apuesta.getEstado()) {
 		
 		case PENDIENTE: // aca solo paga usuarioA a adminWalletId
-			
+			Transaccion user = new Transaccion();
+			idUA = apuesta.getUsuarioA().getId();
+			user.setApuesta(apuesta);
+			user.setFechaTransaccion(hoy);
+			user.setPrecio(0.0);
+			user.setIdObject(idUA);
+			user.setSaldo(0.0);
 			if (tipoPago) { // pago externo
 				if (existenciaTransaccion(adminWalletId)) {// chequea si ya tiene transaccion adminWalletId
 					Double saldoActualizado = transaccionRepositorio.saldoActual(adminWalletId) + precioPremio;
@@ -198,9 +204,7 @@ public class TransaccionServicio {
 
 	@Transactional
 	public void pagoProveedor(Double precio, String id, Apuesta apuesta) throws ErrorTransaccion {// pago al proveedor
-																									// cuando se
-																									// confirma la
-																									// apuesta
+															// apuesta
 
 		ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
 		LocalDateTime hoy = LocalDateTime.now(argentina);
@@ -262,17 +266,29 @@ public class TransaccionServicio {
 	}
 
 	@Transactional
-	public void reversion(Double precio, String id, Apuesta apuesta) {// se devuelve credito al usuario
+	public void reversion(Double precio, String id, Apuesta apuesta) throws ErrorTransaccion {// se devuelve credito al usuario
 		ZoneId argentina = ZoneId.of("America/Argentina/Buenos_Aires");
 		LocalDateTime hoy = LocalDateTime.now(argentina);
-		Double saldoActual = transaccionRepositorio.saldoActual(id) + precio;
-		Transaccion reversion = new Transaccion();
-		reversion.setFechaTransaccion(hoy);
-		reversion.setApuesta(apuesta);
-		reversion.setPrecio(precio);
-		reversion.setIdObject(id);
-		reversion.setSaldo(saldoActual);
-		transaccionRepositorio.save(reversion);
+		Double saldoActual = transaccionRepositorio.saldoActual(id);
+		if(saldoActual == 0.0) {
+
+			Transaccion reversion = new Transaccion();
+			reversion.setFechaTransaccion(hoy);
+			reversion.setApuesta(apuesta);
+			reversion.setPrecio(precio);
+			reversion.setIdObject(id);
+			reversion.setSaldo(precio);
+			transaccionRepositorio.save(reversion);
+		}else {
+		   saldoActual = transaccionRepositorio.saldoActual(id) + precio;
+			Transaccion reversion = new Transaccion();
+			reversion.setFechaTransaccion(hoy);
+			reversion.setApuesta(apuesta);
+			reversion.setPrecio(precio);
+			reversion.setIdObject(id);
+			reversion.setSaldo(saldoActual);
+			transaccionRepositorio.save(reversion);
+		}
 	}
 
 	@Transactional

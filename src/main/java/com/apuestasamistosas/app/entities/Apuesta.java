@@ -5,6 +5,8 @@ import com.apuestasamistosas.app.enums.EstadoApuesta;
 import com.apuestasamistosas.app.enums.ResultadoApuesta;
 
 import java.time.LocalDateTime;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,10 +27,10 @@ public class Apuesta {
     
     @Enumerated(EnumType.STRING)
     private EstadoApuesta estado;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Usuario usuarioA;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Usuario usuarioB;
     
     private LocalDateTime fechaApuesta;
@@ -36,13 +38,13 @@ public class Apuesta {
     @OneToOne
     private Premio premio;
    
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Eventos evento;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Equipos equipoElegidoPorUsuarioA;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Equipos equipoElegidoPorUsuarioB;
     
     @Enumerated(EnumType.STRING)

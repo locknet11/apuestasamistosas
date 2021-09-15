@@ -151,9 +151,7 @@
 			<br />
 			<div class="row">
 				<div class="col">
-					<a
-						th:href="@{/bets/payBet/(idReward=${premio.id}, idEvent=${evento.id}, idTeam=${equipo.id}, idUser=${session.sesionUsuario.id}, paymentMethod=${'betbuy'})}"
-					><button class="btn btn-warning w-100">PAGAR CON BETBUY</button></a>
+					<button class="btn btn-warning w-100">PAGAR CON BETBUY</button>
 				</div>
 				<div class="col">
 					<a
@@ -217,9 +215,8 @@
 			<br />
 				<div class="row">
 					<div class="col">
-						<a
-							th:href="@{/bets/confirm/(idBet=${apuesta.id}, idUserB=${session.sesionUsuario.id}, paymentMethod=${'betbuy'})}"
-						><button class="btn btn-warning w-100">PAGAR CON BETBUY</button></a>
+						
+						<button class="btn btn-warning w-100">PAGAR CON BETBUY</button>
 					</div>
 					<div class="col">
 						<a
