@@ -139,7 +139,7 @@ public class ApuestaController {
 			@RequestParam(name = "idTeam", required = false) String idTeam,
 			@RequestParam(name = "idUser", required = false) String idUser,
 			@RequestParam(name = "paymentMethod", required = false) String payment, ModelMap model,
-			RedirectAttributes redirectAttrs) throws ErrorApuesta, ErrorTransaccion {
+			RedirectAttributes redirectAttrs) throws ErrorApuesta {
 
 		Optional<Premio> thisPremio = premioServicio.buscarPorId(idReward);
 		Optional<Eventos> thisEvento = eventoServicio.buscarPorId(idEvent);
@@ -281,7 +281,7 @@ public class ApuestaController {
 	public String confirm(@RequestParam(name = "idBet", required = false) String idBet,
 			@RequestParam(name = "idUserB", required = false) String idUserB,
 			@RequestParam(name = "paymentMethod", required = false) String payment,
-			ModelMap model) throws ErrorApuesta, ResponseStatusException, ErrorTransaccion {
+			ModelMap model) throws ErrorApuesta, ResponseStatusException {
 		
 		Optional<Apuesta> thisApuesta = apuestaServicio.buscarPorId(idBet);
 		

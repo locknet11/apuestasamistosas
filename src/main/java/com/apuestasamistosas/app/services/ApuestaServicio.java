@@ -45,9 +45,6 @@ public class ApuestaServicio {
     @Autowired
     private EquiposRepositorio equipoRepositorio;
     
-	@Autowired
-	private TransaccionServicio transaccionServicio;
-    
     @Autowired
     private MailServicio mailServicio;
     
@@ -95,8 +92,7 @@ public class ApuestaServicio {
         }
         apuesta.setFechaApuesta(hoy);
         apuesta.setResultadoApuesta(ResultadoApuesta.INDEFINIDO);
-        Apuesta apuestaReturn = apuestaRepositorio.save(apuesta);
-        transaccionServicio.crearTransaccion(apuestaReturn, paymentMethod);
+        Apuesta apuestaReturn = apuestaRepositorio.saveAndFlush(apuesta);
         return apuestaReturn;
     }
 
@@ -130,7 +126,6 @@ public class ApuestaServicio {
             }
                 
             Apuesta mailApuesta = apuestaRepositorio.save(apuesta);
-            transaccionServicio.crearTransaccion(mailApuesta, paymentMethod);
             mailServicio.betConfirmationToUserA(mailApuesta);
             mailServicio.betConfirmationToUserB(mailApuesta);
 
@@ -170,7 +165,6 @@ public class ApuestaServicio {
             }
                 
             Apuesta apuestaReturn = apuestaRepositorio.save(apuesta);
-            transaccionServicio.crearTransaccion(apuestaReturn, true);
             mailServicio.betRejectToUserA(apuestaReturn);
 
         } else {
@@ -223,7 +217,6 @@ public class ApuestaServicio {
 				usuarioRepositorio.save(usuarioB);
 				apuesta.setEstado(EstadoApuesta.CONCLUIDA);
 				Apuesta apuestaReturn = apuestaRepositorio.save(apuesta);
-				transaccionServicio.crearTransaccion(apuestaReturn, true);
 				mailServicio.betResultToUserA(apuestaReturn);
 				mailServicio.betResultToUserB(apuestaReturn);
 				
